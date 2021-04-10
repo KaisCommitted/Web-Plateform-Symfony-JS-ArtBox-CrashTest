@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
- *
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}), @ORM\Index(name="categorie", columns={"categorie"})})
+ * @UniqueEntity(fields={"nomEvent"} , message="Event name already exists")
+ * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}), @ORM\Index(name="categorie", columns={"categorie"})} ,  uniqueConstraints={@ORM\UniqueConstraint(name="nom_event", columns={"nom_event"})})
  * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
  */
 class Evenement
@@ -25,6 +27,14 @@ class Evenement
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\Type(
+     *      type = "\DateTime",
+     *      message = "Event date is not valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Event date must be an upcoming date "
+     * )
      */
     private $date;
 
@@ -44,7 +54,7 @@ class Evenement
 
     /**
      * @var int
-     *
+     * @Assert\Positive(message="Event capacity must be positive")
      * @ORM\Column(name="capacite_event", type="integer", nullable=false)
      */
     private $capaciteEvent;
