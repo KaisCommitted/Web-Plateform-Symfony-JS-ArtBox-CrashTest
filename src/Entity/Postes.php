@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Postes
- *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="postes", indexes={@ORM\Index(name="ctn1", columns={"id_user"}), @ORM\Index(name="dsqd", columns={"categorie"})})
  * @ORM\Entity(repositoryClass="App\Repository\PostesRepository")
  */
@@ -45,10 +45,9 @@ class Postes
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="post_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
-    private $postDate = 'CURRENT_TIMESTAMP';
+    private $postDate;
 
     /**
      * @var string|null
@@ -223,7 +222,17 @@ class Postes
         return $this;
     }
 
+    /**
+     *  @ORM\PrePersist
+     */
+    public function doStuffOnPrePersist()
+    {
+        $this->postDate = date('Y-m-d H:i:s');
+    }
 
-
+    public function __construct()
+    {
+        $this->postDate= new \DateTime();
+    }
 
 }
