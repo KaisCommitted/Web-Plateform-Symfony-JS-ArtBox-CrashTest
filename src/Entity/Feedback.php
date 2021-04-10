@@ -5,244 +5,131 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Evenement
+ * Feedback
  *
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}), @ORM\Index(name="categorie", columns={"categorie"})})
- * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
+ * @ORM\Table(name="feedback", indexes={@ORM\Index(name="fk_usee", columns={"id_user"})})
+ * @ORM\Entity(repositoryClass="App\Repository\FeedbackRepository")
  */
-class Evenement
+class Feedback
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_feedback", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idFeedback;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenu_feedback", type="string", length=255, nullable=false)
+     */
+    private $contenuFeedback;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_feedback", type="string", length=30, nullable=false)
+     */
+    private $typeFeedback;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat_feedback", type="string", length=30, nullable=false)
+     */
+    private $etatFeedback;
 
     /**
      * @var \DateTime
+     * @ORM\Column(type="datetime")
      *
-     * @ORM\Column(name="date", type="date", nullable=false)
      */
-    private $date;
+    private $dateFeedback;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_event", type="string", length=255, nullable=false)
-     */
-    private $nomEvent;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
-     */
-    private $description;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="capacite_event", type="integer", nullable=false)
-     */
-    private $capaciteEvent;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nb_max", type="integer", nullable=false)
-     */
-    private $nbMax = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_event", type="string", length=255, nullable=false)
-     */
-    private $imageEvent;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="location_event", type="string", length=255, nullable=true)
-     */
-    private $locationEvent;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="rating_event", type="integer", nullable=true)
-     */
-    private $ratingEvent = '0';
-
-    /**
-     * @var \Categorie
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
-     * })
-     */
-    private $categorie;
-
-    /**
-     * @var \TypeEvent
-     *
-     * @ORM\ManyToOne(targetEntity="TypeEvent")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type_event", referencedColumnName="type_name")
-     * })
-     */
-    private $typeEvent;
 
     /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_org", referencedColumnName="id_user")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
      */
-    private $idOrg;
+    private $idUser;
 
-    public function getId(): ?int
+    public function getIdFeedback(): ?int
     {
-        return $this->id;
+        return $this->idFeedback;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getContenuFeedback(): ?string
     {
-        return $this->date;
+        return $this->contenuFeedback;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setContenuFeedback(string $contenuFeedback): self
     {
-        $this->date = $date;
+        $this->contenuFeedback = $contenuFeedback;
 
         return $this;
     }
 
-    public function getNomEvent(): ?string
+    public function getTypeFeedback(): ?string
     {
-        return $this->nomEvent;
+        return $this->typeFeedback;
     }
 
-    public function setNomEvent(string $nomEvent): self
+    public function setTypeFeedback(string $typeFeedback): self
     {
-        $this->nomEvent = $nomEvent;
+        $this->typeFeedback = $typeFeedback;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getEtatFeedback(): ?string
     {
-        return $this->description;
+        return $this->etatFeedback;
     }
 
-    public function setDescription(string $description): self
+    public function setEtatFeedback(string $etatFeedback): self
     {
-        $this->description = $description;
+        $this->etatFeedback = $etatFeedback;
 
         return $this;
     }
 
-    public function getCapaciteEvent(): ?int
+    public function getDateFeedback(): ?\DateTimeInterface
     {
-        return $this->capaciteEvent;
+        return $this->dateFeedback;
     }
 
-    public function setCapaciteEvent(int $capaciteEvent): self
+    public function setDateFeedback(\DateTimeInterface $dateFeedback): self
     {
-        $this->capaciteEvent = $capaciteEvent;
+        $this->dateFeedback = $dateFeedback;
 
         return $this;
     }
 
-    public function getNbMax(): ?int
+
+
+    public function getIdUser(): ?User
     {
-        return $this->nbMax;
+        return $this->idUser;
     }
 
-    public function setNbMax(int $nbMax): self
+    public function setIdUser(?User $idUser): self
     {
-        $this->nbMax = $nbMax;
+        $this->idUser = $idUser;
 
         return $this;
     }
-
-    public function getImageEvent(): ?string
+    public function __construct()
     {
-        return $this->imageEvent;
+        $this->dateFeedback= new \DateTime();
     }
-
-    public function setImageEvent(string $imageEvent): self
-    {
-        $this->imageEvent = $imageEvent;
-
-        return $this;
-    }
-
-    public function getLocationEvent(): ?string
-    {
-        return $this->locationEvent;
-    }
-
-    public function setLocationEvent(?string $locationEvent): self
-    {
-        $this->locationEvent = $locationEvent;
-
-        return $this;
-    }
-
-    public function getRatingEvent(): ?int
-    {
-        return $this->ratingEvent;
-    }
-
-    public function setRatingEvent(?int $ratingEvent): self
-    {
-        $this->ratingEvent = $ratingEvent;
-
-        return $this;
-    }
-
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getTypeEvent(): ?TypeEvent
-    {
-        return $this->typeEvent;
-    }
-
-    public function setTypeEvent(?TypeEvent $typeEvent): self
-    {
-        $this->typeEvent = $typeEvent;
-
-        return $this;
-    }
-
-    public function getIdOrg(): ?User
-    {
-        return $this->idOrg;
-    }
-
-    public function setIdOrg(?User $idOrg): self
-    {
-        $this->idOrg = $idOrg;
-
-        return $this;
-    }
-
 
 }
