@@ -2,3 +2,6 @@
 # https://www.algolia.com/doc/api-client/symfony/configuration/
 algolia_search:
     prefix: '%env(APP_ENV)%_'
+    indices:
+        - name: Evenement
+          class: App\Entity\Evenement
