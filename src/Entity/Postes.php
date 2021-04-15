@@ -46,7 +46,7 @@ class Postes
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="post_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="post_date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $postDate = 'CURRENT_TIMESTAMP';
 
@@ -222,8 +222,6 @@ class Postes
 
         return $this;
     }
-
-
 
 
 }
