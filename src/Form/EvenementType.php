@@ -6,6 +6,9 @@ use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class EvenementType extends AbstractType
 {
@@ -17,7 +20,7 @@ class EvenementType extends AbstractType
             ->add('description')
             ->add('capaciteEvent')
             ->add('nbMax')
-            ->add('imageEvent')
+            ->add('File',FileType::class)
             ->add('locationEvent')
             ->add('ratingEvent')
             ->add('categorie')

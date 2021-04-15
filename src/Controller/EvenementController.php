@@ -38,6 +38,9 @@ class EvenementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            var_dump($evenement);
+//            die();
+            $evenement->upload();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($evenement);
             $entityManager->flush();

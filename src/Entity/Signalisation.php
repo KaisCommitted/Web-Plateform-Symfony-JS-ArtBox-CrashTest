@@ -146,5 +146,10 @@ class Signalisation
         return $this;
     }
 
+    public function __construct()
+    {
+        $this->dateSignal= new \DateTime();
+    }
+
 
 }
