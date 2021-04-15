@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Evenement
@@ -25,7 +26,7 @@ class Evenement
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="date", type="date", nullable=false)
      * @Assert\Type(
      *      type = "\DateTime",
@@ -40,20 +41,21 @@ class Evenement
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="nom_event", type="string", length=255, nullable=false)
      */
     private $nomEvent;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
 
     /**
      * @var int
+     * @Assert\NotBlank(message="this field is required")
      * @Assert\Positive(message="Event capacity must be positive")
      * @ORM\Column(name="capacite_event", type="integer", nullable=false)
      */
@@ -61,7 +63,7 @@ class Evenement
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="nb_max", type="integer", nullable=false)
      */
     private $nbMax = '0';
@@ -75,21 +77,21 @@ class Evenement
 
     /**
      * @var string|null
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="location_event", type="string", length=255, nullable=true)
      */
     private $locationEvent;
 
     /**
      * @var int|null
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="rating_event", type="integer", nullable=true)
      */
     private $ratingEvent = '0';
 
     /**
      * @var \Categorie
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
@@ -99,7 +101,7 @@ class Evenement
 
     /**
      * @var \TypeEvent
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="TypeEvent")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type_event", referencedColumnName="type_name")
@@ -109,13 +111,15 @@ class Evenement
 
     /**
      * @var \User
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_org", referencedColumnName="id_user")
      * })
      */
     private $idOrg;
+
+    private $file;
 
     public function getId(): ?int
     {
@@ -254,5 +258,67 @@ class Evenement
         return $this;
     }
 
+
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
+
+    public function getUploadDir()
+    {
+        return 'imagesEvent';
+    }
+
+    public function getAbsolutRoot()
+    {
+        return $this->getUploadRoot().$this->imageEvent ;
+    }
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->imageEvent;
+    }
+
+    public function getUploadRoot()
+    {
+        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
+    }
+
+    public function upload()
+    {
+
+        if($this->file === null){
+            return;
+
+        }
+        $this->imageEvent = $this->file->getClientOriginalName();
+        if(!is_dir($this->getUploadRoot()))
+        {
+            mkdir($this->getUploadRoot(),'0777',true);
+        }
+
+        $this->file->move($this->getUploadRoot(),$this->imageEvent);
+        unset($this->file);
+    }
+
+    public function __toString()
+    {
+        return $this->nomEvent;
+    }
 
 }

@@ -16,7 +16,7 @@ class Categorie
 {
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="categorie_name", type="string", length=255, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
