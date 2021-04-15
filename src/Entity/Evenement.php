@@ -84,7 +84,7 @@ class Evenement
 
     /**
      * @var int|null
-     * @Assert\NotBlank(message="this field is required")
+     *
      * @ORM\Column(name="rating_event", type="integer", nullable=true)
      */
     private $ratingEvent = '0';

@@ -27,11 +27,7 @@ class EvenementType extends AbstractType
             ->add('categorie')
             ->add('typeEvent')
             ->add('idOrg')
-            ->add('captcha', CaptchaType::class, array(
-                'width' => 200,
-                'height' => 50,
-                'length' => 6,
-            ));
+            ->add('captcha', CaptchaType::class);
         ;
     }
 
