@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 
 class EvenementType extends AbstractType
@@ -26,6 +27,11 @@ class EvenementType extends AbstractType
             ->add('categorie')
             ->add('typeEvent')
             ->add('idOrg')
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 6,
+            ));
         ;
     }
 
