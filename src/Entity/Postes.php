@@ -45,9 +45,10 @@ class Postes
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime")
+     *
+     * @ORM\Column(name="post_date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $postDate;
+    private $postDate = 'CURRENT_TIMESTAMP';
 
     /**
      * @var string|null
@@ -145,7 +146,7 @@ class Postes
 
     public function setPostDate(\DateTimeInterface $postDate): self
     {
-        $this->postDate = $postDate;
+        $this->postDate = $postDate;   
 
         return $this;
     }
