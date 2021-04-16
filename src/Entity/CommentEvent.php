@@ -40,7 +40,7 @@ class CommentEvent
      *
      * @ORM\ManyToOne(targetEntity="Evenement")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_event", referencedColumnName="id",onDelete="CASCADE")
      * })
      */
     private $idEvent;
@@ -50,7 +50,7 @@ class CommentEvent
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user",onDelete="CASCADE")
      * })
      */
     private $idUser;

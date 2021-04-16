@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">{% endblock %}
 </head>
 {% block body %}
+{% block header%}
 <body class="right-column-fixed">
 <!-- loader Start -->
 <div id="loading">
@@ -189,6 +190,7 @@
             <div class="p-3"></div>
         </div>
     </div>
+
     <!-- TOP Nav Bar -->
     <div class="iq-top-navbar">
         <div class="iq-navbar-custom">
@@ -513,6 +515,8 @@
             </nav>
         </div>
     </div>
+    {% endblock %}
+
     <!-- TOP Nav Bar END -->
     <!-- Right Sidebar Panel Start-->
     <div class="right-sidebar-mini right-sidebar">
@@ -620,6 +624,7 @@
         </div>
     </div>
     <!-- Right Sidebar Panel End-->
+    {% block content %}
     <!-- Page Content  -->
     <div id="content-page" class="content-page">
         <div class="container">
@@ -1809,7 +1814,9 @@
         </div>
     </div>
 </div>
+{% endblock  %}
 <!-- Wrapper END -->
+{% block footer %}
 <!-- Footer -->
 <footer class="bg-white iq-footer">
     <div class="container-fluid">
@@ -1826,6 +1833,8 @@
         </div>
     </div>
 </footer>
+{% endblock %}
+{% endblock %}
 <!-- Footer END -->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -1873,5 +1882,5 @@
 <!-- Custom JavaScript -->
 <script src="{{ asset('js/custom.js') }}"></script>
 {% endblock %}
-{% endblock %}
+
 </html>

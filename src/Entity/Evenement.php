@@ -63,10 +63,10 @@ class Evenement
 
     /**
      * @var int
-     * @Assert\NotBlank(message="this field is required")
+     *
      * @ORM\Column(name="nb_max", type="integer", nullable=false)
      */
-    private $nbMax = '0';
+    private $nbMax /*= evenement->getCapaciteEvent()*/;
 
     /**
      * @var string
@@ -104,7 +104,7 @@ class Evenement
      * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="TypeEvent")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type_event", referencedColumnName="type_name")
+     *   @ORM\JoinColumn(name="type_event", referencedColumnName="type_name",  onDelete="CASCADE")
      * })
      */
     private $typeEvent;
@@ -319,6 +319,11 @@ class Evenement
     public function __toString()
     {
         return $this->nomEvent;
+    }
+
+     public function initializeNb(Evenenemnt $evenement)
+     {
+         $this->setNbMax($this->getCapaciteEvent());
     }
 
 }

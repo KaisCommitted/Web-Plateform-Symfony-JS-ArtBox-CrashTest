@@ -23,7 +23,7 @@ class EvenementType extends AbstractType
             ->add('nbMax')
             ->add('File',FileType::class)
             ->add('locationEvent')
-            ->add('ratingEvent')
+
             ->add('categorie')
             ->add('typeEvent')
             ->add('idOrg')
