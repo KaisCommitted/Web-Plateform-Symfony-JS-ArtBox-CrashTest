@@ -43,7 +43,7 @@
 /build/
 
 # Composer PHAR
-/composer.phar
+
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
