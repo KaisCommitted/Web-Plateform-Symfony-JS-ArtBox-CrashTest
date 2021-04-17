@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 05:44 PM
+-- Generation Time: Apr 17, 2021 at 01:40 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -66,9 +66,9 @@ CREATE TABLE `categorie` (
 INSERT INTO `categorie` (`categorie_name`) VALUES
 ('Cinema'),
 ('Manga'),
+('Movies'),
 ('Photography'),
-('Singing'),
-('Street Art');
+('Singing');
 
 -- --------------------------------------------------------
 
@@ -146,11 +146,13 @@ CREATE TABLE `evenement` (
 --
 
 INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
-(111, 18, '2016-01-01', 'whatever', 'Festival', 'Photography', 'whatever', 20, 20, '1 (6).jpg', 'whatever', 5),
 (112, 18, '2016-01-01', 'Unique', 'Online', 'Manga', 'whatever', 20, 20, '1 (6).jpg', 'whatever', 0),
-(116, 18, '2022-01-01', 'Imageworks', 'Festival', 'Cinema', 'whatever', 19, 20, '1 (8).jpg', 'whatever', 0),
+(116, 18, '2022-01-01', 'Imageworks', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (8).jpg', 'whatever', 0),
 (118, 18, '2023-01-01', 'test', 'Festival', 'Cinema', 'test', 4, 5, '1 (3).png', 'aa', 0),
-(122, 19, '2021-04-16', 'JavaFXtoWeb', 'Festival', 'Manga', 'here', 20, 20, 'JavaFXtoWeb1 (1).png', 'here', NULL);
+(122, 19, '2021-04-16', 'JavaFXtoWeb', 'Festival', 'Manga', 'here', 20, 20, 'JavaFXtoWeb1 (1).png', 'here', NULL),
+(124, 18, '2022-10-01', 'YES', 'Festival', 'Cinema', 'YES', 20, 20, '1 (1).png', 'whatever', 0),
+(125, 18, '2024-01-01', 'testingFields', 'Festival', 'Cinema', 'whatever', 20, 0, '1 (6).png', 'whatever', 0),
+(126, 18, '2024-01-01', 'testingFieldss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (8).jpg', 'whatever', 0);
 
 -- --------------------------------------------------------
 
@@ -236,8 +238,6 @@ CREATE TABLE `participant` (
 
 INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) VALUES
 (267, 18, 118, ''),
-(268, 19, 111, ''),
-(269, 19, 116, '019116'),
 (270, 19, 118, '019118');
 
 -- --------------------------------------------------------
@@ -332,7 +332,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '-', 0, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
+(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 0, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
 (19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 0, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png');
 
 --
@@ -492,13 +492,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `comment_event`
 --
 ALTER TABLE `comment_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `evenement`
 --
 ALTER TABLE `evenement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -528,7 +528,7 @@ ALTER TABLE `partenaire`
 -- AUTO_INCREMENT for table `participant`
 --
 ALTER TABLE `participant`
-  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
 
 --
 -- AUTO_INCREMENT for table `postes`
@@ -540,7 +540,7 @@ ALTER TABLE `postes`
 -- AUTO_INCREMENT for table `rating_event`
 --
 ALTER TABLE `rating_event`
-  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `signalisation`
@@ -583,16 +583,16 @@ ALTER TABLE `comments`
 -- Constraints for table `comment_event`
 --
 ALTER TABLE `comment_event`
-  ADD CONSTRAINT `FK_923492566B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `FK_92349256D52B4B97` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`);
+  ADD CONSTRAINT `FK_923492566B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_92349256D52B4B97` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `evenement`
 --
 ALTER TABLE `evenement`
-  ADD CONSTRAINT `FK_B26681E497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`),
-  ADD CONSTRAINT `FK_B26681EECB152DA` FOREIGN KEY (`id_org`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `evenement_ibfk_2` FOREIGN KEY (`type_event`) REFERENCES `type_event` (`type_name`);
+  ADD CONSTRAINT `FK_B26681E497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_B26681EECB152DA` FOREIGN KEY (`id_org`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `evenement_ibfk_2` FOREIGN KEY (`type_event`) REFERENCES `type_event` (`type_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `feedback`
@@ -617,8 +617,8 @@ ALTER TABLE `partenaire`
 -- Constraints for table `participant`
 --
 ALTER TABLE `participant`
-  ADD CONSTRAINT `fk_idevt` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`),
-  ADD CONSTRAINT `fk_userid` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_idevt` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_userid` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `postes`
@@ -631,8 +631,8 @@ ALTER TABLE `postes`
 -- Constraints for table `rating_event`
 --
 ALTER TABLE `rating_event`
-  ADD CONSTRAINT `fk_event` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`),
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_event` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `signalisation`
