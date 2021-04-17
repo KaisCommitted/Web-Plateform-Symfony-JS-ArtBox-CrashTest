@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Candidature
  *
- * @ORM\Table(name="candidature", indexes={@ORM\Index(name="fk_userrrr", columns={"user_id"}), @ORM\Index(name="fk_annnnn", columns={"ann_id"})})
+ * @ORM\Table(name="candidature", indexes={@ORM\Index(name="fk_userrrr", columns={"user_id"}), @ORM\Index(name="fk_annnnn", columns={"ann_id"}),@ORM\Index(name="statut_cand", columns={"statut_cand"})})
  * @ORM\Entity(repositoryClass="App\Repository\CandidatureRepository")
  */
 class Candidature
@@ -41,6 +41,16 @@ class Candidature
      */
     private $user;
 
+    /**
+ * @var \Statut
+ *
+ * @ORM\ManyToOne(targetEntity="StatutCand")
+ * @ORM\JoinColumns({
+ *   @ORM\JoinColumn(name="statut_cand", referencedColumnName="statut_cand")
+ * })
+ */
+    private $statut;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,6 +76,18 @@ class Candidature
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatut(): ?Statut
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?Statut $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

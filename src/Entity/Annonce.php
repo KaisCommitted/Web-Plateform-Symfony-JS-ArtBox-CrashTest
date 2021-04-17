@@ -23,35 +23,39 @@ class Annonce
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="titre_ann", type="string", length=250, nullable=false)
      */
     private $titreAnn;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="desc_ann", type="string", length=250, nullable=false)
      */
     private $descAnn;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message="This field is required")
+     * @Assert\Positive(message="Salary must be positive")
      * @ORM\Column(name="pay", type="integer", nullable=false)
      */
     private $pay;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="ddl_ann", type="date", nullable=false)
-     */
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Application deadline must be an upcoming date "
+     * ) */
     private $ddlAnn;
 
     /**
      * @var \Categorie
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
@@ -61,7 +65,7 @@ class Annonce
 
     /**
      * @var \User
-     *
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
