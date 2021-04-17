@@ -2,7 +2,7 @@
 
 {% block title %}Comments{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Comments</h1>
 
@@ -32,5 +32,4 @@
     <a href="{{ path('comments_edit', {'idComment': comment.idComment}) }}">edit</a>
 
     {{ include('comments/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

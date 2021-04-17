@@ -2,7 +2,7 @@
 
 {% block title %}Evenement{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Evenement</h1>
 
@@ -53,5 +53,4 @@
     <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
 
     {{ include('evenement/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

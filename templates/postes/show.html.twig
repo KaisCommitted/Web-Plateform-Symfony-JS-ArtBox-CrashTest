@@ -2,7 +2,7 @@
 
 {% block title %}Postes{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Postes</h1>
 
@@ -52,5 +52,4 @@
     <a href="{{ path('postes_edit', {'idPost': poste.idPost}) }}">edit</a>
 
     {{ include('postes/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block title %}CommentEvent{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>CommentEvent</h1>
 
@@ -28,5 +28,4 @@
     <a href="{{ path('comment_event_edit', {'id': comment_event.id}) }}">edit</a>
 
     {{ include('comment_event/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

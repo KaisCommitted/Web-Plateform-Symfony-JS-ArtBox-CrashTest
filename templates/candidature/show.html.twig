@@ -2,7 +2,7 @@
 
 {% block title %}Candidature{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Candidature</h1>
 
@@ -20,5 +20,4 @@
     <a href="{{ path('candidature_edit', {'id': candidature.id}) }}">edit</a>
 
     {{ include('candidature/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

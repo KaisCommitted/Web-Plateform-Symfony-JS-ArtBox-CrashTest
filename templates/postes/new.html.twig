@@ -2,12 +2,11 @@
 
 {% block title %}New Postes{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Create new Postes</h1>
 
     {{ include('postes/_form.html.twig') }}
 
     <a href="{{ path('postes_index') }}">back to list</a>
-{% endblock %}
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block title %}Feedback{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Feedback</h1>
 
@@ -36,5 +36,4 @@
     <a href="{{ path('feedback_edit', {'idFeedback': feedback.idFeedback}) }}">edit</a>
 
     {{ include('feedback/_delete_form.html.twig') }}
-{% endblock %}
 {% endblock %}

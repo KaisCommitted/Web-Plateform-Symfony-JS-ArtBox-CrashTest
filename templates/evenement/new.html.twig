@@ -2,12 +2,11 @@
 
 {% block title %}Host An Event{% endblock %}
 
-{% block body %}
+
 {% block content %}
     <h1>Host An Event</h1>
 
     {{ include('evenement/_form.html.twig') }}
 
     <a href="{{ path('evenement_index') }}">back to list</a>
-{% endblock %}
 {% endblock %}
