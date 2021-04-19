@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
@@ -23,9 +24,12 @@ class EvenementController extends AbstractController
         $evenements = $this->getDoctrine()
             ->getRepository(Evenement::class)
             ->findAll();
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements' => $evenements,'categories' => $categories,
         ]);
     }
 
@@ -107,16 +111,29 @@ class EvenementController extends AbstractController
      */
     public function search(EvenementRepository $evenementRepo, Request $request)
     {
-
-
         $data=$request->get('mots');
         $evenements = $evenementRepo->search($data);
-
-
-
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements' => $evenements, 'categories' => $categories,
         ]);
     }
+
+    /**
+     * @Route("/{name}", name="evenement_cat", methods={"GET"})
+     */
+    public function FindByCategorie(EvenementRepository $evenementRepo, Categorie $categorie): Response
+    {
+
+        $evenements = $evenementRepo->FindByCategorie($categorie);
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements, 'categories' => $categories,
+        ]);
+    }
+
+
 }
