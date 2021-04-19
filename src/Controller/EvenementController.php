@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Form\EvenementType;
+use App\Repository\EvenementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,5 +97,26 @@ class EvenementController extends AbstractController
         }
 
         return $this->redirectToRoute('evenement_index');
+    }
+
+
+
+
+    /**
+     * @Route("/", name="evenement_search", methods={"POST"})
+     */
+    public function search(EvenementRepository $evenementRepo, Request $request)
+    {
+
+
+        $data=$request->get('mots');
+        $evenements = $evenementRepo->search($data);
+
+
+
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,
+        ]);
     }
 }

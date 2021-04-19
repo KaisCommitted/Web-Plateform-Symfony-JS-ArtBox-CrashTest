@@ -10,6 +10,9 @@ doctrine:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
+        dql:
+            string_functions:
+                MATCH_AGAINST: App\Extensions\Doctrine\MatchAgainst
         mappings:
             App:
                 is_bundle: false
@@ -17,3 +20,4 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
