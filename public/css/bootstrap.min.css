@@ -506,8 +506,41 @@ mark {
 .img-fluid {
 	max-width: 100%;
 	height: auto
+
+
 }
 
+.img-scale {
+	max-width: 100%;
+	transition:transform 1s ease;
+	height: auto
+
+
+}
+.img-scale:hover {
+	position: relative;
+	 z-index: 1;
+	 -webkit-transform:scale(1.5); /* or some other value */
+    transform:scale(1.5);
+
+
+}
+
+.img-scale2{
+	max-width: 100%;
+	transition:transform 1s ease;
+	height: auto
+
+
+}
+.img-scale2:hover {
+	position: relative;
+	 z-index: 1;
+	 -webkit-transform:scale(3); /* or some other value */
+    transform:scale(3);
+
+
+}
 .img-thumbnail {
 	padding: .25rem;
 	background-color: #fff;

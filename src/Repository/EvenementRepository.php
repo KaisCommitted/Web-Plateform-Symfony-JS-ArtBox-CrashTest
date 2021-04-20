@@ -19,6 +19,39 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
+    /**
+     * Recherche les annonces en fonction du formulaire
+     * @return void
+     */
+    public function search($mots = null){
+        $query = $this->createQueryBuilder('a');
+        $query->where('a.capaciteEvent > 0');
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(a.nomEvent, a.description) AGAINST (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Recherche les annonces en fonction du formulaire
+     * @return void
+     */
+    public function FindByCategorie($mots = null){
+        $query = $this->createQueryBuilder('a');
+        $query->where('a.capaciteEvent > 0');
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(a.categorie) AGAINST (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+
+
+
     // /**
     //  * @return Evenement[] Returns an array of Evenement objects
     //  */

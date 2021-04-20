@@ -1,0 +1,33 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Edit Evenement{% endblock %}
+
+
+{% block content %}
+    <h1>Edit Evenement</h1>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Edit my Event</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            {{ include('evenement/back_form.html.twig', {'button_label': 'Update'}) }}
+
+                            <a href="{{ path('evenement_back_index') }}">Back to UPCOMING EVENTS</a>
+
+                            {{ include('evenement/back_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Evenement
  * @UniqueEntity(fields={"nomEvent"} , message="Event name already exists")
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}), @ORM\Index(name="categorie", columns={"categorie"})} ,  uniqueConstraints={@ORM\UniqueConstraint(name="nom_event", columns={"nom_event"})})
+ * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}),@ORM\Index(columns={"nom_event", "description"}, flags={"fulltext"}), @ORM\Index(name="categorie", columns={"categorie"})} ,  uniqueConstraints={@ORM\UniqueConstraint(name="nom_event", columns={"nom_event"})})
  * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
  */
 class Evenement
