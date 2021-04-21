@@ -15,31 +15,56 @@
                     <div class="iq-card-header-toolbar d-flex align-items-center">
                         <div class="dropdown">
 
-                                 <span class="dropdown-toggle" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="false" role="button">
-                                 <i class="ri-more-fill"></i>
-                                     Choose genre
-                                 </span>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01" style="">
 
+
+
+                            <form  id="CatForm" method="post" action="{{ path('evenement_cat')}}" >
+                            <select id="selectDo" class="btn btn-primary d-block w-100 mt-3"  style="" onchange="myFunction(event); this.form.submit(); "  >
+                                <option value="" disabled selected>Choose genre..</option>
                                 {% for c in categories %}
-                                <a class="dropdown-item"  href="{{ path('evenement_cat', {'name': c.categorieName}) }}"><i class="ri-eye-fill mr-2"></i>{{ c.categorieName}}</a>
-                                {% endfor %}
+                                <option class="dropdown-item"  onclick="document.getElementById('CatForm').submit();" ><i class="ri-eye-fill mr-2"></i>{{ c.categorieName}}</option>
 
-                            </div>
+                                {% endfor %}
+                                <input  type="hidden" name="myText" id="myText" type="text" value="colors">
+
+
+
+                                <script>function myFunction(e) {
+                                document.getElementById("myText").value = e.target.value
+                                    } </script>
+
+                            </select>
+                            </form>
                         </div>
                         <div class="dropdown">
 
-                                 <span style="position: absolute; top:-10px; left: 450px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <span style="position: absolute; top: 0px; left: 400px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
                                    Filter by
                                      <i class="ri-more-fill"></i>
 
                                  </span>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
-                                <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>Most Rated</a>
-                                <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>This Month</a>
-                                <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>This Week</a>
-                                <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Today</a>
-                                <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
+                                <a class="dropdown-item" href="{{ path('evenement_Upcoming') }}"><i class="ri-eye-fill mr-2"></i>Upcoming</a>
+                                <a class="dropdown-item" href="{{ path('evenement_HasPassed') }}"><i class="ri-eye-fill mr-2"></i>Has Passed</a>
+                                <a class="dropdown-item" href="{{ path('evenement_Today') }}"><i class="ri-eye-fill mr-2"></i>Today</a>
+                                <a class="dropdown-item" href="{{ path('evenement_ThisWeek') }}"><i class="ri-eye-fill mr-2"></i>This Week</a>
+                                <a class="dropdown-item" href="{{ path('evenement_ThisMonth') }}"><i class="ri-eye-fill mr-2"></i>This Month</a>
+                                <a class="dropdown-item" href="{{ path('evenement_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+
+                                 <span style="position: absolute; top: -20px; left: 400px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                   Sort By
+                                     <i class="ri-more-fill"></i>
+
+                                 </span>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+                                <a class="dropdown-item" href="{{ path('evenement_triAlphabetical') }}"><i class="ri-eye-fill mr-2"></i>Alphabetical</a>
+                                <a class="dropdown-item" href="{{ path('evenement_triDate') }}"><i class="ri-eye-fill mr-2"></i>Happening Soon</a>
+                                <a class="dropdown-item" href="{{ path('evenement_triTrending') }}"><i class="ri-eye-fill mr-2"></i>Trending</a>
+                                <a class="dropdown-item" href="{{ path('evenement_triOrganizer') }}"><i class="ri-eye-fill mr-2"></i>Organizer</a>
+                                <a class="dropdown-item" href="{{ path('evenement_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
                             </div>
                         </div>
                     </div>
@@ -65,8 +90,16 @@
                                 <div class="iq-card-body">
 
                                     <div class="user-post-data">
+
                                         <div class="d-flex flex-wrap">
-                                            <div class="media-support-user-img mr-3">
+                                            <div class="container1">
+                                                <img src="{{ asset('imagesCategorie/')~ evenement.categorie.categorieImage ~''}}" class="image1" margin-right="0"  overflow="visible" alt="{{evenement.categorie}}">
+                                                <div class="overlay1">
+                                                    <div >{{ evenement.categorie }}</div>
+                                                </div>
+                                            </div>
+                                            <div  class="media-support-user-img mr-3">
+
                                                 <img class="rounded-circle img-fluid" src="{{ asset('images/user/03.jpg') }}" alt="">
                                             </div>
                                             <div class="media-support-info mt-2">

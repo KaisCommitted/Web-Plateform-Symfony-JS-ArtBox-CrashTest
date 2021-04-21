@@ -10,6 +10,15 @@
         {% endblock %}
 
     </title>
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+    <!-- Typography CSS -->
+    <link rel="stylesheet" href="{{ asset('css/typography.css') }}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -42,7 +51,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Home</a>
             </li>
             <li >
                 <a href="#"class="nav-link">A propos</a>
@@ -187,8 +196,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-            <img src="{{ asset('back/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <img src="{{ asset('javaicons/logo.png')}}" alt="AdminLTE Logo" style=" max-width: 100%; height: auto;" >
+
         </a>
 
         <!-- Sidebar -->
@@ -199,7 +208,7 @@
                     <img src="{{ asset('back/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">Louay Jeddou</a>
                 </div>
             </div>
 
@@ -276,36 +285,17 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ asset('back/pages/layout/collapsed-sidebar.html') }}" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
-                            <p>
-                                Gestion Utilisateur
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Utilisateur</p>
-                                </a>
-                            </li>
 
-
-
-                        </ul>
-                    </li>
 
 
 
 
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ path('evenement_back_index') }}" class="nav-link">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
-                                Gestion categorie et cours
+                                Newsfeed Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -332,7 +322,32 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ path('evenement_back_index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <p>
+                                Event Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Show Events</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create an Event</p>
+                                </a>
+                            </li>
 
+
+
+                        </ul>
+                    </li>
 
 
 
@@ -340,7 +355,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
-                                Gestion Test
+                                Jobs Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -373,6 +388,32 @@
 
 
 
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tree"></i>
+                            <p>
+                                 Users Management
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Partenariat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Promotion</p>
+                                </a>
+                            </li>
+
+
+
+                        </ul>
+                    </li>
 
 
 
@@ -385,7 +426,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
-                                Gestion Partenariat et promotion
+                                Reports Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -415,7 +456,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-envelope"></i>
                             <p>
-                                Géstion Réclamation
+                               Partnership Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -435,11 +476,12 @@
 
                         </ul>
                     </li>
+
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-book"></i>
+                            <i class="nav-icon far fa-envelope"></i>
                             <p>
-                                Gestion Actualités et évènements
+                                Partnership Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -447,24 +489,26 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Actualités</p>
+                                    <p>Reclamation</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Evenement</p>
+                                    <p>Feedback</p>
                                 </a>
                             </li>
 
-
                         </ul>
                     </li>
+
+
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-plus-square"></i>
                             <p>
-                                Extras
+
+                                Categories Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>

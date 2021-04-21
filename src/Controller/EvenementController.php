@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Doctrine\ORM\EntityManagerInterface;
 /**
  * @Route("/evenement")
  */
@@ -122,18 +122,7 @@ class EvenementController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{name}", name="evenement_cat", methods={"GET"})
-     */
-    public function FindByCategorie(EvenementRepository $evenementRepo, Categorie $categorie): Response
-    {
 
-        $evenements = $evenementRepo->FindByCategorie($categorie);
-
-        return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements, 'categories' => $categories,
-        ]);
-    }
 
     /**
      * @Route("/back/index", name="evenement_back_index", methods={"GET"})
@@ -253,5 +242,257 @@ class EvenementController extends AbstractController
             'evenements' => $evenements, 'categories' => $categories,
         ]);
     }
+
+
+    /**
+     * @Route("/tri/triDate", name="evenement_triDate")
+     */
+    public function TriDate(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.date ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/tri/triAlphabetical", name="evenement_triAlphabetical")
+     */
+    public function TriAlphabetical(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.nomEvent ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/tri/triTrending", name="evenement_triTrending")
+     */
+    public function TriTrending(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.nbMax-E.capaciteEvent DESC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/tri/triOrganizer", name="evenement_triOrganizer")
+     */
+    public function TriOrganizer(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.idOrg ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/ThisMonth", name="evenement_ThisMonth")
+     */
+    public function FilterThisMonth(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<30'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+    /**
+     * @Route("/filter/Today", name="evenement_Today")
+     */
+    public function FilterToday(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())=1'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/ThisWeek", name="evenement_ThisWeek")
+     */
+        public function FilterThisWeek(Request $request)
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $query = $em->createQuery(
+                'SELECT E FROM App\Entity\Evenement E 
+                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7'
+            );
+
+            $evenements = $query->getResult();
+
+
+            $categories = $this->getDoctrine()
+                ->getRepository(Categorie::class)
+                ->findAll();
+
+            return $this->render('evenement/index.html.twig', [
+                'evenements' => $evenements,'categories' => $categories,
+            ]);
+
+        }
+
+    /**
+     * @Route("/filter/Upcoming", name="evenement_Upcoming")
+     */
+    public function FilterUpcoming(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/HasPassed", name="evenement_HasPassed")
+     */
+    public function FilterHasPassed(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+
+
+    /**
+     * @Route("/TriCat/show", name="evenement_cat", methods={"POST"})
+     */
+    public function FindByCategorie(EntityManagerInterface $em,Request $request): Response
+    {
+        $data=$request->get('myText');
+        $queryBuilder = $em->getRepository(Evenement::class)->createQueryBuilder('E');
+        $queryBuilder->andWhere('E.categorie = :cat');
+        $queryBuilder->setParameter('cat', $data);
+        $evenements = $queryBuilder->getQuery()->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+    }
+
+
+
+
 
 }
