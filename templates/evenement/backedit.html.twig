@@ -18,16 +18,17 @@
                         <div class="iq-card-body">
                             {{ include('evenement/back_form.html.twig', {'button_label': 'Update'}) }}
 
-                            <a href="{{ path('evenement_back_index') }}">Back to UPCOMING EVENTS</a>
+
 
                             {{ include('evenement/back_delete_form.html.twig') }}
+                            <a href="{{ path('evenement_back_index') }}">Show Events</a>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-    </div>
+
     </div>
 
 {% endblock %}
