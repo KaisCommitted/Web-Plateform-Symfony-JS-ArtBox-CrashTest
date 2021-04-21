@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Postes;
 use App\Form\PostesType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,8 +24,12 @@ class PostesController extends AbstractController
             ->getRepository(Postes::class)
             ->findAll();
 
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
         return $this->render('postes/index.html.twig', [
-            'postes' => $postes,
+            'postes' => $postes,'categories' => $categories,
         ]);
     }
 
