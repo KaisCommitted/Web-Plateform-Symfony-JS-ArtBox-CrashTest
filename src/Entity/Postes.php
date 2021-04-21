@@ -53,7 +53,7 @@ class Postes
     /**
      * @var string|null
      *
-     * @ORM\Column(name="album_cover", type="string", length=255, nullable=true)
+     * @ORM\Column(name="album_cover", type="string", le    ngth=255, nullable=true)
      */
     private $albumCover;
 
