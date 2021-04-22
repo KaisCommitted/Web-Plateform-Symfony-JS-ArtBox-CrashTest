@@ -26,14 +26,12 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
     private $prenom;
@@ -41,14 +39,16 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="mail", type="string", length=255, nullable=false, unique=true)
+
+
      */
     private $mail;
 
@@ -61,7 +61,6 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
      * @ORM\Column(name="pwd_user", type="string", length=255, nullable=false)
      */
     private $pwdUser;
@@ -80,10 +79,6 @@ class User implements UserInterface
      */
     private $idLabel;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
 
     public function getIdUser(): ?int
     {
