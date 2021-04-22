@@ -4,10 +4,32 @@
 
 
    {% block content %}
-    <h1>Create new Categorie</h1>
+       <h1>Categories</h1>
+       <div id="content-page" class="content-page">
+           <div class="container">
+               <div class="row">
+                   <div class="col-lg-11">
+                       <div class="iq-card" >
+                           <div class="iq-card-header d-flex justify-content-between">
+                               <div class="iq-header-title">
+                                   <h4 class="card-title">Create a New Categorie</h4>
+                                   <h1>Create new Categorie</h1>
 
-    {{ include('categorie/_form.html.twig') }}
+                                   {{ include('categorie/_form.html.twig') }}
 
-    <a href="{{ path('categorie_index') }}">back to list</a>
+                                   <a href="{{ path('categorie_index') }}">back to list</a>
+                               </div>
+                           </div>
+                           <div class="iq-card-body">
+
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+       </div>
+
 
    {% endblock %}
