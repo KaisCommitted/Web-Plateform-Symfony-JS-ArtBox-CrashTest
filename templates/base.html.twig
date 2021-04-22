@@ -15,7 +15,32 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">{% endblock %}
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+        <!-- MP3 PLAYER -->
+        <meta name="viewport" content="width=868"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400'>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.css'>
+        <link rel='stylesheet' href='https://michael-zhigulin.github.io/mz-codepen-projects/Material%20Design%20UI%20Audio%20Player/font/font.css'>
+        <link rel="stylesheet" href={{ asset('css/style1.css') }}>
+
+
+
+        <!-- MP4 player  -->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800">
+        <link rel="stylesheet" href={{ asset('css/style3.css') }}>
+
+
+
+
+
+
+
+    {% endblock %}
+
+
+
 </head>
 {% block body %}
 {% block header%}
@@ -1883,6 +1908,25 @@
 <script src="{{ asset('js/chart-custom.js') }}"></script>
 <!-- Custom JavaScript -->
 <script src="{{ asset('js/custom.js') }}"></script>
+
+    <!-- MP3 player  -->
+
+    <script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.js'></script>
+    <script  src={{ asset('js/script.js') }}></script>
+
+    <!-- MP4 player  -->
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script  src={{ asset('js/script2.js') }}></script>
+
+
+
+
+
+
+
+
 {% endblock %}
 
 </html>
