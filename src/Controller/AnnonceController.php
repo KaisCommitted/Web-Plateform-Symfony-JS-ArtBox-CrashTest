@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Categorie;
 use App\Form\AnnonceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 
 /**
  * @Route("/annonce")
@@ -95,3 +98,6 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('annonce_index');
     }
 }
+
+
+

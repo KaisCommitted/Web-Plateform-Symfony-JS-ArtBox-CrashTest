@@ -4,7 +4,24 @@
 
 
 {% block content %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#imgDiv').hide();
+            $('#btn1').click(function(){
+                $('#imgDiv').show();
+            });
+            $('#btn2').click(function(){
+                $('#imgDiv').hide();
+            });
+        });
+    </script>
+
     <h1>Annonce</h1>
+
+
+
 
     <div id="content-page" class="content-page">
         <div class="container">
@@ -18,7 +35,7 @@
                                     <li>
                                         <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get job offer QR code</button>
                                         <div id="imgDiv">
-                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job offer title:  ' ~ annonce.titreAnn  ~'\nDescription:  ' ~ annonce.descAnn   ~'\nSalary:  ' ~ annonce.pay  ~'\nApplication deadline:  ' ~ annonce.ddlAnn  ) }}"  width="8%" height="auto"   border="0"></p>
+                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job title:  ' ~ annonce.titreAnn  ~'\nSalary:  ' ~ annonce.pay   ~'\nApplication deadline:  ' ~ annonce.ddlAnn  ) }}"  width="8%" height="auto"   border="0"></p>
                                         </div>
                                     </li>
 
@@ -32,6 +49,7 @@
                             <div class="iq-card-body text-center">
                                 <div class="group-details d-inline-block pb-3">
                                     <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+
                                         <li class="pl-3 pr-3">
                                             <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
                                                 <img width="20%" height="auto" src="{{ asset('javaicons/calendar.png')}}" >
@@ -61,12 +79,12 @@
                                                 <img src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="">
                                                 </span>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#" >Join</a>
+                                                        <a class="dropdown-item" href="#" >Apply</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="total-like-block ml-2 mr-3">
-                                                <div class="dropdown">
+                                                <div class="dropdown"
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#">Max Emum</a>
                                                         <a class="dropdown-item" href="#">Bill Yerds</a>
@@ -148,9 +166,12 @@
                                 </form>
                             </div>
 
-                            <a href="{{ path('annonce_index') }}">back to list</a>
-                            <a href="{{ path('annonce_edit', {'idAnn': annonce.idAnn}) }}">edit</a>
-                            {{ include('annonce/_delete_form.html.twig') }}
+
+                            <a href="{{ path('annonce_back_index') }}">Back to available job offers</a>
+
+                            <a style="position: absolute; top:15px; left: 480px;" href="{{ path('annonce_back_edit', {'idAnn': annonce.idAnn}) }}">Edit my job offer</a>
+
+                            {{ include('annonce/back_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
@@ -159,5 +180,4 @@
         </div>
     </div>
     </div>
-
 {% endblock %}
