@@ -160,6 +160,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "spatie/calendar-links": {
+        "version": "1.4.4"
+    },
     "symfony/asset": {
         "version": "v5.2.4"
     },

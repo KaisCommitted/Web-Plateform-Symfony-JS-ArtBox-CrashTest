@@ -95,4 +95,88 @@ class CategorieController extends AbstractController
 
         return $this->redirectToRoute('categorie_index');
     }
+
+
+
+    /**
+     * @Route("/back/index", name="categorie_back_index", methods={"GET"})
+     */
+    public function Backindex(): Response
+    {
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('categorie/back_index.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/back/new", name="categorie_back_new", methods={"GET","POST"})
+     */
+    public function Backnew(Request $request): Response
+    {
+        $categorie = new Categorie();
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categorie->upload();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('categorie_back_index');
+        }
+
+        return $this->render('categorie/back_new.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}", name="categorie_back_show", methods={"GET"})
+     */
+    public function Backshow(Categorie $categorie): Response
+    {
+        return $this->render('categorie/back_show.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}/edit", name="categorie_back_edit", methods={"GET","POST"})
+     */
+    public function Backedit(Request $request, Categorie $categorie): Response
+    {
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('categorie_back_index');
+        }
+
+        return $this->render('categorie/back_edit.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}", name="categorie_back_delete", methods={"POST"})
+     */
+    public function Backdelete(Request $request, Categorie $categorie): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getCategorieName(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($categorie);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('categorie_back_index');
+    }
 }

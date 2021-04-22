@@ -1,0 +1,46 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+
+{% block content %}
+
+
+    <h1>Categories</h1>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Edit my Event</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <h1>Categorie</h1>
+
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>CategorieName</th>
+                                    <td>{{ categorie.categorieName }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <a href="{{ path('categorie_back_index') }}">back to list</a>
+
+                            <a href="{{ path('categorie_back_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
+
+                            {{ include('categorie/back_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

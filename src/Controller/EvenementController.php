@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Spatie\CalendarLinks\Link;
+use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * @Route("/evenement")
  */
@@ -38,6 +40,8 @@ class EvenementController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
+
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -50,8 +54,14 @@ class EvenementController extends AbstractController
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('evenement_index');
+
+
+          // return $this->redirectToRoute('evenement_index');
+
+            return  $this->CalendarRedirect($evenement);
         }
+
+
 
         return $this->render('evenement/new.html.twig', [
             'evenement' => $evenement,
@@ -353,7 +363,7 @@ class EvenementController extends AbstractController
 
         $query = $em->createQuery(
             'SELECT E FROM App\Entity\Evenement E 
-            WHERE DATE_DIFF(E.date,CURRENT_DATE())<30'
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<30 AND DATE_DIFF(E.date,CURRENT_DATE())>0 '
         );
 
         $evenements = $query->getResult();
@@ -377,7 +387,7 @@ class EvenementController extends AbstractController
 
         $query = $em->createQuery(
             'SELECT E FROM App\Entity\Evenement E 
-            WHERE DATE_DIFF(E.date,CURRENT_DATE())=1'
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())=0'
         );
 
         $evenements = $query->getResult();
@@ -402,7 +412,7 @@ class EvenementController extends AbstractController
 
             $query = $em->createQuery(
                 'SELECT E FROM App\Entity\Evenement E 
-                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7'
+                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7 AND DATE_DIFF(E.date,CURRENT_DATE())>0'
             );
 
             $evenements = $query->getResult();
@@ -492,6 +502,249 @@ class EvenementController extends AbstractController
     }
 
 
+
+
+
+
+
+    /**
+     * @Route("/back/tri/triDate", name="evenement_back_triDate")
+     */
+    public function TriBackDate(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.date ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/tri/triAlphabetical", name="evenement_back_triAlphabetical")
+     */
+    public function TriBackAlphabetical(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.nomEvent ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/tri/triTrending", name="evenement_back_triTrending")
+     */
+    public function TriBackTrending(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.nbMax-E.capaciteEvent DESC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/tri/triOrganizer", name="evenement_back_triOrganizer")
+     */
+    public function TriBackOrganizer(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            ORDER BY E.idOrg ASC'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/ThisMonth", name="evenement_back_ThisMonth")
+     */
+    public function FilterBackThisMonth(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<30 AND DATE_DIFF(E.date,CURRENT_DATE())>0 '
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+    /**
+     * @Route("/back/filter/Today", name="evenement_back_Today")
+     */
+    public function FilterBackToday(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())=0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/ThisWeek", name="evenement_back_ThisWeek")
+     */
+    public function FilterBackThisWeek(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7 AND DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/Upcoming", name="evenement_back_Upcoming")
+     */
+    public function FilterBackUpcoming(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/HasPassed", name="evenement_back_HasPassed")
+     */
+    public function FilterBackHasPassed(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<0'
+        );
+
+        $evenements = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('evenement/backindex.html.twig', [
+            'evenements' => $evenements,'categories' => $categories,
+        ]);
+
+    }
+
+    public function CalendarRedirect(Evenement $evenement)
+    {
+        $eventDate = $evenement->getDate();
+
+        $from =\DateTime::createFromFormat('Y-m-d', $eventDate->format('Y-m-d'));
+        $to = \DateTime::createFromFormat('Y-m-d', $eventDate->format('Y-m-d'));
+
+        $link = Link::create($evenement->getNomEvent(), $from, $to)
+            ->description($evenement->getDescription())
+            ->address( $evenement->getLocationEvent());
+        echo $link->google();
+        return $this->redirect($link->google());
+
+    }
 
 
 
