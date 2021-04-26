@@ -55,8 +55,6 @@ class Evenement
 
     /**
      * @var int
-     * @Assert\NotBlank(message="this field is required")
-     * @Assert\Positive(message="Event capacity must be positive")
      * @ORM\Column(name="capacite_event", type="integer", nullable=false)
      */
     private $capaciteEvent;

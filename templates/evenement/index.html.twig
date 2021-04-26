@@ -7,7 +7,7 @@
     <!-- Page Content  -->
 
 
-    <div id="content-page" class="content-page">
+    <div id="content-page" class="content-page" xmlns="http://www.w3.org/1999/html">
         <div class="container">
             <div class="row">
 
@@ -15,7 +15,7 @@
                     <div class="iq-card-header-toolbar d-flex align-items-center">
                         <div class="dropdown">
 
-
+                            <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
 
                             <form  id="CatForm" method="post" action="{{ path('evenement_cat')}}" >
@@ -103,8 +103,11 @@
                                                 <img class="rounded-circle img-fluid" src="{{ asset('images/user/03.jpg') }}" alt="">
                                             </div>
                                             <div class="media-support-info mt-2">
+
+                                                <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
                                                 <h5 class="mb-0 d-inline-block"><a href="#" class="">{{ evenement.idOrg}}</a></h5>
                                                 <a href="{{ path('evenement_show', {'id': evenement.id}) }}"  class="mb-0 d-inline-block">{{'Is Hosting ' ~ evenement.nomEvent}}</a>
+                                                <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
 
                                             </div>
                                             <div class="iq-card-post-toolbar">
@@ -172,7 +175,7 @@
                                     <div class="iq-card-body text-center">
                                         <div class="group-details d-inline-block pb-3">
                                             <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-
+<li>
                                                     <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
                                                         <img width="20%" height="auto" src="{{ asset('javaicons/location.png')}}" >
                                                         <p class="mb-0">Event Location</p>
@@ -200,14 +203,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="comment-area mt-3">
+                                    <div id="comment_area"class="comment-area mt-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="like-block position-relative d-flex align-items-center">
                                                 <div class="d-flex align-items-center">
                                                     <div class="like-data">
                                                         <div class="dropdown">
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                <img src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+
+                                                <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+                                                        </form>
                                                 </span>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="#" >Join</a>
@@ -215,6 +220,17 @@
 
                                                         </div>
                                                     </div>
+                                                    <!------------------------  Refresh Script  --------------------- -->
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                    <script type="text/javascript">
+                                                        $("#reloader").click(function () {
+                                                            $("#comment_area").load(" #comment_area");
+
+                                                        });
+                                                    </script>
+
+
+
                                                     <div class="total-like-block ml-2 mr-3">
                                                         <div class="dropdown">
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
@@ -249,11 +265,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <form  id="RatingForm" method="post" action="{{ path('rating_event_new')}}" >
                                             <div class="share-block d-flex align-items-center feather-icon mr-3">
-                                                <a href="javascript:void();"><i class="ri-share-line"></i>
-                                                    <span class="ml-1">99 Share</span></a>
+                                                <div class="stars">
+                                                    <i class="lar la-star"  data-value="1" ></i><i class="lar la-star"  data-value="2"></i><i class="lar la-star"  data-value="3"></i><i class="lar la-star"  data-value="4"></i><i class="lar la-star"  data-value="5"></i>
+                                                </div>
+                                                <input  type="hidden" name="note" id="note" value="0">
+                                                <input  type="hidden" name="ratedEvent" id="ratedEvent" type="text" value={{ evenement.nomEvent}}>
+                                                <script src="{{ asset('js/scripts.js') }}"></script>
+
+                                                    <span  class="ml-1">{{ 'Rating : ' ~ evenement.ratingEvent ~ '/5   '}}</span></a>
+                                                <button  class="btn btn-primary" type="submit"> ✓ </button>
                                             </div>
-                                        </div>
+                                            </div>
+                                            </form>
+
                                         <hr>
                                         <ul class="post-comments p-0 m-0">
                                             <li class="mb-2">
@@ -308,45 +334,71 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="iq-card">
-                        <div class="iq-card-header d-flex justify-content-between">
-                            <div class="iq-header-title">
-                                <h4 class="card-title">Stories</h4>
-                            </div>
-                        </div>
-                        <div class="iq-card-body">
-                            <ul class="media-story m-0 p-0">
-                                <li class="d-flex mb-4 align-items-center">
-                                    <i class="ri-add-line font-size-18"></i>
-                                    <div class="stories-data ml-3">
-                                        <h5>Creat Your Story</h5>
-                                        <p class="mb-0">time to story</p>
-                                    </div>
-                                </li>
-                                <li class="d-flex mb-4 align-items-center active">
-                                    <img src="{{ asset('images/page-img/s2.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
-                                    <div class="stories-data ml-3">
-                                        <h5>Anna Mull</h5>
-                                        <p class="mb-0">1 hour ago</p>
-                                    </div>
-                                </li>
-                                <li class="d-flex mb-4 align-items-center">
-                                    <img src="{{ asset('images/page-img/s3.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
-                                    <div class="stories-data ml-3">
-                                        <h5>Ira Membrit</h5>
-                                        <p class="mb-0">4 hour ago</p>
-                                    </div>
-                                </li>
-                                <li class="d-flex align-items-center">
-                                    <img src="{{ asset('images/page-img/s1.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
-                                    <div class="stories-data ml-3">
-                                        <h5>Bob Frapples</h5>
-                                        <p class="mb-0">9 hour ago</p>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="btn btn-primary d-block mt-3">See All</a>
-                        </div>
+                    <div id="myMap"  class="iq-card">
+                        <style>
+                            #myMap {height: 200px;}
+                        </style>
+                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+                        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+                        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+                        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+                        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+                        <script>
+
+                            var villes = {
+                                "Paris": { "lat": 48.852969, "lon": 2.349903 },
+                                "Brest": { "lat": 48.383, "lon": -4.500 },
+                                "Quimper": { "lat": 48.000, "lon": -4.100 },
+                                "Bayonne": { "lat": 43.500, "lon": -1.467 }
+                            };
+                            var tableauMarqueurs = [];
+
+                            // On initialise la map
+                            var map = L.map('myMap').setView([48.852969, 2.349903], 13);
+
+                            // On charge les "tuiles"
+                            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                                // Il est toujours bien de laisser le lien vers la source des données
+                                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                                minZoom: 1,
+                                maxZoom: 20
+                            }).addTo(map);
+
+                            var marqueurs = L.markerClusterGroup();
+
+                            // On personnalise le marqueur
+                            var icone = L.icon({
+                                iconUrl: "https://i.ibb.co/jMP67tD/placeholder-1.png",
+                                iconSize: [50, 50],
+                                iconAnchor: [25, 50],
+                                popupAnchor: [0, -50]
+                            })
+
+                            // On parcourt les différentes villes
+                            for(ville in villes){
+                                // On crée le marqueur et on lui attribue une popup
+                                var marqueur = L.marker([villes[ville].lat, villes[ville].lon], {icon: icone}); //.addTo(map); Inutile lors de l'utilisation des clusters
+                                marqueur.bindPopup("<p>"+ville+"</p>");
+                                marqueurs.addLayer(marqueur); // On ajoute le marqueur au groupe
+
+                                // On ajoute le marqueur au tableau
+                                tableauMarqueurs.push(marqueur);
+                            }
+                            // On regroupe les marqueurs dans un groupe Leaflet
+                            var groupe = new L.featureGroup(tableauMarqueurs);
+
+                            // On adapte le zoom au groupe
+                            map.fitBounds(groupe.getBounds().pad(0.5));
+
+                            map.addLayer(marqueurs);
+
+
+
+                        </script>
+
+
+
+
                     </div>
                     <div class="iq-card">
                         <div class="iq-card-header d-flex justify-content-between">
@@ -462,9 +514,12 @@
                 </div>
                 <div class="col-sm-12 text-center">
                     <img src="{{ asset('images/page-img/page-load-loader.gif') }}" alt="loader" style="height: 100px;">
+                    <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 </div>
             </div>
         </div>
     </div>
+
+
     </div>
 {% endblock %}

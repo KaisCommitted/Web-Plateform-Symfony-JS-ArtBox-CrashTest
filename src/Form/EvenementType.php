@@ -10,6 +10,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+
+
 
 
 class EvenementType extends AbstractType
@@ -17,18 +28,19 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
-            ->add('nomEvent')
-            ->add('description')
-            ->add('capaciteEvent')
-            ->add('nbMax')
-            ->add('File',FileType::class)
-            ->add('locationEvent')
+            ->add('date', DateType::class ,array('attr' => array('class' => 'form-control')))
+            ->add('nomEvent', TextType::class ,array('attr' => array('class' => 'form-control')))
+            ->add('description', TextareaType::class ,array('attr' => array('class' => 'form-control')))
+            ->add('nbMax', IntegerType::class ,array('attr' => array('class' => 'form-control'), 'label' => 'Event capacity '))
 
-            ->add('categorie')
-            ->add('typeEvent')
-            ->add('idOrg')
-            ->add('captcha', CaptchaType::class);
+            ->add('locationEvent',TextType::class ,array('attr' => array('class' => 'form-control')))
+
+            ->add('categorie',  null ,array('attr' => array('class' => 'form-control')))
+            ->add('typeEvent',  null ,array('attr' => array('class' => 'form-control')))
+            ->add('idOrg',  null ,array('attr' => array('class' => 'form-control')))
+            ->add('File',FileType::class ,array('attr' => array('class' => 'form-control'), 'label' => 'Choose an Image for your Event      '))
+            ->add('captcha', CaptchaType::class,array('attr' => array('class' => 'form-control'), 'label' => 'Enter Captcha Code  '));
+
         ;
     }
 
