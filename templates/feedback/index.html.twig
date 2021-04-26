@@ -6,19 +6,23 @@
 {% block content %}
     <h1>Feedback index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
+
+
+        <table id ="tableac">
+
+            <thead>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type"<tbody>
+           <tr>
                 <th>IdFeedback</th>
                 <th>ContenuFeedback</th>
-                <th>TypeFeedback</th>
+                <th>TypeFeedback</th>t
                 <th>EtatFeedback</th>
                 <th>DateFeedback</th>
                 <th>actions</th>
             </tr>
-        </thead>
-        <tbody>
+
         {% for feedback in feedback %}
+        <tbody>
             <tr>
                 <td>{{ feedback.idFeedback }}</td>
                 <td>{{ feedback.contenuFeedback }}</td>
@@ -34,10 +38,45 @@
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
+            </tbody>
         {% endfor %}
-        </tbody>
+
     </table>
 
     <a href="{{ path('feedback_new') }}">Create new</a>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found === 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+
 {% endblock %}
 {% endblock %}
