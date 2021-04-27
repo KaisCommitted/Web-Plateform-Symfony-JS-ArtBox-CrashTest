@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 05:44 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Apr 22, 2021 at 05:25 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,8 +65,6 @@ CREATE TABLE `categorie` (
 
 INSERT INTO `categorie` (`categorie_name`) VALUES
 ('Cinema'),
-('Manga'),
-('Photography'),
 ('Singing'),
 ('Street Art');
 
@@ -118,7 +116,7 @@ CREATE TABLE `doctrine_migration_versions` (
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20210409150002', '2021-04-09 17:00:15', 37608),
 ('DoctrineMigrations\\Version20210409164028', '2021-04-09 18:40:39', 14560),
-('DoctrineMigrations\\Version20210410100256', '2021-04-10 12:03:16', 1195);
+('DoctrineMigrations\\Version20210410100256', '2021-04-21 13:47:54', 33);
 
 -- --------------------------------------------------------
 
@@ -141,17 +139,6 @@ CREATE TABLE `evenement` (
   `rating_event` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `evenement`
---
-
-INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
-(111, 18, '2016-01-01', 'whatever', 'Festival', 'Photography', 'whatever', 20, 20, '1 (6).jpg', 'whatever', 5),
-(112, 18, '2016-01-01', 'Unique', 'Online', 'Manga', 'whatever', 20, 20, '1 (6).jpg', 'whatever', 0),
-(116, 18, '2022-01-01', 'Imageworks', 'Festival', 'Cinema', 'whatever', 19, 20, '1 (8).jpg', 'whatever', 0),
-(118, 18, '2023-01-01', 'test', 'Festival', 'Cinema', 'test', 4, 5, '1 (3).png', 'aa', 0),
-(122, 19, '2021-04-16', 'JavaFXtoWeb', 'Festival', 'Manga', 'here', 20, 20, 'JavaFXtoWeb1 (1).png', 'here', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -164,7 +151,7 @@ CREATE TABLE `feedback` (
   `contenu_feedback` varchar(255) NOT NULL,
   `type_feedback` varchar(30) NOT NULL,
   `etat_feedback` varchar(30) NOT NULL,
-  `date_feedback` date NOT NULL DEFAULT current_timestamp()
+  `date_feedback` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -210,13 +197,6 @@ CREATE TABLE `partenaire` (
   `id_user` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `partenaire`
---
-
-INSERT INTO `partenaire` (`id_part`, `nom`, `adresse`, `logo`, `rib`, `tel`, `status`, `id_user`) VALUES
-(1, 'Sodexo', 'whatever', 'C:/xampp/php/www/ArtBox-CrashTest-WEB/public/imagepartenaire/partner.jpg', '15695213', '5447264', '1', 19);
-
 -- --------------------------------------------------------
 
 --
@@ -229,16 +209,6 @@ CREATE TABLE `participant` (
   `id_event` int(11) DEFAULT NULL,
   `ticket` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `participant`
---
-
-INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) VALUES
-(267, 18, 118, ''),
-(268, 19, 111, ''),
-(269, 19, 116, '019116'),
-(270, 19, 118, '019118');
 
 -- --------------------------------------------------------
 
@@ -324,16 +294,18 @@ CREATE TABLE `user` (
   `pwd_user` varchar(255) NOT NULL,
   `ref_admin` varchar(1) NOT NULL,
   `id_label` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `isVerified` tinyint(1) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '-', 0, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 0, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png');
+INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `isVerified`, `image`) VALUES
+(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 0, 0, ''),
+(21, 'fsdfs', 'sd', 'fsd', 'sfdf', '2016-01-01', 'dfs', 'f', 2, 0, ''),
+(22, 'aaaaaaaa', 'sfdsfd', 'aaaaaaaaaa', 'dsffdsfds', '2016-01-01', '555', 'f', 4, 0, '');
 
 --
 -- Indexes for dumped tables
@@ -393,6 +365,7 @@ ALTER TABLE `evenement`
   ADD KEY `id_org` (`id_org`),
   ADD KEY `categorie` (`categorie`),
   ADD KEY `ssss` (`type_event`);
+ALTER TABLE `evenement` ADD FULLTEXT KEY `IDX_B26681E915696326DE44026` (`nom_event`,`description`);
 
 --
 -- Indexes for table `feedback`
@@ -498,7 +471,7 @@ ALTER TABLE `comment_event`
 -- AUTO_INCREMENT for table `evenement`
 --
 ALTER TABLE `evenement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -522,19 +495,19 @@ ALTER TABLE `label`
 -- AUTO_INCREMENT for table `partenaire`
 --
 ALTER TABLE `partenaire`
-  MODIFY `id_part` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_part` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `participant`
 --
 ALTER TABLE `participant`
-  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
 
 --
 -- AUTO_INCREMENT for table `postes`
 --
 ALTER TABLE `postes`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rating_event`
@@ -552,7 +525,7 @@ ALTER TABLE `signalisation`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
@@ -583,16 +556,16 @@ ALTER TABLE `comments`
 -- Constraints for table `comment_event`
 --
 ALTER TABLE `comment_event`
-  ADD CONSTRAINT `FK_923492566B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `FK_92349256D52B4B97` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`);
+  ADD CONSTRAINT `FK_923492566B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_92349256D52B4B97` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `evenement`
 --
 ALTER TABLE `evenement`
+  ADD CONSTRAINT `FK_B26681E35A28D50` FOREIGN KEY (`type_event`) REFERENCES `type_event` (`type_name`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_B26681E497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`),
-  ADD CONSTRAINT `FK_B26681EECB152DA` FOREIGN KEY (`id_org`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `evenement_ibfk_2` FOREIGN KEY (`type_event`) REFERENCES `type_event` (`type_name`);
+  ADD CONSTRAINT `FK_B26681EECB152DA` FOREIGN KEY (`id_org`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `feedback`
