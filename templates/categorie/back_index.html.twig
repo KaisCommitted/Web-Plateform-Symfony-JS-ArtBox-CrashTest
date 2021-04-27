@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Categorie index{% endblock %}
 
-{% block header %} {% endblock %}
+
     {% block content %}
         <h1>Categories</h1>
         <div id="content-page" class="content-page">
@@ -40,8 +40,8 @@
                                            </td>
 
                                             <td>
-                                                <a href="{{ path('categorie_show', {'categorieName': categorie.categorieName}) }}">show</a>
-                                                <a href="{{ path('categorie_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
+                                                <a href="{{ path('categorie_back_show', {'categorieName': categorie.categorieName}) }}">show</a>
+                                                <a href="{{ path('categorie_back_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -52,7 +52,7 @@
                                     </tbody>
                                 </table>
 
-                                <a href="{{ path('categorie_new') }}">Create new</a>
+                                <a href="{{ path('categorie_back_new') }}">Create new</a>
                             </div>
                         </div>
                     </div>

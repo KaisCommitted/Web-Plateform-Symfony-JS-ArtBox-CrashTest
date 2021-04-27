@@ -1,10 +1,10 @@
 {% extends 'back.html.twig' %}
 
-{% block title %}Edit Evenement{% endblock %}
+{% block title %}Edit Categorie{% endblock %}
 
 
 {% block content %}
-    <h1>Edit Evenement</h1>
+    <h1>Categories</h1>
     <div id="content-page" class="content-page">
         <div class="container">
             <div class="row">
@@ -16,19 +16,22 @@
                             </div>
                         </div>
                         <div class="iq-card-body">
-                            {{ include('evenement/back_form.html.twig', {'button_label': 'Update'}) }}
+                            <h1>Edit Categorie</h1>
 
+                            {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
 
+                            <a href="{{ path('categorie_back_index') }}">back to list</a>
 
-                            {{ include('evenement/back_delete_form.html.twig') }}
-                            <a href="{{ path('evenement_back_index') }}">Show Events</a>
+                            {{ include('categorie/back_delete_form.html.twig') }}
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
     </div>
+    </div>
+
+
 
 {% endblock %}

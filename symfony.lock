@@ -166,6 +166,8 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "spatie/calendar-links": {
+        "version": "1.4.4"
     "symfony/amazon-mailer": {
         "version": "4.4",
         "recipe": {

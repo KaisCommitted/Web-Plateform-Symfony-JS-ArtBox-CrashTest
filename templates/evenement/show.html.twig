@@ -80,7 +80,25 @@
                                             <div class="like-data">
                                                 <div class="dropdown">
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                <img src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="">
+                                                  <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
+                                                      <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
+                                                <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+
+
+                                                      <!------------------------  Refresh Script  --------------------- -->
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                    <script type="text/javascript">
+                                                        $("#reloader").click(function () {
+                                                            $("#comment_area").load(" #comment_area");
+
+                                                        });
+                                                    </script>
+                                                      <!------------------------  Refresh Script  --------------------- -->
+
+
+                                                  </form>
+
+
                                                 </span>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#" >Join</a>
@@ -121,10 +139,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="share-block d-flex align-items-center feather-icon mr-3">
-                                        <a href="javascript:void();"><i class="ri-share-line"></i>
-                                            <span class="ml-1">99 Share</span></a>
-                                    </div>
+                                    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+                                    <form  id="RatingForm" method="post" action="{{ path('rating_event_new')}}" >
+                                        <div class="share-block d-flex align-items-center feather-icon mr-3">
+                                            <div class="stars">
+                                                <i class="lar la-star"  data-value="1" ></i><i class="lar la-star"  data-value="2"></i><i class="lar la-star"  data-value="3"></i><i class="lar la-star"  data-value="4"></i><i class="lar la-star"  data-value="5"></i>
+                                            </div>
+                                            <input  type="hidden" name="note" id="note" value="0">
+                                            <input  type="hidden" name="ratedEvent" id="ratedEvent" type="text" value={{ evenement.nomEvent}}>
+                                            <script src="{{ asset('js/scripts.js') }}"></script>
+
+                                            <span  class="ml-1">{{ 'Rating : ' ~ evenement.ratingEvent ~ '/5   '}}</span></a>
+                                            <button  class="btn btn-primary" type="submit"> ✓ </button>
+                                        </div>
+                                </div>
+                                </form>
                                 </div>
                                 <hr>
                                 <ul class="post-comments p-0 m-0">
