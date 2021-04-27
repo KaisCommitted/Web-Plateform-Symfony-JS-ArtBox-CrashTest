@@ -55,6 +55,7 @@ class CommentEvent
      */
     private $idUser;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,12 +73,12 @@ class CommentEvent
         return $this;
     }
 
-    public function getCommentdate(): ?\DateTimeInterface
+    public function getCommentdate(): ?\DateTime
     {
         return $this->commentdate;
     }
 
-    public function setCommentdate(\DateTimeInterface $commentdate): self
+    public function setCommentdate(\DateTime $commentdate): self
     {
         $this->commentdate = $commentdate;
 
@@ -106,6 +107,12 @@ class CommentEvent
         $this->idUser = $idUser;
 
         return $this;
+    }
+
+
+    public function __construct()
+    {
+        $this->commentdate= new \DateTime();
     }
 
 

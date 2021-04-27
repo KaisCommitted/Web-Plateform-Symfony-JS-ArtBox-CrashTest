@@ -3,9 +3,47 @@
 {% block title %}Evenement index{% endblock %}
 
 
+{% block search %}
+    <div class="iq-search-bar">
+        <form action="{{path('evenement_search')}}"  method="post" class="searchbox">
+            <input name="mots" type="text" class="text search-input" placeholder="Type here to search...">
+            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+        </form>
+    </div>
+{% endblock %}
+
+
 {% block content %}
     <!-- Page Content  -->
+    <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <form id="suggestCatForm" method="post" action="{{ path('categorie_new')}}" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Suggest Genre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <div class="form-group">
+
+                        <label for="catName">Categorie Name</label>
+                        <input name="catName" type="text" class="form-control" id="catName" placeholder="Enter Categorie Name..">
+                        <div class="custom-file">
+                            <label for="catImage">Categorie Image</label>
+                            <input name="catImage" type="file" class="form-control-file" id="catImage">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="suggestCatForm" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
     <div id="content-page" class="content-page" xmlns="http://www.w3.org/1999/html">
         <div class="container">
@@ -19,12 +57,13 @@
 
 
                             <form  id="CatForm" method="post" action="{{ path('evenement_cat')}}" >
-                            <select id="selectDo" class="btn btn-primary d-block w-100 mt-3"  style="" onchange="myFunction(event); this.form.submit(); "  >
-                                <option value="" disabled selected>Choose genre..</option>
+                            <select id="selectDo" class="form-control form-control-sm mb-3"   onchange="myFunction(event); this.form.submit(); "  >
+                                <option  value="" disabled selected>Choose genre..</option>
                                 {% for c in categories %}
-                                <option class="dropdown-item"  onclick="document.getElementById('CatForm').submit();" ><i class="ri-eye-fill mr-2"></i>{{ c.categorieName}}</option>
+                                <option   onclick="document.getElementById('CatForm').submit();" >{{ c.categorieName}}</option>
 
                                 {% endfor %}
+
                                 <input  type="hidden" name="myText" id="myText" type="text" value="colors">
 
 
@@ -36,9 +75,12 @@
                             </select>
                             </form>
                         </div>
+                        <button type="button" class="btn btn-outline-primary rounded-pill mb-3" data-toggle="modal" data-target="#exampleModalCenteredScrollable">
+                            Suggest Genres
+                        </button>
                         <div class="dropdown">
 
-                                 <span style="position: absolute; top: 0px; left: 400px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <span style="position: absolute; top: 0px; left: 270px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
                                    Filter by
                                      <i class="ri-more-fill"></i>
 
@@ -54,7 +96,7 @@
                         </div>
                         <div class="dropdown">
 
-                                 <span style="position: absolute; top: -20px; left: 400px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <span style="position: absolute; top: -20px; left: 270px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
                                    Sort By
                                      <i class="ri-more-fill"></i>
 
@@ -70,7 +112,7 @@
                     </div>
                     
                     <div class="col-sm-12">
-                        <form action="{{ path('evenement_new') }}">
+                        <form id="new form" action="{{ path('evenement_new') }}">
 
                         <button  type="submit" class="btn btn-primary d-block w-100 mt-3">Host An Event</button>
                         </form>
@@ -104,10 +146,10 @@
                                             </div>
                                             <div class="media-support-info mt-2">
 
-                                                <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
+
                                                 <h5 class="mb-0 d-inline-block"><a href="#" class="">{{ evenement.idOrg}}</a></h5>
                                                 <a href="{{ path('evenement_show', {'id': evenement.id}) }}"  class="mb-0 d-inline-block">{{'Is Hosting ' ~ evenement.nomEvent}}</a>
-                                                <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
+
 
                                             </div>
                                             <div class="iq-card-post-toolbar">
@@ -209,11 +251,13 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="like-data">
                                                         <div class="dropdown">
+                                                            <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-
+                                               <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
                                                 <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
-                                                        </form>
+
                                                 </span>
+                                                            </form>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="#" >Join</a>
                                                             </div>
@@ -265,64 +309,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form  id="RatingForm" method="post" action="{{ path('rating_event_new')}}" >
-                                            <div class="share-block d-flex align-items-center feather-icon mr-3">
-                                                <div class="stars">
-                                                    <i class="lar la-star"  data-value="1" ></i><i class="lar la-star"  data-value="2"></i><i class="lar la-star"  data-value="3"></i><i class="lar la-star"  data-value="4"></i><i class="lar la-star"  data-value="5"></i>
-                                                </div>
-                                                <input  type="hidden" name="note" id="note" value="0">
-                                                <input  type="hidden" name="ratedEvent" id="ratedEvent" type="text" value={{ evenement.nomEvent}}>
-                                                <script src="{{ asset('js/scripts.js') }}"></script>
 
+                                            <div class="share-block d-flex align-items-center feather-icon mr-3">
                                                     <span  class="ml-1">{{ 'Rating : ' ~ evenement.ratingEvent ~ '/5   '}}</span></a>
-                                                <button  class="btn btn-primary" type="submit"> ✓ </button>
+
                                             </div>
                                             </div>
-                                            </form>
+
 
                                         <hr>
-                                        <ul class="post-comments p-0 m-0">
-                                            <li class="mb-2">
-                                                <div class="d-flex flex-wrap">
-                                                    <div class="user-img">
-                                                        <img src="{{ asset('images/user/02.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
-                                                    </div>
-                                                    <div class="comment-data-block ml-3">
-                                                        <h6>Monty Carlo</h6>
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                        <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                            <a href="javascript:void();">like</a>
-                                                            <a href="javascript:void();">reply</a>
-                                                            <a href="javascript:void();">translate</a>
-                                                            <span> 5 min </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex flex-wrap">
-                                                    <div class="user-img">
-                                                        <img src="{{ asset('images/user/03.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
-                                                    </div>
-                                                    <div class="comment-data-block ml-3">
-                                                        <h6>Paul Molive</h6>
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet</p>
-                                                        <div class="d-flex flex-wrap align-items-center comment-activity">
-                                                            <a href="javascript:void();">like</a>
-                                                            <a href="javascript:void();">reply</a>
-                                                            <a href="javascript:void();">translate</a>
-                                                            <span> 5 min </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                                            <input type="text" class="form-control rounded">
+
+                                        <form id="CommentForm" class="comment-text d-flex align-items-center mt-3" method="post" action="{{ path('comment_event_new')}}">
+                                            <input name="comment" id="comment" type="text" class="form-control rounded" placeholder="Type here to comment...">
                                             <div class="comment-attagement d-flex">
-                                                <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                                                <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                                                <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                                <input  type="hidden" name="commentedEvent" id="commentedEvent" type="text" value={{ evenement.nomEvent}}>
+
                                             </div>
                                         </form>
                                     </div>

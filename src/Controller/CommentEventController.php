@@ -3,7 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\CommentEvent;
+use App\Entity\Evenement;
+use App\Entity\User;
 use App\Form\CommentEventType;
+use App\Repository\EvenementRepository;
+use App\Repository\CommentEventRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,23 +38,36 @@ class CommentEventController extends AbstractController
     /**
      * @Route("/new", name="comment_event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,EvenementController $evenementController,CommentEventRepository $commentEventRepository,EvenementRepository $evenementRepository, UserRepository $userRepository): Response
     {
+        $data=$request->get('commentedEvent');
+        $comment = $request->get('comment');
+        $evenement = new Evenement();
+        $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
+        $user= new User();
+        $user = $userRepository->findOneBy(['username' => 'kais']);
         $commentEvent = new CommentEvent();
-        $form = $this->createForm(CommentEventType::class, $commentEvent);
-        $form->handleRequest($request);
+        $commentEvent->setIdEvent($evenement);
+        $commentEvent->setIdUser($user);
+        $commentEvent->setContent($comment);
+        $Exists = $commentEventRepository->findOneBy(['idUser' => $user->getIdUser() , 'idEvent' => $evenement->getId()]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commentEvent);
+        $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($commentEvent);
-            $entityManager->flush();
+     $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
 
-            return $this->redirectToRoute('comment_event_index');
-        }
 
-        return $this->render('comment_event/new.html.twig', [
-            'comment_event' => $commentEvent,
-            'form' => $form->createView(),
+
+
+
+
+
+
+
+        return $this->render('evenement/show.html.twig', [
+            'evenement' => $evenement,
+            'comments' => $comments,
         ]);
     }
 
@@ -82,16 +102,26 @@ class CommentEventController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_event_delete", methods={"POST"})
+     * @Route("/delete", name="comment_event_delete", methods={"POST"})
      */
-    public function delete(Request $request, CommentEvent $commentEvent): Response
+    public function delete(Request $request,CommentEventRepository $commentEventRepository,EvenementRepository $evenementRepository)
     {
-        if ($this->isCsrfTokenValid('delete'.$commentEvent->getId(), $request->request->get('_token'))) {
+        $id=$request->get('deletedComment');
+        $data=$request->get('deletedEvent');
+        $commentEvent = $commentEventRepository->findOneBy(['id' => $id]);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($commentEvent);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('comment_event_index');
+
+
+        $evenement = new Evenement();
+        $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
+        $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
+
+        return $this->render('evenement/show.html.twig', [
+            'evenement' => $evenement,
+            'comments' => $comments,
+        ]);
     }
 }

@@ -45,8 +45,14 @@
                                            </td>
 
                                             <td>
-                                                <a href="{{ path('categorie_back_show', {'categorieName': categorie.categorieName}) }}">show</a>
-                                                <a href="{{ path('categorie_back_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
+                                                <form id="AcceptForm" class="comment-text d-flex align-items-center mt-3" method="post" action="{{ path('categorie_back_accept')}}">
+                                                    <button type="submit" form="AcceptForm" class="btn btn-primary">Accept</button>
+                                                    <input  type="hidden" name="AcceptedCat" id="myCat" type="text" value={{ categorie.categorieName }}>
+                                                </form>
+                                                <form id="RefuseForm" class="comment-text d-flex align-items-center mt-3" method="post" action="{{ path('categorie_back_refuse')}}">
+                                                    <button type="submit" form="RefuseForm" class="btn btn-primary">Decline</button>
+                                                    <input  type="hidden" name="RefusedCat" id="myCat" type="text" value={{ categorie.categorieName }}>
+                                                </form>
                                             </td>
                                         </tr>
                                     {% else %}

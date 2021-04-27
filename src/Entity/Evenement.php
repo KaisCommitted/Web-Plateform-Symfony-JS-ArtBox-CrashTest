@@ -319,9 +319,6 @@ class Evenement
         return $this->nomEvent;
     }
 
-     public function initializeNb(Evenenemnt $evenement)
-     {
-         $this->setNbMax($this->getCapaciteEvent());
-    }
+
 
 }
