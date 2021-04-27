@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Evenement;
 use App\Form\EvenementType;
+use App\Repository\CommentEventRepository;
 use App\Repository\EvenementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,10 +75,12 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{id}", name="evenement_show", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement,CommentEventRepository $commentEventRepository): Response
     {
+        $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'comments' => $comments,
         ]);
     }
 
