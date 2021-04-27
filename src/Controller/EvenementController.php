@@ -50,15 +50,17 @@ class EvenementController extends AbstractController
 //            var_dump($evenement);
 //            die();
             $evenement->upload();
+            $evenement->setCapaciteEvent($evenement->getNbMax());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($evenement);
             $entityManager->flush();
 
 
+            $this->CalendarRedirect($evenement);
 
-          // return $this->redirectToRoute('evenement_index');
+           return $this->redirectToRoute('evenement_index');
 
-            return  $this->CalendarRedirect($evenement);
+
         }
 
 
@@ -747,5 +749,42 @@ class EvenementController extends AbstractController
     }
 
 
+
+
+
+
+    public function UpdateJoin(Evenement $evenement)
+    {
+        $part = $evenement->getCapaciteEvent();
+        $part = $part -1 ;
+        $evenement->setCapaciteEvent($part);
+
+        $this->getDoctrine()->getManager()->flush();
+
+
+    }
+
+    public function UpdateCancel(Evenement $evenement)
+    {
+        $part = $evenement->getCapaciteEvent();
+        $part = $part +1 ;
+        $evenement->setCapaciteEvent($part);
+
+        $this->getDoctrine()->getManager()->flush();
+
+
+    }
+
+    public function UpdateRating(Evenement $evenement,int $sum,int $total)
+    {
+
+        $NewRating = $sum / $total ;
+
+        $evenement->setRatingEvent($NewRating);
+
+        $this->getDoctrine()->getManager()->flush();
+
+
+    }
 
 }

@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\User;
+use App\Entity\Evenement;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Repository\EvenementRepository;
+use App\Repository\ParticipantRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +33,7 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="participant_new", methods={"GET","POST"})
+     * @Route("/new/new", name="participant_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -94,4 +98,51 @@ class ParticipantController extends AbstractController
 
         return $this->redirectToRoute('participant_index');
     }
+
+
+
+    /**
+     * @Route("/newTrying/new", name="participant_newTrying", methods={"GET","POST"})
+     */
+    public function newTrying(Request $request,EvenementController $evenementController,ParticipantRepository $participantRepository,EvenementRepository $evenementRepository, UserRepository $userRepository)
+    {
+
+        $data=$request->get('myEvent');
+
+        $evenement = new Evenement();
+        $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
+        $user= new User();
+        $user = $userRepository->findOneBy(['username' => 'kais']);
+        $participant = new Participant();
+        $participant->setIdEvent($evenement);
+        $participant->setIdUser($user);
+        $ticket = '';
+        $ticket .= $evenement->getId();
+        $ticket .= $user->getIdUser();
+        $participant->setTicket($ticket);
+        if ( ($participantRepository->findOneBy(['ticket' => $participant->getTicket()])  ))
+        {   $participant =  $participantRepository->findOneBy(['ticket' => $participant->getTicket()]) ;
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($participant);
+            $entityManager->flush();
+            $evenementController->UpdateCancel($evenement);
+
+
+        } else {
+
+
+            $evenementController->UpdateJoin($evenement);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($participant);
+            $entityManager->flush();
+
+        }
+
+        return $this->render('evenement/show.html.twig', [
+            'evenement' => $evenement,
+        ]);
+    }
+
+
+
 }
