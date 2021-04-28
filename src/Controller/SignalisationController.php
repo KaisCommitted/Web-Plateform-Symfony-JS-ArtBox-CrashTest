@@ -117,7 +117,7 @@ class SignalisationController extends AbstractController
             ->getRepository(Signalisation::class)
             ->findAll();
 
-        return $this->render('signalisation/index.html.twig', [
+        return $this->render('signalisation/back.index.html.twig', [
             'signalisations' => $signalisations,
         ]);
     }

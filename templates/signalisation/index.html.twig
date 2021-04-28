@@ -2,8 +2,6 @@
 
 {% block title %}Signalisation index{% endblock %}
 
-{% block header %} Reports {% endblock %}
-
 
 {% block content %}
     <h1>Report index</h1>
@@ -21,7 +19,7 @@
                     <div class="iq-card-body">
                         <table id="tableac">
                             <thead>
-                            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type"><tbody>
+                            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type">
                             <tr>
                 <th>IdSignal</th>
                 <th>ContenuSignal</th>
@@ -31,15 +29,15 @@
                 <th>actions</th>
                             </tr>
 
-                            <tbody>
+
         {% for signalisation in signalisations %}
+            <tbody>
             <tr>
                 <td>{{ signalisation.idSignal }}</td>
                 <td>{{ signalisation.contenuSignal }}</td>
                 <td>{{ signalisation.typeSignal }}</td>
                 <td>{{ signalisation.etatSignal }}</td>
                 <td>{{ signalisation.dateSignal ? signalisation.dateSignal|date('Y-m-d') : '' }}</td>
-
                 <td>
                     <a href="{{ path('signalisation_show', {'idSignal': signalisation.idSignal}) }}">show</a>
                     <a href="{{ path('signalisation_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
