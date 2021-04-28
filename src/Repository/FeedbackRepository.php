@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Feedback[]    findAll()
  * @method Feedback[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class FeedbackRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -19,32 +20,17 @@ class FeedbackRepository extends ServiceEntityRepository
         parent::__construct($registry, Feedback::class);
     }
 
-    // /**
-    //  * @return Feedback[] Returns an array of Feedback objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    function tri_asc()
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('feedback')
+            ->orderBy('feedback.contenue ', 'ASC')
+            ->getQuery()->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Feedback
+    function tri_desc()
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->createQueryBuilder('feedback')
+            ->orderBy('feedback.contenue ', 'DESC')
+            ->getQuery()->getResult();
     }
-    */
 }

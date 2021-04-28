@@ -4,47 +4,397 @@
 
 
 {% block content %}
-    <h1>Postes index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdPost</th>
-                <th>Description</th>
-                <th>NomPost</th>
-                <th>File</th>
-                <th>PostDate</th>
-                <th>AlbumCover</th>
-                <th>Likes</th>
-                <th>DescAnalys</th>
-                <th>PostType</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for poste in postes %}
-            <tr>
-                <td>{{ poste.idPost }}</td>
-                <td>{{ poste.description }}</td>
-                <td>{{ poste.nomPost }}</td>
-                <td>{{ poste.file }}</td>
-                <td>{{ poste.postDate ? poste.postDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ poste.albumCover }}</td>
-                <td>{{ poste.likes }}</td>
-                <td>{{ poste.descAnalys }}</td>
-                <td>{{ poste.postType }}</td>
-                <td>
-                    <a href="{{ path('postes_show', {'idPost': poste.idPost}) }}">show</a>
-                    <a href="{{ path('postes_edit', {'idPost': poste.idPost}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Page Content  -->
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
 
-    <a href="{{ path('postes_new') }}">Create new</a>
+                <div class="col-lg-8 row m-0 p-0">
+                    <div class="iq-card-header-toolbar d-flex align-items-center">
+                        <div class="dropdown">
+
+                                 <span class="dropdown-toggle" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <i class="ri-more-fill"></i>
+                                     Choose genre
+                                 </span>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01" style="">
+
+                                {% for c in categories %}
+                                    <a class="dropdown-item"  href="{{ path('evenement_cat', {'name': c.categorieName}) }}"><i class="ri-eye-fill mr-2"></i>{{ c.categorieName}}</a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="dropdown">
+
+                                 <span style="position: absolute; top:-10px; left: 450px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                   Filter by
+                                     <i class="ri-more-fill"></i>
+
+                                 </span>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+                                <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>Most Rated</a>
+                                <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>This Month</a>
+                                <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>This Week</a>
+                                <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Today</a>
+                                <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <form action="{{ path('evenement_new') }}">
+
+                            <button  type="submit" class="btn btn-primary d-block w-100 mt-3">Host An Event</button>
+                        </form>
+                    </div>
+
+
+                    <!-- PostBox -->
+                    {% for poste in postes %}
+
+                    <div class="col-sm-12">
+                        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                            <div class="iq-card-body">
+                                <div class="user-post-data">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="media-support-user-img mr-3">
+                                            <img class="rounded-circle img-fluid" src="{{ asset('images/user/04.jpg')}}" alt="">
+                                        </div>
+                                        <div class="media-support-info mt-2">
+                                            <h5 class="mb-0 d-inline-block"><a href="#" class="">Ira Membrit</a></h5>
+                                            <a href="{{ path('postes_show', {'id': poste.idPost}) }}"  class="mb-0 d-inline-block">{{'Posted ' ~ poste.nomPost}}</a>
+
+                                        </div>
+                                        <div class="iq-card-post-toolbar">
+                                            <div class="dropdown">
+                                          <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                          <i class="ri-more-fill"></i>
+                                          </span>
+                                                <div class="dropdown-menu m-0 p-0">
+                                                    <a class="dropdown-item p-3" href="#">
+                                                        <div class="d-flex align-items-top">
+                                                            <div class="icon font-size-20"><i class="ri-save-line"></i></div>
+                                                            <div class="data ml-2">
+                                                                <h6>Save Post</h6>
+                                                                <p class="mb-0">Add this to your saved items</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="dropdown-item p-3" href="#">
+                                                        <div class="d-flex align-items-top">
+                                                            <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>
+                                                            <div class="data ml-2">
+                                                                <h6>Hide Post</h6>
+                                                                <p class="mb-0">See fewer posts like this.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="dropdown-item p-3" href="#">
+
+                                                        <div class="d-flex align-items-top">
+                                                            <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>
+                                                            <div class="data ml-2">
+                                                                <h6>Unfollow User</h6>
+                                                                <p class="mb-0">Stop seeing posts but stay friends.</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="dropdown-item p-3" href="#">
+                                                        <div class="d-flex align-items-top">
+                                                            <div class="icon font-size-20"><i class="ri-notification-line"></i></div>
+                                                            <div class="data ml-2">
+                                                                <h6>Notifications</h6>
+                                                                <p class="mb-0">Turn on notifications for this post</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus</p>
+                                </div>
+                                <div class="comment-area mt-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="like-block position-relative d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <div class="like-data">
+                                                    <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                <img src="{{ asset('images/icon/01.png')}}" class="img-fluid" alt="">
+                                                </span>
+                                                        <div class="dropdown-menu">
+                                                            <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like"><img src="{{ asset('images/icon/01.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love"><img src="{{ asset('images/icon/02.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="{{ asset('images/icon/03.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="{{ asset('images/icon/04.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="{{ asset('images/icon/05.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="{{ asset('images/icon/06.png')}}" class="img-fluid" alt=""></a>
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="{{ asset('images/icon/07.png')}}" class="img-fluid" alt=""></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="total-like-block ml-2 mr-3">
+                                                    <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                140 Likes
+                                                </span>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Max Emum</a>
+                                                            <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                            <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                            <a class="dropdown-item" href="#">Tara Misu</a>
+                                                            <a class="dropdown-item" href="#">Midge Itz</a>
+                                                            <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                            <a class="dropdown-item" href="#">Other</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="total-comment-block">
+                                                <div class="dropdown">
+                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                             20 Comment
+                                             </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="share-block d-flex align-items-center feather-icon mr-3">
+                                            <a href="javascript:void();"><i class="ri-share-line"></i>
+                                                <span class="ml-1">99 Share</span></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <ul class="post-comments p-0 m-0">
+                                        <li class="mb-2">
+                                            <div class="d-flex flex-wrap">
+                                                <div class="user-img">
+                                                    <img src="{{ asset('images/user/02.jpg')}}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                                </div>
+                                                <div class="comment-data-block ml-3">
+                                                    <h6>Monty Carlo</h6>
+                                                    <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                        <a href="javascript:void();">like</a>
+                                                        <a href="javascript:void();">reply</a>
+                                                        <a href="javascript:void();">translate</a>
+                                                        <span> 5 min </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex flex-wrap">
+                                                <div class="user-img">
+                                                    <img src="{{ asset('images/user/03.jpg')}}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                                </div>
+                                                <div class="comment-data-block ml-3">
+                                                    <h6>Paul Molive</h6>
+                                                    <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                    <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                        <a href="javascript:void();">like</a>
+                                                        <a href="javascript:void();">reply</a>
+                                                        <a href="javascript:void();">translate</a>
+                                                        <span> 5 min </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                        <input type="text" class="form-control rounded">
+                                        <div class="comment-attagement d-flex">
+                                            <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
+                                            <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                                            <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    <!-- PostBox -->
+
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Stories</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <ul class="media-story m-0 p-0">
+                                <li class="d-flex mb-4 align-items-center">
+                                    <i class="ri-add-line font-size-18"></i>
+                                    <div class="stories-data ml-3">
+                                        <h5>Creat Your Story</h5>
+                                        <p class="mb-0">time to story</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex mb-4 align-items-center active">
+                                    <img src="{{ asset('images/page-img/s2.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Anna Mull</h5>
+                                        <p class="mb-0">1 hour ago</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex mb-4 align-items-center">
+                                    <img src="{{ asset('images/page-img/s3.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Ira Membrit</h5>
+                                        <p class="mb-0">4 hour ago</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <img src="{{ asset('images/page-img/s1.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Bob Frapples</h5>
+                                        <p class="mb-0">9 hour ago</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-primary d-block mt-3">See All</a>
+                        </div>
+                    </div>
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Events</h4>
+                            </div>
+                            <div class="iq-card-header-toolbar d-flex align-items-center">
+                                <div class="dropdown">
+                                 <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <i class="ri-more-fill"></i>
+                                 </span>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+                                        <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Print</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <ul class="media-story m-0 p-0">
+                                <li class="d-flex mb-4 align-items-center ">
+                                    <img src="{{ asset('images/page-img/s4.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Web Workshop</h5>
+                                        <p class="mb-0">1 hour ago</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <img src="{{ asset('images/page-img/s5.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Fun Events and Festivals</h5>
+                                        <p class="mb-0">1 hour ago</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Upcoming Birthday</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <ul class="media-story m-0 p-0">
+                                <li class="d-flex mb-4 align-items-center">
+                                    <img src="{{ asset('images/user/01.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Anna Sthesia</h5>
+                                        <p class="mb-0">Today</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <img src="{{ asset('images/user/02.jpg')}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Paul Molive</h5>
+                                        <p class="mb-0">Tomorrow</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Suggested Pages</h4>
+                            </div>
+                            <div class="iq-card-header-toolbar d-flex align-items-center">
+                                <div class="dropdown">
+                                 <span class="dropdown-toggle" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="false" role="button">
+                                 <i class="ri-more-fill"></i>
+                                 </span>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01" style="">
+                                        <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Print</a>
+                                        <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <ul class="suggested-page-story m-0 p-0 list-inline">
+                                <li class="mb-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="{{ asset('images/page-img/42.png')}}" alt="story-img" class="rounded-circle img-fluid avatar-50">
+                                        <div class="stories-data ml-3">
+                                            <h5>Iqonic Studio</h5>
+                                            <p class="mb-0">Lorem Ipsum</p>
+                                        </div>
+                                    </div>
+                                    <img src="{{ asset('images/small/img-1.jpg')}}" class="img-fluid rounded" alt="Responsive image">
+                                    <div class="mt-3"><a href="#" class="btn d-block"><i class="ri-thumb-up-line mr-2"></i> Like Page</a></div>
+                                </li>
+                                <li class="">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="{{ asset('images/page-img/42.png')}}" alt="story-img" class="rounded-circle img-fluid avatar-50">
+                                        <div class="stories-data ml-3">
+                                            <h5>Cakes & Bakes </h5>
+                                            <p class="mb-0">Lorem Ipsum</p>
+                                        </div>
+                                    </div>
+                                    <img src="{{ asset('images/small/img-2.jpg')}}" class="img-fluid rounded" alt="Responsive image">
+                                    <div class="mt-3"><a href="#" class="btn d-block"><i class="ri-thumb-up-line mr-2"></i> Like Page</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <img src="{{ asset('images/page-img/page-load-loader.gif')}}" alt="loader" style="height: 100px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 {% endblock %}

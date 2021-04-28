@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Spatie\CalendarLinks\Link;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Evenement
  * @UniqueEntity(fields={"nomEvent"} , message="Event name already exists")
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}), @ORM\Index(name="categorie", columns={"categorie"})} ,  uniqueConstraints={@ORM\UniqueConstraint(name="nom_event", columns={"nom_event"})})
+ * @ORM\Table(name="evenement", indexes={@ORM\Index(name="ssss", columns={"type_event"}), @ORM\Index(name="id_org", columns={"id_org"}),@ORM\Index(columns={"nom_event", "description" ,"categorie"}, flags={"fulltext"}), @ORM\Index(name="categorie", columns={"categorie"})} ,  uniqueConstraints={@ORM\UniqueConstraint(name="nom_event", columns={"nom_event"})})
  * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
  */
 class Evenement
@@ -55,8 +56,6 @@ class Evenement
 
     /**
      * @var int
-     * @Assert\NotBlank(message="this field is required")
-     * @Assert\Positive(message="Event capacity must be positive")
      * @ORM\Column(name="capacite_event", type="integer", nullable=false)
      */
     private $capaciteEvent;
@@ -120,6 +119,7 @@ class Evenement
     private $idOrg;
 
     private $file;
+
 
     public function getId(): ?int
     {
@@ -321,9 +321,9 @@ class Evenement
         return $this->nomEvent;
     }
 
-     public function initializeNb(Evenenemnt $evenement)
-     {
-         $this->setNbMax($this->getCapaciteEvent());
-    }
+
+
+
+
 
 }

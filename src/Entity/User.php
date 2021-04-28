@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -23,14 +26,12 @@ class User
 
     /**
      * @var string
-     *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
     private $prenom;
@@ -38,14 +39,16 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255, nullable=false)
+     * @ORM\Column(name="mail", type="string", length=255, nullable=false, unique=true)
+
+
      */
     private $mail;
 
@@ -58,7 +61,6 @@ class User
 
     /**
      * @var string
-     *
      * @ORM\Column(name="pwd_user", type="string", length=255, nullable=false)
      */
     private $pwdUser;
@@ -76,6 +78,7 @@ class User
      * @ORM\Column(name="id_label", type="integer", nullable=true)
      */
     private $idLabel;
+
 
     public function getIdUser(): ?int
     {
@@ -182,4 +185,64 @@ class User
         return $this->username;
     }
 
+    /**
+     * @return string[]
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPassword()
+    {
+        return (string)$this->pwdUser;
+    }
+    public function setPassword(string $pwdUser): self
+    {
+        $this->pwdUser= $pwdUser;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
 }

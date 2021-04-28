@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,27 +29,30 @@ class CategorieController extends AbstractController
         ]);
     }
 
+
+
+
+
     /**
      * @Route("/new", name="categorie_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $categorie = new Categorie();
-        $form = $this->createForm(CategorieType::class, $categorie);
-        $form->handleRequest($request);
+        $catName=$request->get('catName');
+        $catImage= $request->get('catImage');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
+            $categorie->setCategorieName($catName);
+            $categorie->setCategorieImage($catImage);
+            $categorie->upload();
+            $categorie->setStatus("-");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($categorie);
             $entityManager->flush();
 
-            return $this->redirectToRoute('categorie_index');
-        }
 
-        return $this->render('categorie/new.html.twig', [
-            'categorie' => $categorie,
-            'form' => $form->createView(),
-        ]);
+          return $this->redirectToRoute('evenement_index');
     }
 
     /**
@@ -93,5 +97,158 @@ class CategorieController extends AbstractController
         }
 
         return $this->redirectToRoute('categorie_index');
+    }
+
+
+
+    /**
+     * @Route("/back/index", name="categorie_back_index", methods={"GET"})
+     */
+    public function Backindex(): Response
+    {
+        $status= "+";
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findBy(['status' => $status ]);
+
+        return $this->render('categorie/back_index.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/back/suggestion", name="categorie_back_suggestion", methods={"GET"})
+     */
+    public function BackSuggest(): Response
+    {
+        $status= "-";
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findBy(['status' => $status ]);
+
+        return $this->render('categorie/back_suggest.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/back/new", name="categorie_back_new", methods={"GET","POST"})
+     */
+    public function Backnew(Request $request): Response
+    {
+        $categorie = new Categorie();
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categorie->upload();
+            $categorie->setStatus("+");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('categorie_back_index');
+        }
+
+        return $this->render('categorie/back_new.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}", name="categorie_back_show", methods={"GET"})
+     */
+    public function Backshow(Categorie $categorie): Response
+    {
+        return $this->render('categorie/back_show.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}/edit", name="categorie_back_edit", methods={"GET","POST"})
+     */
+    public function Backedit(Request $request, Categorie $categorie): Response
+    {
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('categorie_back_index');
+        }
+
+        return $this->render('categorie/back_edit.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/back/{categorieName}", name="categorie_back_delete", methods={"POST"})
+     */
+    public function Backdelete(Request $request, Categorie $categorie): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getCategorieName(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($categorie);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('categorie_back_index');
+    }
+
+
+    /**
+     * @Route("/back/suggestion/accept", name="categorie_back_accept", methods={"GET","POST"})
+     */
+    public function BackAccept(Request $request, CategorieRepository  $categorieRepository): Response
+    {
+        $data=$request->get('AcceptedCat');
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $data]);
+        $categorie->setStatus("+");
+
+         $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($categorie);
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+
+        $status= "-";
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findBy(['status' => $status ]);
+
+        return $this->render('categorie/back_suggest.html.twig', [
+            'categories' => $categories,
+        ]);
+
+
+    }
+
+
+    /**
+     * @Route("/back/suggestion/refuse", name="categorie_back_refuse", methods={"GET","POST"})
+     */
+    public function BackRefuse(Request $request, CategorieRepository  $categorieRepository): Response
+    {
+        $data=$request->get('RefusedCat');
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $data]);
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($categorie);
+            $entityManager->flush();
+        $status= "-";
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findBy(['status' => $status ]);
+
+        return $this->render('categorie/back_suggest.html.twig', [
+            'categories' => $categories,
+        ]);
+
+
     }
 }
