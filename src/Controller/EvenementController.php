@@ -20,10 +20,33 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class EvenementController extends AbstractController
 {
     /**
-     * @Route("/", name="evenement_index", methods={"GET"})
+     * @Route("/", name="evenement_index", methods={"GET","POST"})
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $evenement = new Evenement();
+        $form = $this->createForm(EvenementType::class, $evenement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            var_dump($evenement);
+//            die();
+            $evenement->upload();
+            $evenement->setCapaciteEvent($evenement->getNbMax());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($evenement);
+            $entityManager->flush();
+
+
+            $path= $this->CalendarRedirect($evenement);
+            $session= $this->get('session');
+            $session->set('path',$path);
+
+
+            return $this->redirect($session->get('path'));
+
+
+        }
         $evenements = $this->getDoctrine()
             ->getRepository(Evenement::class)
             ->findAll();
@@ -32,7 +55,7 @@ class EvenementController extends AbstractController
             ->findAll();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,'categories' => $categories,
+            'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),
         ]);
     }
 
@@ -57,9 +80,13 @@ class EvenementController extends AbstractController
             $entityManager->flush();
 
 
-            $this->CalendarRedirect($evenement);
+           $path= $this->CalendarRedirect($evenement);
+            $session= $this->get('session');
+            $session->set('path',$path);
 
-           return $this->redirectToRoute('evenement_index');
+
+
+            return $this->redirectToRoute('evenement_index');
 
 
         }
@@ -747,7 +774,9 @@ class EvenementController extends AbstractController
             ->description($evenement->getDescription())
             ->address( $evenement->getLocationEvent());
         echo $link->google();
-        return $this->redirect($link->google());
+        $path =  $link->google();
+        return $path;
+        // return $this->redirect($link->google());
 
     }
 

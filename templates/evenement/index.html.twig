@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Evenement index{% endblock %}
 
@@ -15,6 +16,35 @@
 
 {% block content %}
     <!-- Page Content  -->
+    <div id="HostModal" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="HostModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+
+            <div style="position: absolute; top: -200px;" class="modal-header">
+                <h5    class="modal-title" id="HostModalTitle">Host an Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+{#            <div class="modal-body">#}
+
+{#                <div class="form-group">#}
+            <div class="modal-content" style="background-color: #1E2745 ;position: absolute; top: 200px; ">
+
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {{ form_widget(form) }}
+                <button onclick="window.open= ('{{ app.session.get('path') }}', '_blank') " class="btn btn-primary">{{ button_label|default('Host') }}</button>
+                    {{ form_end(form) }}
+            </div>
+{#                </div>#}
+{#            </div>#}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+
+
+        </div>
+    </div>
     <div id="exampleModalCenteredScrollable" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <form id="suggestCatForm" method="post" action="{{ path('categorie_new')}}" class="modal-content">
@@ -112,10 +142,10 @@
                     </div>
                     
                     <div class="col-sm-12">
-                        <form id="new form" action="{{ path('evenement_new') }}">
+{#                        <form id="new form" action="{{ path('evenement_new') }}">#}
 
-                        <button  type="submit" class="btn btn-primary d-block w-100 mt-3">Host An Event</button>
-                        </form>
+                        <button  type="button"  data-toggle="modal" data-target="#HostModal" class="btn btn-primary d-block w-100 mt-3">Host An Event</button>
+{#                        </form>#}
                     </div>
 
 
