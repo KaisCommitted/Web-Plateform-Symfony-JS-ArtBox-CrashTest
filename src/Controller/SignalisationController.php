@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Signalisation;
 use App\Form\SignalisationType;
+use App\Repository\SignalisationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -93,5 +94,18 @@ class SignalisationController extends AbstractController
         }
 
         return $this->redirectToRoute('signalisation_index');
+    }
+
+    /**
+     * @route("/S/stat",name="sta")
+     */
+    public function statisti(SignalisationRepository $repository)
+    {
+
+        $opp=$repository->findAll();
+
+
+        return $this->render("signalisation/statistique.html.twig",['signalisation'=>$opp]);
+
     }
 }
