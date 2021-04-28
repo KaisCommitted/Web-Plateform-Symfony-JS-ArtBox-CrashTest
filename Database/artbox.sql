@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 02:38 AM
+-- Generation Time: Apr 29, 2021 at 01:33 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -107,7 +107,9 @@ CREATE TABLE `comment_event` (
 --
 
 INSERT INTO `comment_event` (`id`, `id_user`, `id_event`, `content`, `commentDate`) VALUES
-(32, 18, 126, 'Great event !', '2021-04-27');
+(33, 20, 126, 'I ve been there it was amazing', '2021-04-28'),
+(34, 21, 126, 'I would support a second edition of this event', '2021-04-23'),
+(35, 18, 126, 'I ve been there it was amazing', '2021-04-28');
 
 -- --------------------------------------------------------
 
@@ -157,8 +159,6 @@ CREATE TABLE `evenement` (
 
 INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
 (126, 18, '2020-01-01', 'testingFieldss', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (8).jpg', 'whatever', 3),
-(127, 18, '2024-01-01', 'TryingShow', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (9).png', 'whatever', 4),
-(129, 19, '2022-01-01', 'Alphabetical', 'Festival', 'Photography', 'Alphabetical', 19, 20, '1 (10).jpg', 'Alphabetical', 0),
 (130, 19, '2021-04-27', 'ThisMonth', 'Festival', 'Cinema', 'ThisMonth', 14, 20, '1 (10).png', 'whatever', 0),
 (131, 18, '2021-04-22', 'Testing', 'Festival', 'Cinema', 'testingTri', 17, 20, '1 (11).png', 'whatever', 0),
 (132, 19, '2021-04-21', 'searchme', 'Festival', 'Cinema', 'SearchMee', 20, 20, '1 (13).jpg', 'whatever', 0),
@@ -276,7 +276,6 @@ CREATE TABLE `participant` (
 --
 
 INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) VALUES
-(281, 18, 127, '12718'),
 (293, 18, 126, '12618');
 
 -- --------------------------------------------------------
@@ -320,8 +319,7 @@ INSERT INTO `rating_event` (`id_rating`, `id_user`, `id_event`, `rating`) VALUES
 (78, 19, 126, 5),
 (86, 21, 126, 1),
 (87, 20, 126, 3),
-(91, 18, 126, 5),
-(93, 18, 127, 4);
+(91, 18, 126, 5);
 
 -- --------------------------------------------------------
 
@@ -374,18 +372,19 @@ CREATE TABLE `user` (
   `pwd_user` varchar(255) NOT NULL,
   `ref_admin` varchar(1) NOT NULL,
   `id_label` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`roles`))
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png');
+INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`, `roles`) VALUES
+(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', ''),
+(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', ''),
+(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', ''),
+(21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '');
 
 --
 -- Indexes for dumped tables
@@ -547,7 +546,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `comment_event`
 --
 ALTER TABLE `comment_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `evenement`
@@ -583,7 +582,7 @@ ALTER TABLE `partenaire`
 -- AUTO_INCREMENT for table `participant`
 --
 ALTER TABLE `participant`
-  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
+  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
 
 --
 -- AUTO_INCREMENT for table `postes`
