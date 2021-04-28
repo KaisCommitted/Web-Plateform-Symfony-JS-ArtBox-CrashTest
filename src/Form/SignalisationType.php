@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Signalisation;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,7 @@ class SignalisationType extends AbstractType
             ->add('dateSignal')
             ->add('idPost')
             ->add('idUser')
+            ->add('captcha', CaptchaType::class,array('attr' => array('class' => 'form-control'), 'label' => 'Enter Captcha Code  '));
         ;
     }
 
