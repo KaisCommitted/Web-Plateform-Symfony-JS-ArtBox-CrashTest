@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Postes;
 use App\Form\PostesType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+Use Sentiment\Analyzer;
 
 /**
  * @Route("/postes")
@@ -39,10 +41,28 @@ class PostesController extends AbstractController
     public function new(Request $request): Response
     {
         $poste = new Postes();
+
+        $poste->setPostDate($poste->getPostDate());
         $form = $this->createForm(PostesType::class, $poste);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $poste->upload();
+
+            $analyzer = new Analyzer();
+
+             $a = array("neg => ", "new =>  ", "pos =>  ","compound =>  ");
+             $b = $analyzer->getSentiment($poste->getDescription());
+
+             $output_text =  array_combine($a,$b);
+
+
+            $json = json_encode( $output_text);
+            $poste->setDescAnalys($json );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($poste);
             $entityManager->flush();
@@ -99,4 +119,126 @@ class PostesController extends AbstractController
 
         return $this->redirectToRoute('postes_index');
     }
+
+
+
+
+
+    /**
+     * @Route("/TriCat/show", name="poste_cat", methods={"POST"})
+     */
+    public function FindByCategorie(EntityManagerInterface $em,Request $request): Response
+    {
+        $data=$request->get('myText');
+        $queryBuilder = $em->getRepository(Postes::class)->createQueryBuilder('E');
+        $queryBuilder->andWhere('E.categorie = :cat');
+        $queryBuilder->setParameter('cat', $data);
+        $postes = $queryBuilder->getQuery()->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('postes/index.html.twig', [
+            'postes' => $postes,'categories' => $categories,
+        ]);
+    }
+
+
+    /**
+     * @Route("/", name="poste_search", methods={"POST"})
+     */
+    public function search(PostesRepository $posteRepo, Request $request)
+    {
+        $data=$request->get('mots');
+        $postes = $posteRepo->search($data);
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('postes/index.html.twig', [
+            'postes' => $postes, 'categories' => $categories,
+        ]);
+    }
+
+
+
+
+
+    public function AddLike(Postes $post)
+    {
+        $part = $pos->getLikes();
+        $part = $part +1 ;
+        $post->setLikes($part);
+
+        $this->getDoctrine()->getManager()->flush();
+
+
+    }
+
+    public function CancelLike(Postes $post)
+    {
+        $part = $post->getLikes();
+        $part = $part -1 ;
+        $evenement->setLikes($part);
+
+        $this->getDoctrine()->getManager()->flush();
+
+
+    }
+
+    /**
+     * @Route("/tri/triTrending", name="postes_triTrending")
+     */
+    public function TriTrending(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Postes E 
+            ORDER BY E.likes DESC'
+        );
+
+        $postes = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('postes/index.html.twig', [
+            'postes' => $postes,'categories' => $categories,
+        ]);
+
+    }
+
+
+
+    /**
+     * @Route("/tri/triDate", name="postes_triDate")
+     */
+    public function TriDate(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT P FROM App\Entity\Postes P
+            ORDER BY P.postDate DESC'
+        );
+
+        $postes = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('postes/index.html.twig', [
+            'postes' => $postes,'categories' => $categories,
+        ]);
+
+    }
+
+
 }
