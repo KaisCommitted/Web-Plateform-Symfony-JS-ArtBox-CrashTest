@@ -33,7 +33,7 @@
         <tbody>
             <tr>
                 <td>{{ feedback.idFeedback }}</td>
-                <td>{{ feedback.contenuFeedback }}</td>
+                <td>{{ feedback.contenuFeedback |raw }}</td>
                 <td>{{ feedback.typeFeedback }}</td>
                 <td>{{ feedback.etatFeedback }}</td>
                 <td>{{ feedback.dateFeedback ? feedback.dateFeedback|date('Y-m-d') : '' }}</td>
