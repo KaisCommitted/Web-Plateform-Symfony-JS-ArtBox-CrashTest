@@ -3,14 +3,14 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <form method="post"  action="{{ path('app_login') }}">
+    <form method="post"  action="{{ path('user_new') }}">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.username }}, <a href="{{ path('security') }}">Logout</a>
+                You are logged in as {{ app.user.username }}, <a href="{{ path('users') }}">Logout</a>
             </div>
         {% endif %}
 
