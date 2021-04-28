@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Edit Job Offer{% endblock %}
 
@@ -19,7 +19,7 @@
                     <div class="iq-card-body">
     {{ include('annonce/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('annonce_index') }}">back to list</a>
+    <a href="{{ path('annonce_back_index') }}">back to list</a>
 
     {{ include('annonce/_delete_form.html.twig') }}
                     </div>

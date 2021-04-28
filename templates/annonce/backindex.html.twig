@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Annonce index{% endblock %}
 
@@ -26,8 +26,8 @@
                 <td>{{ annonce.pay }}</td>
                 <td>{{ annonce.ddlAnn ? annonce.ddlAnn|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('annonce_show', {'idAnn': annonce.idAnn}) }}">show</a>
-                    <a href="{{ path('annonce_edit', {'idAnn': annonce.idAnn}) }}">edit</a>
+                    <a href="{{ path('annonce_back_show', {'idAnn': annonce.idAnn}) }}">show</a>
+                    <a href="{{ path('annonce_back_edit', {'idAnn': annonce.idAnn}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -40,7 +40,7 @@
 
 
 
-    <button type=“button” class="button-create"> <a href="{{ path('annonce_new') }}">Create new</a></button>
+    <button type=“button” class="button-create"> <a href="{{ path('annonce_back_new') }}">Create new</a></button>
 
     <style>
 
