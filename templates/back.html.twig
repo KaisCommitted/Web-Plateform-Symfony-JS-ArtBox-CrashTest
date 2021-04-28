@@ -347,7 +347,7 @@
 
 
                     <li class="nav-item">
-                        <a href="{{ asset('back/pages/layout/collapsed-sidebar.html') }}" class="nav-link">
+                        <a href="{{ path('annonce_back_index') }}" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Jobs Management
@@ -418,10 +418,37 @@
 
 
                     <li class="nav-item">
-                        <a href="{{ asset('back/pages/layout/collapsed-sidebar.html') }}" class="nav-link">
+                        <a href="{{ path('signalisation_back_index') }}" class="nav-link">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Reports Management
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Partenariat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Promotion</p>
+                                </a>
+                            </li>
+
+
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ path('feedback_back_index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tree"></i>
+                            <p>
+                                Feedback Management
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>

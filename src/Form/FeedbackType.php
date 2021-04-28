@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Feedback;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +18,7 @@ class FeedbackType extends AbstractType
             ->add('etatFeedback')
             ->add('dateFeedback')
             ->add('idUser')
+            ->add('captcha', CaptchaType::class,array('attr' => array('class' => 'form-control'), 'label' => 'Enter Captcha Code  '));
         ;
     }
 

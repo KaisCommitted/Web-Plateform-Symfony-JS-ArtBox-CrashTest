@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
-{% block title %}Edit Signalisation{% endblock %}
+{% block title %}New Annonce{% endblock %}
 
 
 {% block content %}
-<h1>Categories</h1>
+
 <div id="content-page" class="content-page">
     <div class="container">
         <div class="row">
@@ -12,17 +12,14 @@
                 <div class="iq-card" >
                     <div class="iq-card-header d-flex justify-content-between">
                         <div class="iq-header-title">
-                            <h4 class="card-title">Edit my report</h4>
+                            <h4 class="card-title">Post a job offer</h4>
                         </div>
                     </div>
+
                     <div class="iq-card-body">
-    <h1>Edit Report</h1>
 
-    {{ include('signalisation/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('signalisation_index') }}">back to list</a>
-
-    {{ include('signalisation/_delete_form.html.twig') }}
+                    {{ include('annonce/back_form.html.twig') }}
+    <a href="{{ path('annonce_back_index') }}">back to list</a>
                     </div>
                 </div>
             </div>
@@ -30,5 +27,10 @@
         </div>
     </div>
 </div>
+    </div>
+
+
+
+
 
 {% endblock %}
