@@ -4,6 +4,17 @@
 
 
 {% block content %}
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Edit my Feedback</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
     <h1>Reports</h1>
 
     <table class="table">
@@ -36,4 +47,11 @@
     <a href="{{ path('signalisation_back_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
 
     {{ include('signalisation/back_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

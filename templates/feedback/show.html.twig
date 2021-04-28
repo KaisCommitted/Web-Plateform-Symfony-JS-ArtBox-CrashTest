@@ -4,12 +4,24 @@
 
 
 {% block content %}
+<h1>Feedback</h1>
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Edit my Feedback</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
     <h1>Feedback</h1>
 
     <table id ="tableac">
 
         <thead>
-        <input type="text" id="search" name="search" class="form-control" placeholder="Search by Marque">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/type/etat">
         <tbody>
             <tr>
                 <th>IdFeedback</th>
@@ -69,4 +81,12 @@
             }
         });
     </script>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}
