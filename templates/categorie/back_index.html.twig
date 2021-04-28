@@ -1,0 +1,68 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+
+    {% block content %}
+        <h1>Categories</h1>
+        <div id="content-page" class="content-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div class="iq-card" >
+                            <div class="iq-card-header d-flex justify-content-between">
+                                <div class="iq-header-title">
+                                    <h4 class="card-title">Show Categories</h4>
+                                </div>
+                            </div>
+                            <div class="iq-card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Categorie</th>
+                                        <th>Image</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for categorie in categories %}
+                                        <tr>
+                                            <td>{{ categorie.categorieName }}</td>
+
+                                            <td>
+                                                <div class="container1">
+                                                    <img src="{{ asset('imagesCategorie/')~ categorie.categorieImage ~''}}" class="image1"  overflow="visible" alt="{{categorie.categorieName}}">
+                                                    <div class="overlay1">
+                                                        <div >{{ categorie.categorieName }}</div>
+                                                    </div>
+                                                </div>
+
+                                           </td>
+
+                                            <td>
+                                                <a href="{{ path('categorie_back_show', {'categorieName': categorie.categorieName}) }}">show</a>
+                                                <a href="{{ path('categorie_back_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="2">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <a href="{{ path('categorie_back_new') }}">Create new</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+   
+    <h1>Categories</h1>
+
+
+    {% endblock %}

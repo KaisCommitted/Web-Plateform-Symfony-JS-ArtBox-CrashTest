@@ -4,9 +4,30 @@
 
 
 {% block content %}
-    <h1>Host An Event</h1>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Host an Event</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                         {{ include('evenement/_form.html.twig') }}
+                            <a href="{{ path('evenement_index') }}">Back to events</a>
+                        </div>
+                    </div>
+                </div>
 
-    {{ include('evenement/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    </div>
 
-    <a href="{{ path('evenement_index') }}">back to list</a>
+
+
+
+
 {% endblock %}

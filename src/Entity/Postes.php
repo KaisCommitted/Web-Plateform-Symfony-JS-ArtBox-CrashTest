@@ -223,13 +223,7 @@ class Postes
         return $this;
     }
 
-    /**
-     *  @ORM\PrePersist
-     */
-    public function doStuffOnPrePersist()
-    {
-        $this->postDate = date('Y-m-d H:i:s');
-    }
+
 
     public function __construct()
     {

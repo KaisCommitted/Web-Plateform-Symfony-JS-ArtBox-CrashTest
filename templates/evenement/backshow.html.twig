@@ -1,0 +1,105 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+
+{% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#imgDiv').hide();
+            $('#btn1').click(function(){
+                $('#imgDiv').show();
+            });
+            $('#btn2').click(function(){
+                $('#imgDiv').hide();
+            });
+        });
+    </script>
+    <h1>Evenement</h1>
+    <div id="content-page" class="content-page" color="blue" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <ul class="d-flex align-items-center justify-content    -between list-inline m-0 p-0">
+                                <h4  color="cyan" class="card-title">{{ evenement.nomEvent }}</h4>
+                                <li>
+                                    <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get Event QR code</button>
+                                    <div id="imgDiv">
+                                        <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Event name:  ' ~ evenement.nomEvent  ~'\nRemaining spots:  ' ~ evenement.capaciteEvent   ~'\nEvent Location:  ' ~ evenement.locationEvent  ) }}"  width="8%" height="auto"   border="0"></p>
+                                    </div>
+                                </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+
+                            <h6>{{ evenement.description }}</h6>
+
+                            <img src="{{ asset('imagesEvent/')~ evenement.imageEvent ~''}}"  class="img-fluid rounded w-100">
+
+
+                            <div class="iq-card-body text-center">
+                            <div class="group-details d-inline-block pb-3">
+                                <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/location.png')}}" >
+                                            <p class="mb-0">Event Location</p>
+                                        </ul>
+
+                                        <h6>{{  evenement.locationEvent }}</h6>
+                                    </li>
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/calendar.png')}}" >
+                                            <p class="mb-0">Event Date</p>
+                                        </ul>
+                                        <h6>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</h6>
+                                    </li>
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/icons8_Person_32px.png')}}" >
+                                            <p class="mb-0">Event Capacity</p>
+                                        </ul>
+                                        <h6>{{ evenement.capaciteEvent }}</h6>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                            </div>
+
+
+
+                                
+
+                                
+                                
+
+
+
+
+
+
+                            <a href="{{ path('evenement_back_index') }}">Back to UPCOMING EVENTS</a>
+
+                            <a style="position: absolute; top:15px; left: 480px;" href="{{ path('evenement_back_edit', {'id': evenement.id}) }}">Edit my Event</a>
+
+                            {{ include('evenement/back_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+{% endblock %}

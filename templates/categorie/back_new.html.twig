@@ -1,0 +1,35 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}New Categorie{% endblock %}
+
+
+   {% block content %}
+       <h1>New Categorie</h1>
+       <div id="content-page" class="content-page">
+           <div class="container">
+               <div class="row">
+                   <div class="col-lg-auto">
+                       <div class="iq-card" >
+                           <div class="iq-card-header d-flex justify-content-between">
+                               <div class="iq-header-title">
+
+
+                                {{ include('categorie/_form.html.twig') }}
+
+                                   <a href="{{ path('categorie_back_index') }}">back to list</a>
+
+                               </div>
+                           </div>
+                           <div class="iq-card-body">
+
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+       </div>
+
+
+   {% endblock %}

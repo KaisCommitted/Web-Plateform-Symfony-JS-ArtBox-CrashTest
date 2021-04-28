@@ -2,8 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\RatingEvent;
+use App\Entity\User;
 use App\Form\RatingEventType;
+use App\Repository\EvenementRepository;
+use App\Repository\RatingEventRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,23 +38,70 @@ class RatingEventController extends AbstractController
     /**
      * @Route("/new", name="rating_event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,EvenementController $evenementController,RatingEventRepository $ratingEventRepository,EvenementRepository $evenementRepository, UserRepository $userRepository): Response
     {
+        $data=$request->get('ratedEvent');
+        $rating = $request->get('note');
+        $evenement = new Evenement();
+        $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
+        $user= new User();
+        $user = $userRepository->findOneBy(['username' => 'kais']);
         $ratingEvent = new RatingEvent();
-        $form = $this->createForm(RatingEventType::class, $ratingEvent);
-        $form->handleRequest($request);
+        $ratingEvent->setIdEvent($evenement);
+        $ratingEvent->setIdUser($user);
+        $ratingEvent->setRating($rating);
+        $Exists = $ratingEventRepository->findOneBy(['idUser' => $user->getIdUser() , 'idEvent' => $evenement->getId()]);
+        $entityManager = $this->getDoctrine()->getManager();
+        if ($Exists)
+        {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+           $entityManager->remove($Exists);
             $entityManager->persist($ratingEvent);
             $entityManager->flush();
 
-            return $this->redirectToRoute('rating_event_index');
+        }else{
+
+            $entityManager->persist($ratingEvent);
+            $entityManager->flush();
+
         }
 
-        return $this->render('rating_event/new.html.twig', [
-            'rating_event' => $ratingEvent,
-            'form' => $form->createView(),
+
+              $queryBuilder = $entityManager->getRepository(RatingEvent::class)->createQueryBuilder('R');
+            $queryBuilder->select('count(R.idRating)');
+              $queryBuilder->andWhere('R.idEvent = :cat');
+        $queryBuilder->setParameter('cat', $evenement->getId());
+        try {
+            $ratings = $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+
+        $number= intval($ratings);
+
+
+
+
+
+ $queryBuilder = $entityManager->getRepository(RatingEvent::class)->createQueryBuilder('R');
+            $queryBuilder ->select('SUM(R.rating) as total');
+              $queryBuilder->andWhere('R.idEvent = :cat');
+        $queryBuilder->setParameter('cat', $evenement->getId());
+
+            try {
+                $total = $queryBuilder->getQuery()->getOneOrNullResult();
+            } catch (NonUniqueResultException $e) {
+            }
+
+            $x= array_values($total)[0];
+            $sum=  intval($x)  ;
+
+
+       $evenementController->UpdateRating($evenement, $sum,$number);
+
+
+        return $this->render('evenement/show.html.twig', [
+            'evenement' => $evenement,
         ]);
     }
 

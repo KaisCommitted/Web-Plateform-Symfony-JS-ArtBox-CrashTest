@@ -1,0 +1,169 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+
+{% block content %}
+    <!-- Page Content  -->
+
+
+
+
+    <h1>Events</h1>
+    <div class="dropdown">
+
+                                 <span style="position: absolute; top: 0px; left: 1200px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                   Filter by
+                                     <i class="ri-more-fill"></i>
+
+                                 </span>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+            <a class="dropdown-item" href="{{ path('evenement_back_Upcoming') }}"><i class="ri-eye-fill mr-2"></i>Upcoming</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_HasPassed') }}"><i class="ri-eye-fill mr-2"></i>Has Passed</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_Today') }}"><i class="ri-eye-fill mr-2"></i>Today</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_ThisWeek') }}"><i class="ri-eye-fill mr-2"></i>This Week</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_ThisMonth') }}"><i class="ri-eye-fill mr-2"></i>This Month</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
+        </div>
+    </div>
+    <div class="dropdown">
+
+                                 <span style="position: absolute; top: -20px; left: 1200px; " class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
+                                   Sort By
+                                     <i class="ri-more-fill"></i>
+
+                                 </span>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+            <a class="dropdown-item" href="{{ path('evenement_back_triAlphabetical') }}"><i class="ri-eye-fill mr-2"></i>Alphabetical</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_triDate') }}"><i class="ri-eye-fill mr-2"></i>Happening Soon</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_triTrending') }}"><i class="ri-eye-fill mr-2"></i>Trending</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_triOrganizer') }}"><i class="ri-eye-fill mr-2"></i>Organizer</a>
+            <a class="dropdown-item" href="{{ path('evenement_back_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
+        </div>
+    </div>
+
+
+    <table   id ="tableac"  cellspacing="0" cellpadding="0" border="0" width="1200" ">
+    <thead>
+
+    <input  type="text" id="search" name="search" class="form-control" placeholder="Search..">
+
+    <tr>
+        <th>Organizer</th>
+        <th>Date</th>
+        <th>Event Name</th>
+
+        <th>Event Capacity</th>
+
+        <th>Event Location</th>
+        <th>Event Rating</th>
+        <th>Event Participants</th>
+
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for evenement in evenements %}
+
+    <tr>
+        <td>{{ evenement.idOrg }}</td>
+        <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+        <td>{{ evenement.nomEvent }}</td>
+
+        <td>{{ evenement.capaciteEvent }}</td>
+
+        <td>{{ evenement.locationEvent }}</td>
+        <td>{{ evenement.ratingEvent }}</td>
+        <td>{{ evenement.nbMax - evenement.capaciteEvent }}</td>
+
+        <td>
+            <ul class="d-flex align-items-center justify-content-between list-inline m-auto p-0">
+
+            <button type=“button” class="button-show"><a href="{{ path('evenement_back_show', {'id': evenement.id}) }}">Show</a></button>
+            <button type=“button” class="button-edit"><a href="{{ path('evenement_back_edit', {'id': evenement.id}) }}">Edit</a></button>
+            <form method="post" action="{{ path('evenement_back_delete', {'id': evenement.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.id) }}">
+                <button type=“button” class="button-show" >Delete</button>
+            </form>
+               
+            </ul>
+
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="10">no records found</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <button type=“button” class="button-create"><a href="{{ path('evenement_back_new') }}">Create new</a></button>
+
+    <style>
+
+        .button-create {
+            display: inline-block;
+            padding: 5px 7px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #fff3cd;
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+        }
+        .button-show {
+            display: inline-block;
+            padding: 5px 7px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #d3e0ea;
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+        }
+        .button-edit {
+            display: inline-block;
+            padding: 5px 7px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #fde8cd;
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+        }
+
+    </style>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found === 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+
+{% endblock %}

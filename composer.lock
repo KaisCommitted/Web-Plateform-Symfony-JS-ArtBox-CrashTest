@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a12fed68d1bc657516369edf75193d76",
+    "content-hash": "70b7f753693a7763cea565fb6f10d481",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1999,79 +1999,6 @@
             "time": "2021-01-09T00:01:13+00:00"
         },
         {
-            "name": "knplabs/knp-time-bundle",
-            "version": "v1.16.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/KnpTimeBundle.git",
-                "reference": "5937765753967d691ffde7ea23770a74df9b11ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpTimeBundle/zipball/5937765753967d691ffde7ea23770a74df9b11ba",
-                "reference": "5937765753967d691ffde7ea23770a74df9b11ba",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/config": "^4.3|^5.0",
-                "symfony/dependency-injection": "^4.3|^5.0",
-                "symfony/translation": "^4.3|^5.0"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<8.0"
-            },
-            "require-dev": {
-                "symfony/framework-bundle": "^4.3|^5.0",
-                "symfony/phpunit-bridge": "^5.2",
-                "symfony/templating": "^4.3|^5.0",
-                "symfony/twig-bundle": "^4.3|^5.0"
-            },
-            "suggest": {
-                "symfony/twig-bundle": "to use the Twig `time_diff()` function or `|ago` filter"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Knp\\Bundle\\TimeBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://github.com/KnpLabs/KnpTimeBundle/contributors"
-                }
-            ],
-            "description": "Making your dates look sensible and descriptive",
-            "homepage": "http://github.com/KnpLabs/KnpTimeBundle",
-            "keywords": [
-                "bundle",
-                "date",
-                "descriptive time",
-                "knp",
-                "knplabs",
-                "time"
-            ],
-            "support": {
-                "issues": "https://github.com/KnpLabs/KnpTimeBundle/issues",
-                "source": "https://github.com/KnpLabs/KnpTimeBundle/tree/v1.16.0"
-            },
-            "time": "2021-03-02T16:13:12+00:00"
-        },
-        {
             "name": "laminas/laminas-code",
             "version": "4.1.0",
             "source": {
@@ -2852,6 +2779,64 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
             },
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "spatie/calendar-links",
+            "version": "1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/calendar-links.git",
+                "reference": "bfe49e7dfbe56237ca4a640d8547bd5147596d35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/calendar-links/zipball/bfe49e7dfbe56237ca4a640d8547bd5147596d35",
+                "reference": "bfe49e7dfbe56237ca4a640d8547bd5147596d35",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^9.0",
+                "spatie/phpunit-snapshot-assertions": "^3.0|^4.0",
+                "vimeo/psalm": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\CalendarLinks\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate add to calendar links for Google, iCal and other calendar systems",
+            "homepage": "https://github.com/spatie/calendar-links",
+            "keywords": [
+                "calendar-links",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/calendar-links/issues",
+                "source": "https://github.com/spatie/calendar-links/tree/1.4.4"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-04-13T14:46:22+00:00"
         },
         {
             "name": "symfony/asset",
@@ -7853,6 +7838,56 @@
                 }
             ],
             "time": "2021-03-06T07:59:01+00:00"
+        },
+        {
+            "name": "symfonycasts/verify-email-bundle",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/verify-email-bundle.git",
+                "reference": "3935f7375b2fa795f349bb4281ba8bcb754f4c91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/3935f7375b2fa795f349bb4281ba8bcb754f4c91",
+                "reference": "3935f7375b2fa795f349bb4281ba8bcb754f4c91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4 | ^5.0",
+                "symfony/dependency-injection": "^4.4 | ^5.0",
+                "symfony/deprecation-contracts": "^2.2",
+                "symfony/http-kernel": "^4.4 | ^5.0",
+                "symfony/routing": "^4.4 | ^5.0"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "doctrine/persistence": "^2.0",
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "symfony/framework-bundle": "^4.4 | ^5.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\VerifyEmail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple, stylish Email Verification for Symfony",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/verify-email-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.4.0"
+            },
+            "time": "2021-04-12T17:34:34+00:00"
         },
         {
             "name": "twig/extra-bundle",

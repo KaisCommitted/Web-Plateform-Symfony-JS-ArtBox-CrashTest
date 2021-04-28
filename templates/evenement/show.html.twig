@@ -4,53 +4,229 @@
 
 
 {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#imgDiv').hide();
+            $('#btn1').click(function(){
+                $('#imgDiv').show();
+            });
+            $('#btn2').click(function(){
+                $('#imgDiv').hide();
+            });
+        });
+    </script>
     <h1>Evenement</h1>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                <h4 class="card-title">{{ evenement.nomEvent }}</h4>
+                                <li>
+                                    <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get Event QR code</button>
+                                    <div id="imgDiv">
+                                        <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Event name:  ' ~ evenement.nomEvent  ~'\nRemaining spots:  ' ~ evenement.capaciteEvent   ~'\nEvent Location:  ' ~ evenement.locationEvent  ) }}"  width="8%" height="auto"   border="0"></p>
+                                    </div>
+                                </li>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ evenement.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NomEvent</th>
-                <td>{{ evenement.nomEvent }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ evenement.description }}</td>
-            </tr>
-            <tr>
-                <th>CapaciteEvent</th>
-                <td>{{ evenement.capaciteEvent }}</td>
-            </tr>
-            <tr>
-                <th>NbMax</th>
-                <td>{{ evenement.nbMax }}</td>
-            </tr>
-            <tr>
-                <th>ImageEvent</th>
-                <td>{{ evenement.imageEvent }}</td>
-            </tr>
-            <tr>
-                <th>LocationEvent</th>
-                <td>{{ evenement.locationEvent }}</td>
-            </tr>
-            <tr>
-                <th>RatingEvent</th>
-                <td>{{ evenement.ratingEvent }}</td>
-            </tr>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
 
-        </tbody>
-    </table>
+                            <h6>{{ evenement.description }}</h6>
 
-    <a href="{{ path('evenement_index') }}">back to list</a>
+                            <img src="{{ asset('imagesEvent/')~ evenement.imageEvent ~''}}"  class="img-fluid rounded w-100">
 
-    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
 
-    {{ include('evenement/_delete_form.html.twig') }}
+                            <div class="iq-card-body text-center">
+                            <div class="group-details d-inline-block pb-3">
+                                <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/location.png')}}" >
+                                            <p class="mb-0">Event Location</p>
+                                        </ul>
+
+                                        <h6>{{  evenement.locationEvent }}</h6>
+                                    </li>
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/calendar.png')}}" >
+                                            <p class="mb-0">Event Date</p>
+                                        </ul>
+                                        <h6>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</h6>
+                                    </li>
+                                    <li class="pl-3 pr-3">
+                                        <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                            <img width="20%" height="auto" src="{{ asset('javaicons/icons8_Person_32px.png')}}" >
+                                            <p class="mb-0">Event Capacity</p>
+                                        </ul>
+                                        <h6>{{ evenement.capaciteEvent }}</h6>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                            </div>
+                            <div class="comment-area mt-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="like-block position-relative d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="like-data">
+                                                <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                  <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
+                                                      <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
+                                                <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+
+
+                                                      <!------------------------  Refresh Script  --------------------- -->
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                    <script type="text/javascript">
+                                                        $("#reloader").click(function () {
+                                                            $("#comment_area").load(" #comment_area");
+
+                                                        });
+                                                    </script>
+                                                      <!------------------------  Refresh Script  --------------------- -->
+
+
+                                                  </form>
+
+
+                                                </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#" >Join</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="total-like-block ml-2 mr-3">
+                                                <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                {{ evenement.nbMax-evenement.capaciteEvent }} People going
+                                                </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="total-comment-block">
+                                            <div class="dropdown">
+                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                             20 Comment
+                                             </span>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Max Emum</a>
+                                                    <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                    <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                    <a class="dropdown-item" href="#">Tara Misu</a>
+                                                    <a class="dropdown-item" href="#">Midge Itz</a>
+                                                    <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                    <a class="dropdown-item" href="#">Other</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+                                    <form  id="RatingForm" method="post" action="{{ path('rating_event_new')}}" >
+                                        <div class="share-block d-flex align-items-center feather-icon mr-3">
+                                            <div class="stars">
+                                                <i class="lar la-star"  data-value="1" ></i><i class="lar la-star"  data-value="2"></i><i class="lar la-star"  data-value="3"></i><i class="lar la-star"  data-value="4"></i><i class="lar la-star"  data-value="5"></i>
+                                            </div>
+                                            <input  type="hidden" name="note" id="note" value="0">
+                                            <input  type="hidden" name="ratedEvent" id="ratedEvent" type="text" value={{ evenement.nomEvent}}>
+                                            <script src="{{ asset('js/scripts.js') }}"></script>
+
+                                            <span  class="ml-1">{{ 'Rating : ' ~ evenement.ratingEvent ~ '/5   '}}</span></a>
+                                            <button  class="btn btn-primary" type="submit"> ✓ </button>
+                                        </div>
+                                </div>
+                                </form>
+                                </div>
+                                <hr>
+                                <ul class="post-comments p-0 m-0">
+                                    <li class="mb-2">
+                                        <div class="d-flex flex-wrap">
+                                            <div class="user-img">
+                                                <img src="{{ asset('images/user/02.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ml-3">
+                                                <h6>Monty Carlo</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="user-img">
+                                                <img src="{{ asset('images/user/03.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ml-3">
+                                                <h6>Paul Molive</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                    <input type="text" class="form-control rounded">
+                                    <div class="comment-attagement d-flex">
+                                        <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                                
+
+                                
+                                
+
+
+
+
+
+
+                            <a href="{{ path('evenement_index') }}">Back to UPCOMING EVENTS</a>
+
+                            <a style="position: absolute; top:15px; left: 480px;" href="{{ path('evenement_edit', {'id': evenement.id}) }}">Edit my Event</a>
+
+                            {{ include('evenement/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
 {% endblock %}
