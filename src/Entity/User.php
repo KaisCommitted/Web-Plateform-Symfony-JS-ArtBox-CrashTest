@@ -65,6 +65,15 @@ class User implements UserInterface
      */
     private $pwdUser;
 
+// new attribute ? ---------------------
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+
+
     /**
      * @var string
      *
@@ -185,41 +194,95 @@ class User implements UserInterface
         return $this->username;
     }
 
+//    /**
+//     * @return string[]
+//     */
+//    public function getRoles()
+//    {
+//        $roles = $this->roles;
+//        // guarantee every user at least has ROLE_USER
+//        $roles[] = 'ROLE_USER';
+//
+//        return array_unique($roles);
+//    }
+//
+//    public function setRoles(array $roles): self
+//    {
+//        $this->roles = $roles;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return string|null
+//     */
+//    public function getPassword()
+//    {
+//        return (string)$this->pwdUser;
+//    }
+//    public function setPassword(string $pwdUser): self
+//    {
+//        $this->pwdUser= $pwdUser;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return string|null
+//     */
+//    public function getSalt(): ?string
+//    {
+//        return null;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function eraseCredentials()
+//    {
+//     //TODO: Implement eraseCredentials() method.
+//    }
+//
+//    public function isVerified(): bool
+//    {
+//        return $this->isVerified;
+//    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
     /**
-     * @return string[]
+     * @inheritDoc
      */
     public function getRoles()
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+//        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return (string)$this->pwdUser;
+
     }
     public function setPassword(string $pwdUser): self
     {
-        $this->pwdUser= $pwdUser;
+        $this->pwdUser = $pwdUser;
 
         return $this;
     }
-
     /**
-     * @return string|null
+     * @inheritDoc
      */
     public function getSalt(): ?string
     {
@@ -227,22 +290,10 @@ class User implements UserInterface
     }
 
     /**
-     * @return mixed
+     * @inheritDoc
      */
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
     }
 }
