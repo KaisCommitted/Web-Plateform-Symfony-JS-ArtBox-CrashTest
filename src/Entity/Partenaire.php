@@ -60,7 +60,7 @@ class Partenaire
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 

@@ -220,11 +220,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-list">
-                        <a>
-                            {% if app.request.session.get('user') != null %}
-                            <a href="{{ path('evenement_new')}}"> <button style="margin-right: 5vw;" class="btn btn-primary"><span style="padding-left:3vw;padding-right: 3vw; ">Host Event</span></button></a>
-
-                            {% else %}
+                            {% if (app.request.session.get('state') == "Approved")  %}
+                            <a href="{{ path('evenement_new')}}"> <button style="margin-right: 5vw;" class="btn btn-primary"><span style="padding-left:3vw;padding-right: 3vw; ">Host an event</span></button></a>
+                            {% elseif ((app.request.session.get('state') == "Pending")) %}
+                                <button style=" margin-right: 5vw;margin-top:0.5vw;margin-bottom:0.5vw;" class="btn btn-primary" disabled><span style="padding-left:3vw;padding-right: 3vw; ">Pending Request</span></button>
+                                {% else  %}
                             <a href="{{ path('partenaire_new')}}"> <button style="margin-right: 5vw;" class="btn btn-primary"><span style="padding-left:3vw;padding-right: 3vw; ">Become Partner</span></button></a>
                             {% endif %}
                             </li>

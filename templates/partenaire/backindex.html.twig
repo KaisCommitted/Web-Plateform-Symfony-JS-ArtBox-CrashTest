@@ -36,8 +36,14 @@
 
 
             <td>
-                <a href="{{ path('partenaire_back_show', {'id': partner.idPart}) }}">show</a>
-                <a href="{{ path('partenaire_back_edit', {'id': partner.idPart}) }}">edit</a>
+                <a href="{{ path('partenaire_back_show', {'id': partner.idPart}) }}"><button class="btn btn-primary">show</button></a>
+                <a href="{{ path('partenaire_back_edit', {'id': partner.idPart}) }}"><button class="btn btn-primary">edit</button></a>
+                {% if partner.status == "Pending"  %}
+                <a href="{{ path('partenaire_back_approve', {'id': partner.idPart}) }}"><button class="btn btn-secondary">Approve</button></a>
+                <form method="post" action="{{ path('partenaire_back_decline', {'id': partner.idPart}) }}" onsubmit="return confirm('Are you sure you want to decline this Partnership?');">
+                    <button class="btn btn-secondary">Decline</button>
+                </form>
+                {% endif %}
             </td>
 
         </tr>

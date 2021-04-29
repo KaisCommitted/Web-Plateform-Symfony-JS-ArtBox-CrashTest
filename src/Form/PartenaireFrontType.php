@@ -18,7 +18,6 @@ class PartenaireFrontType extends AbstractType
             ->add('File',FileType::class)
             ->add('rib')
             ->add('tel')
-            ->add('status')
         ;
     }
 

@@ -22,14 +22,28 @@ class PartenaireController extends AbstractController
     public function index(): Response
     {
 
-
         $partenaires = $this->getDoctrine()
             ->getRepository(Partenaire::class)
-            ->findAll();
+            ->findBy(array('status' => "Approved"));
+
+        $session= $this->get('session');
+        if(!$session->has('state'))
+            $session->set('state',"none");
+        if($session->has('user')) {
+        foreach ($partenaires as $p) {
+            if ($session->get('user') == $p->getIdUser()->getIdUser())
+                $this->get('session')->set('state',"Approved");
+            else
+                $this->get('session')->set('state',"Pending");
+        }
+        if(empty($partenaires)) $this->get('session')->set('state',"Pending");
+        }
+
 
         return $this->render('partenaire/index.html.twig', [
             'partenaires' => $partenaires,
         ]);
+
     }
 
     /**
@@ -40,13 +54,15 @@ class PartenaireController extends AbstractController
         $partenaire = new Partenaire();
         $partenaires = $this->getDoctrine()
             ->getRepository(Partenaire::class)
-            ->findAll();
+            ->findBy(array('status' => "Approved"));
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['idUser' => '18']);
         $form = $this->createForm(PartenaireFrontType::class, $partenaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $partenaire->upload();
+            $partenaire->setStatus("Pending");
             $partenaire->setIdUser($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($partenaire);
@@ -54,19 +70,24 @@ class PartenaireController extends AbstractController
             $session= $this->get('session');
             if (!$session->has('user')) {
                 $session->set('user',array());
-            $session->set('user',18); }
-            $user=$session->get('user');
+            $session->set('user',18);
+            $this->get('session')->set('state',"Pending");
 
+            }
+            $partenaires = $this->getDoctrine()
+                ->getRepository(Partenaire::class)
+                ->findBy(array('status' => "Approved"));
             return $this->render('partenaire/index.html.twig', [
                 'partenaires' => $partenaires,
             ]);
-        }
+        } else {
 
         return $this->render('partenaire/new.html.twig', [
             'partenaire' => $partenaire,
             'form' => $form->createView(),
             'partenaires' => $partenaires,
         ]);
+        }
     }
 
     /**
@@ -213,8 +234,36 @@ class PartenaireController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($partenaire);
             $entityManager->flush();
+
+
         }
 
+        return $this->redirectToRoute('partenaire_back_index');
+    }
+    /**
+     * @Route("/approve/{id}", name="partenaire_back_approve", methods={"GET","POST"})
+     */
+    public function approveback(Request $request, Partenaire $partenaire): Response
+    {
+        $post =$this->getDoctrine()
+            ->getRepository(Partenaire::class)->findOneBy(['idPart' => $request->get('id')]);
+        $post->setStatus("Approved");
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('partenaire_back_index');
+    }
+    /**
+     * @Route("/decline/{id}", name="partenaire_back_decline", methods={"POST"})
+     */
+    public function declineback(Request $request, Partenaire $partenaire): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $p = $em->getRepository(Partenaire::class)->find($request->get('id'));
+        $em->remove($p);
+        $em->flush();
+        $session= $this->get('session');
+        $session->start();
+        $this->get('session')->set('state',"none");
         return $this->redirectToRoute('partenaire_back_index');
     }
 
