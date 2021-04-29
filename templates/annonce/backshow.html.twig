@@ -20,9 +20,6 @@
 
     <h1>Annonce</h1>
 
-
-
-
     <div id="content-page" class="content-page">
         <div class="container">
             <div class="row">
@@ -33,10 +30,7 @@
                                 <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
                                     <h4 class="card-title">{{ annonce.titreAnn }}</h4>
                                     <li>
-                                        <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get job offer QR code</button>
-                                        <div id="imgDiv">
-                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job title:  ' ~ annonce.titreAnn  ~'\nSalary:  ' ~ annonce.pay   ~'\nApplication deadline:  ' ~ annonce.ddlAnn  ) }}"  width="8%" height="auto"   border="0"></p>
-                                        </div>
+
                                     </li>
 
                                 </ul>
