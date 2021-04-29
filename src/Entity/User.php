@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -98,6 +99,7 @@ class User implements UserInterface
      * @ORM\Column(name="id_label", type="integer", nullable=true)
      */
     private $idLabel;
+    private $file;
 
 //    /**
 //     * @ORM\Column(type="boolean")
@@ -120,6 +122,62 @@ class User implements UserInterface
     {
         $this->image = $image;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
+
+    public function getUploadDir()
+    {
+        return 'imagesEvent';
+    }
+
+    public function getAbsolutRoot()
+    {
+        return $this->getUploadRoot().$this->imageEvent ;
+    }
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->imageEvent;
+    }
+
+    public function getUploadRoot()
+    {
+        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
+    }
+
+    public function upload()
+    {
+
+        if($this->file === null){
+            return;
+
+        }
+        $this->imageEvent = $this->file->getClientOriginalName();
+        if(!is_dir($this->getUploadRoot()))
+        {
+            mkdir($this->getUploadRoot(),'0777',true);
+        }
+
+        $this->file->move($this->getUploadRoot(),$this->imageEvent);
+        unset($this->file);
+    }
+
+
 
     public function getIdUser(): ?int
     {
