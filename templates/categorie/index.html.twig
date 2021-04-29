@@ -5,6 +5,7 @@
 {% block header %} {% endblock %}
     {% block content %}
         <h1>Categories</h1>
+
         <div id="content-page" class="content-page">
             <div class="container">
                 <div class="row">
@@ -40,8 +41,8 @@
                                            </td>
 
                                             <td>
-                                                <a href="{{ path('categorie_show', {'categorieName': categorie.categorieName}) }}">show</a>
-                                                <a href="{{ path('categorie_edit', {'categorieName': categorie.categorieName}) }}">edit</a>
+                                                <a href="{{ path('categorie_show') }}">show</a>
+                                                <a href="{{ path('categorie_edit') }}">edit</a>
                                             </td>
                                         </tr>
                                     {% else %}

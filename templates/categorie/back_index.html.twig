@@ -5,6 +5,11 @@
 
     {% block content %}
         <h1>Categories</h1>
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+            <button onclick="window.location.href='{{ path('categorie_back_suggestion')}}'" type="button" class="btn btn-primary">Suggestion list</button>
+            <button onclick="window.location.href='{{ path('categorie_back_index')}}'" type="button" class="btn btn-primary">Categories list</button>
+            <button  onclick="window.location.href='{{ path('categorie_back_new')}}'" type="button" class="btn btn-primary">Add New</button>
+        </div>
         <div id="content-page" class="content-page">
             <div class="container">
                 <div class="row">

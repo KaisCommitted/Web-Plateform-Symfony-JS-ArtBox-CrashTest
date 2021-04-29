@@ -1,0 +1,97 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Report index{% endblock %}
+
+{% block header %} {% endblock %}
+{% block content %}
+    <h1>Report index</h1>
+
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+
+
+                        <div>
+                            <a class="right" href="{{ path('sta') }}">Voir statistique</a>
+                        </div>7
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Show Reports</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <table id="tableac">
+                            <thead>
+                            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type"><tbody>
+                            <tr>
+                <th>IdSignal</th>
+                <th>ContenuSignal</th>
+                <th>TypeSignal</th>
+                <th>EtatSignal</th>
+                <th>DateSignal</th>
+                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+        {% for signalisation in signalisations %}
+            <tr>
+                <td>{{ signalisation.idSignal }}</td>
+                <td>{{ signalisation.contenuSignal }}</td>
+                <td>{{ signalisation.typeSignal }}</td>
+                <td>{{ signalisation.etatSignal }}</td>
+                <td>{{ signalisation.dateSignal ? signalisation.dateSignal|date('Y-m-d') : '' }}</td>
+
+                <td>
+                    <a href="{{ path('signalisation_back_show', {'idSignal': signalisation.idSignal}) }}">show</a>
+                    <a href="{{ path('signalisation_back_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('signalisation_back_new') }}">Create new</a>
+                        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function(){
+                                $('#search').keyup(function(){
+                                    search_table($(this).val());
+                                });
+                                function search_table(value){
+                                    $('#tableac tbody tr').each(function(){
+                                        var found = 'false';
+                                        $(this).each(function(){
+                                            if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                                            {
+                                                found = 'true';
+                                            }
+                                        });
+                                        if(found === 'true')
+                                        {
+                                            $(this).show();
+
+                                        }
+                                        else
+                                        {
+                                            $(this).hide();
+
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Comments
- *
+ *@ORM\HasLifecycleCallbacks
  * @ORM\Table(name="comments", indexes={@ORM\Index(name="id_post2", columns={"id_post"}), @ORM\Index(name="id_use2", columns={"id_user"})})
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
  */
@@ -126,6 +126,8 @@ class Comments
 
         return $this;
     }
+
+
 
 
 }
