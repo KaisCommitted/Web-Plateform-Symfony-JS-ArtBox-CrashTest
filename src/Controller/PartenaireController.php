@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Partenaire;
+use App\Entity\User;
+use App\Form\PartenaireFrontType;
 use App\Form\PartenaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,8 @@ class PartenaireController extends AbstractController
      */
     public function index(): Response
     {
+
+
         $partenaires = $this->getDoctrine()
             ->getRepository(Partenaire::class)
             ->findAll();
@@ -34,20 +38,34 @@ class PartenaireController extends AbstractController
     public function new(Request $request): Response
     {
         $partenaire = new Partenaire();
-        $form = $this->createForm(PartenaireType::class, $partenaire);
+        $partenaires = $this->getDoctrine()
+            ->getRepository(Partenaire::class)
+            ->findAll();
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['idUser' => '18']);
+        $form = $this->createForm(PartenaireFrontType::class, $partenaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $partenaire->upload();
+            $partenaire->setIdUser($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($partenaire);
             $entityManager->flush();
+            $session= $this->get('session');
+            if (!$session->has('user')) {
+                $session->set('user',array());
+            $session->set('user',18); }
+            $user=$session->get('user');
 
-            return $this->redirectToRoute('partenaire_index');
+            return $this->render('partenaire/index.html.twig', [
+                'partenaires' => $partenaires,
+            ]);
         }
 
         return $this->render('partenaire/new.html.twig', [
             'partenaire' => $partenaire,
             'form' => $form->createView(),
+            'partenaires' => $partenaires,
         ]);
     }
 
