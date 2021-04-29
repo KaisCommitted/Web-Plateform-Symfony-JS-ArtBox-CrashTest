@@ -156,8 +156,6 @@
 
                     <!-- EventBox -->
                     {% for evenement in evenements %}
-                        {% set difference = evenement.date.diff(date()) %}
-                        {% set leftDays = difference.days %}
 
                         <div class="col-sm-12">
                             <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
@@ -186,10 +184,8 @@
                                             </div>
                                             <div class="iq-card-post-toolbar">
                                                 <div class="dropdown">
-                                                    {% if CurrentUser.username == evenement.idOrg %}
                                           <span class="dropdown-toggle" id="postdata-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                           <i class="ri-more-fill"></i>
-                                                {% endif %}
                                           </span>
                                                     <div class="dropdown-menu m-0 p-0" aria-labelledby="postdata-5">
                                                         <a class="dropdown-item p-3" href="#">
@@ -202,9 +198,7 @@
                                                             </div>
                                                         </a>
 
-
                                                         <a class="dropdown-item p-3" href="#">
-
                                                             <form  id="myform" method="post" action="{{ path('evenement_delete', {'id': evenement.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.id) }}">
                                                             <div class="d-flex align-items-top">
@@ -212,16 +206,14 @@
 
                                                                 <div class="data ml-2">
 
-                                                                    <h6  onclick="document.getElementById('myform').submit();">Delete Event </h6>
+                                                                    <h6  onclick="document.getElementById('myform').submit();">Delete Post </h6>
 
 
                                                                 </div>
 
                                                             </div>
                                                             </form>
-
                                                         </a>
-
 
                                                         <a class="dropdown-item p-3" href="#">
                                                             <div class="d-flex align-items-top">
@@ -292,9 +284,8 @@
                                                             <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                                <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
- {% if date(evenement.date) > date() %}
-                                                    <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
-{% endif %}
+                                                <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+
                                                 </span>
                                                             </form>
                                                             <div class="dropdown-menu">
@@ -317,11 +308,7 @@
                                                     <div class="total-like-block ml-2 mr-3">
                                                         <div class="dropdown">
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                 {% if  date(evenement.date) > date() %}
-                                                    {{ evenement.nbMax-evenement.capaciteEvent }} People going
-                                                    {% else %}
-                                                        {{ evenement.nbMax-evenement.capaciteEvent }} People have been there
-                                                        {% endif %}
+                                                {{ evenement.nbMax-evenement.capaciteEvent }} People going
                                                 </span>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="#">Max Emum</a>
@@ -447,7 +434,7 @@
                     <div class="iq-card">
                         <div class="iq-card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title">Most Successful Events</h4>
+                                <h4 class="card-title">Events</h4>
                             </div>
                             <div class="iq-card-header-toolbar d-flex align-items-center">
                                 <div class="dropdown">
@@ -466,19 +453,20 @@
                         </div>
                         <div class="iq-card-body">
                             <ul class="media-story m-0 p-0">
-                                {% set i = 0 %}
-                  {% for E in MostSuccesful %}
-                      {% set i = i +1 %}
-                      {% if i < 4 %}
                                 <li class="d-flex mb-4 align-items-center ">
-                                    <img src="{{ asset('imagesEvent/')~ E.imageEvent ~''}}" alt="story-img" class="rounded-circle img-fluid">
+                                    <img src="{{ asset('images/page-img/s4.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
                                     <div class="stories-data ml-3">
-                                        <a href="{{ path('evenement_show', {'id': E.id}) }}"  class="mb-0 d-inline-block">{{ E.nomEvent}}</a>
-                                        <p class="mb-0">{{ 'Rating : ' ~ E.ratingEvent ~ '/5   '}}</p>
+                                        <h5>Web Workshop</h5>
+                                        <p class="mb-0">1 hour ago</p>
                                     </div>
                                 </li>
-                      {% endif %}
-                                {% endfor %}
+                                <li class="d-flex align-items-center">
+                                    <img src="{{ asset('images/page-img/s5.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
+                                    <div class="stories-data ml-3">
+                                        <h5>Fun Events and Festivals</h5>
+                                        <p class="mb-0">1 hour ago</p>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>

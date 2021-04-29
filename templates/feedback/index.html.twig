@@ -6,24 +6,16 @@
 {% block content %}
     <h1>Feedback index</h1>
 
-<div id="content-page" class="content-page">
-<div class="container">
-    <div class="row">
-        <div class="col-lg-11">
-            <div class="iq-card" >
-                <div class="iq-card-header d-flex justify-content-between">
-                    <div class="iq-header-title">
-                        <h4 class="card-title">Show Feedback</h4>
-                    </div>
-                </div>
-                <div class="iq-card-body">
-                    <table id="tableac">
+
+
+        <table id ="tableac">
+
             <thead>
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type"<tbody>
            <tr>
                 <th>IdFeedback</th>
                 <th>ContenuFeedback</th>
-                <th>TypeFeedback</th>
+                <th>TypeFeedback</th>t
                 <th>EtatFeedback</th>
                 <th>DateFeedback</th>
                 <th>actions</th>
@@ -33,7 +25,7 @@
         <tbody>
             <tr>
                 <td>{{ feedback.idFeedback }}</td>
-                <td>{{ feedback.contenuFeedback |raw }}</td>
+                <td>{{ feedback.contenuFeedback }}</td>
                 <td>{{ feedback.typeFeedback }}</td>
                 <td>{{ feedback.etatFeedback }}</td>
                 <td>{{ feedback.dateFeedback ? feedback.dateFeedback|date('Y-m-d') : '' }}</td>
@@ -44,11 +36,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
-
+            </tbody>
         {% endfor %}
-                        </tbody>
+
     </table>
 
     <a href="{{ path('feedback_new') }}">Create new</a>
@@ -82,13 +74,6 @@
             }
         });
     </script>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-    </div>
 
 
 

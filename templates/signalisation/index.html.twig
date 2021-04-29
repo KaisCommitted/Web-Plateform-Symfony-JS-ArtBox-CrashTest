@@ -4,34 +4,21 @@
 
 
 {% block content %}
-    <h1>Report index</h1>
+    <h1>Signalisation index</h1>
 
-<div id="content-page" class="content-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-11">
-                <div class="iq-card" >
-                    <div class="iq-card-header d-flex justify-content-between">
-                        <div class="iq-header-title">
-                            <h4 class="card-title">Show Report</h4>
-                        </div>
-                    </div>
-                    <div class="iq-card-body">
-                        <table id="tableac">
-                            <thead>
-                            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type">
-                            <tr>
+    <table class="table">
+        <thead>
+            <tr>
                 <th>IdSignal</th>
                 <th>ContenuSignal</th>
                 <th>TypeSignal</th>
                 <th>EtatSignal</th>
                 <th>DateSignal</th>
                 <th>actions</th>
-                            </tr>
-
-
+            </tr>
+        </thead>
+        <tbody>
         {% for signalisation in signalisations %}
-            <tbody>
             <tr>
                 <td>{{ signalisation.idSignal }}</td>
                 <td>{{ signalisation.contenuSignal }}</td>
@@ -45,48 +32,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <a href="{{ path('signalisation_new') }}">Create new</a>
-                        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-                        <script>
-                            $(document).ready(function(){
-                                $('#search').keyup(function(){
-                                    search_table($(this).val());
-                                });
-                                function search_table(value){
-                                    $('#tableac tbody tr').each(function(){
-                                        var found = 'false';
-                                        $(this).each(function(){
-                                            if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
-                                            {
-                                                found = 'true';
-                                            }
-                                        });
-                                        if(found === 'true')
-                                        {
-                                            $(this).show();
-
-                                        }
-                                        else
-                                        {
-                                            $(this).hide();
-
-                                        }
-                                    });
-                                }
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 {% endblock %}

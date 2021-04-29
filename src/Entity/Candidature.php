@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Candidature
  *
- * @ORM\Table(name="candidature", indexes={@ORM\Index(name="fk_userrrr", columns={"user_id"}), @ORM\Index(name="fk_annnnn", columns={"ann_id"}) })
+ * @ORM\Table(name="candidature", indexes={@ORM\Index(name="fk_userrrr", columns={"user_id"}), @ORM\Index(name="fk_annnnn", columns={"ann_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\CandidatureRepository")
  */
 class Candidature
@@ -40,7 +40,6 @@ class Candidature
      * })
      */
     private $user;
-
 
     public function getId(): ?int
     {

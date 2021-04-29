@@ -4,31 +4,11 @@
 
 
 {% block content %}
-<h1>Categories</h1>
-<div id="content-page" class="content-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-11">
-                <div class="iq-card" >
-                    <div class="iq-card-header d-flex justify-content-between">
-                        <div class="iq-header-title">
-                            <h4 class="card-title">Edit my report</h4>
-                        </div>
-                    </div>
-                    <div class="iq-card-body">
-    <h1>Edit Report</h1>
+    <h1>Edit Signalisation</h1>
 
     {{ include('signalisation/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('signalisation_index') }}">back to list</a>
 
     {{ include('signalisation/_delete_form.html.twig') }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 {% endblock %}
