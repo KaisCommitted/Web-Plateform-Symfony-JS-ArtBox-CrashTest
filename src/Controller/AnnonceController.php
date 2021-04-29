@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\Categorie;
 use App\Form\AnnonceType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @Route("/annonce")
@@ -90,7 +92,7 @@ class AnnonceController extends AbstractController
      */
     public function delete(Request $request, Annonce $annonce): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annonce->getIdAnn(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $annonce->getIdAnn(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($annonce);
             $entityManager->flush();
@@ -98,9 +100,6 @@ class AnnonceController extends AbstractController
 
         return $this->redirectToRoute('annonce_index');
     }
-
-
-
 
 
     /**
@@ -175,7 +174,7 @@ class AnnonceController extends AbstractController
      */
     public function deleteback(Request $request, Annonce $annonce): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annonce->getIdAnn(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $annonce->getIdAnn(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($annonce);
             $entityManager->flush();
@@ -183,7 +182,405 @@ class AnnonceController extends AbstractController
 
         return $this->redirectToRoute('annonce_back_index');
     }
+
+
+    /**
+     * @Route("/tri/triDate", name="annonce_triDate")
+     */
+    public function TriDate(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT A FROM App\Entity\Annonce A
+            ORDER BY A.date ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/tri/triAlphabetical", name="annonce_triAlphabetical")
+     */
+    public function TriAlphabetical(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT A FROM App\Entity\Annonce A
+            ORDER BY A.titreAnn ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/tri/triOrganizer", name="annonce_triOrganizer")
+     */
+    public function TriOrganizer(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            ORDER BY E.idUser ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/ThisMonth", name="annonce_ThisMonth")
+     */
+    public function FilterThisMonth(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())<30 AND DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0 '
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/Today", name="annonce_Today")
+     */
+    public function FilterToday(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())=0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/ThisWeek", name="annonce_ThisWeek")
+     */
+    public function FilterThisWeek(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+                WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())<7 AND DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/filter/Upcoming", name="annonce_Upcoming")
+     */
+    public function FilterUpcoming(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/TriCat/show", name="annonce_cat", methods={"POST"})
+     */
+    public function FindByCategorie(EntityManagerInterface $em, Request $request): Response
+    {
+        $data = $request->get('myText');
+        $queryBuilder = $em->getRepository(Annonce::class)->createQueryBuilder('E');
+        $queryBuilder->andWhere('E.categorie = :cat');
+        $queryBuilder->setParameter('cat', $data);
+        $annonces = $queryBuilder->getQuery()->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+    }
+
+
+    /**
+     * @Route("/back/tri/triDate", name="annonce_back_triDate")
+     */
+    public function TriBackDate(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            ORDER BY E.ddlAnn ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/tri/triAlphabetical", name="annonce_back_triAlphabetical")
+     */
+    public function TriBackAlphabetical(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            ORDER BY E.titreAnn ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/back/tri/triOrganizer", name="annonce_back_triOrganizer")
+     */
+    public function TriBackOrganizer(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            ORDER BY E.idUser ASC'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/ThisMonth", name="annonce_back_ThisMonth")
+     */
+    public function FilterBackThisMonth(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())<30 AND DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0 '
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/Today", name="annonce_back_Today")
+     */
+    public function FilterBackToday(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())=0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/ThisWeek", name="annonce_back_ThisWeek")
+     */
+    public function FilterBackThisWeek(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+                WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())<7 AND DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/Upcoming", name="annonce_back_Upcoming")
+     */
+    public function FilterBackUpcoming(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())>0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
+
+    /**
+     * @Route("/back/filter/HasPassed", name="annonce_back_HasPassed")
+     */
+    public function FilterBackHasPassed(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Annonce E 
+            WHERE DATE_DIFF(E.ddlAnn,CURRENT_DATE())<0'
+        );
+
+        $annonces = $query->getResult();
+
+
+        $categories = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findAll();
+
+        return $this->render('annonce/backindex.html.twig', [
+            'annonces' => $annonces, 'categories' => $categories,
+        ]);
+
+    }
 }
-
-
-

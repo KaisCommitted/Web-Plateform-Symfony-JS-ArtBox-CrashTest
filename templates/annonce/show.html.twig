@@ -18,7 +18,7 @@
                                     <li>
                                         <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get job offer QR code</button>
                                         <div id="imgDiv">
-                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job offer title:  ' ~ annonce.titreAnn  ~'\nDescription:  ' ~ annonce.descAnn   ~'\nSalary:  ' ~ annonce.pay  ~'\nApplication deadline:  ' ~ annonce.ddlAnn  ) }}"  width="8%" height="auto"   border="0"></p>
+                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job offer title:  ' ~ annonce.titreAnn  ~'\nRecruiter:  ' ~ annonce.idUser  ~'\nDescription:  ' ~ annonce.descAnn   ~'\nSalary:  ' ~ annonce.pay  ) }}"  width="8%" height="auto"   border="0"></p>
                                         </div>
                                     </li>
 
@@ -151,6 +151,7 @@
                             <a href="{{ path('annonce_index') }}">back to list</a>
                             <a href="{{ path('annonce_edit', {'idAnn': annonce.idAnn}) }}">edit</a>
                             {{ include('annonce/_delete_form.html.twig') }}
+
                         </div>
                     </div>
                 </div>

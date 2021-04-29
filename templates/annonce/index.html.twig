@@ -16,8 +16,15 @@
 
                                  <span class="dropdown-toggle" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="false" role="button">
                                  <i class="ri-more-fill"></i>
-                                     Choose genre
+                                     Filter by deadline...
                                  </span>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+                                <a class="dropdown-item" href="{{ path('annonce_Upcoming') }}"><i class="ri-eye-fill mr-2"></i>Upcoming</a>
+                               <a class="dropdown-item" href="{{ path('annonce_Today') }}"><i class="ri-eye-fill mr-2"></i>Today</a>
+                                <a class="dropdown-item" href="{{ path('annonce_ThisWeek') }}"><i class="ri-eye-fill mr-2"></i>This Week</a>
+                                <a class="dropdown-item" href="{{ path('annonce_ThisMonth') }}"><i class="ri-eye-fill mr-2"></i>This Month</a>
+                                <a class="dropdown-item" href="{{ path('annonce_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
+                            </div>
 
                         </div>
                         <div class="dropdown">
@@ -28,11 +35,10 @@
 
                                  </span>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
-                                <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>Most Rated</a>
-                                <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>This Month</a>
-                                <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>This Week</a>
-                                <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Today</a>
-                                <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
+                                <a class="dropdown-item" href="{{ path('annonce_triAlphabetical') }}"><i class="ri-eye-fill mr-2"></i>Alphabetical</a>
+                                <a class="dropdown-item" href="{{ path('annonce_triDate') }}"><i class="ri-eye-fill mr-2"></i>Happening Soon</a>
+                                <a class="dropdown-item" href="{{ path('annonce_triOrganizer') }}"><i class="ri-eye-fill mr-2"></i>Organizer</a>
+                                <a class="dropdown-item" href="{{ path('annonce_index') }}"><i class="ri-eye-fill mr-2"></i>Reset</a>
                             </div>
                         </div>
                     </div>
@@ -40,7 +46,7 @@
                     <div class="col-sm-12">
                         <form action="{{ path('annonce_new') }}">
 
-                            <button  type="submit" class="btn btn-primary d-block w-100 mt-3">Add a job offer</button>
+                            <button  type="submit" class="btn btn-primary">Add a job offer</button>
                         </form>
                     </div>
 
@@ -59,12 +65,8 @@
                                             </div>
                                             <div class="media-support-info mt-2">
                                                 <h5 class="mb-0 d-inline-block"><a href="#" class="">{{ annonce.idUser}}</a></h5>
-                                                <a href="{{ path('annonce_edit', {'idAnn': annonce.idAnn}) }}"  class="mb-0 d-inline-block">{{'is recruiting for ' ~ annonce.titreAnn}}</a>
+                                                <a href="{{ path('annonce_show', {'idAnn': annonce.idAnn}) }}"  class="mb-0 d-inline-block">{{'is recruiting for ' ~ annonce.titreAnn}}</a>
                                             </div>
-
-                                                <div id="imgDiv">
-                                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job offer title:  ' ~ annonce.titreAnn  ~'\nDescription:  ' ~ annonce.descAnn   ~'\nSalary:  ' ~ annonce.pay  ) }}"  width="8%" height="auto"   border="0"></p>
-                                                        </div>
 
                                             <div class="iq-card-post-toolbar">
                                                 <div class="dropdown">
@@ -279,7 +281,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-primary d-block mt-3">See All</a>
+                            <a href="#" class="btn btn-primary">See All</a>
                         </div>
                     </div>
                     <div class="iq-card">
@@ -292,13 +294,7 @@
                                  <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" role="button">
                                  <i class="ri-more-fill"></i>
                                  </span>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
-                                        <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
-                                        <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>
-                                        <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Print</a>
-                                        <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
