@@ -17,7 +17,7 @@ class FeedbackType extends AbstractType
         $builder
             ->add('contenuFeedback' , CKEditorType::class)
 
-            ->add('typeFeedback')
+            ->add('typeFeedback' )
             ->add('etatFeedback')
             ->add('dateFeedback')
             ->add('idUser')
