@@ -8,6 +8,9 @@
     "dasprid/enum": {
         "version": "1.0.3"
     },
+    "davmixcool/php-sentiment-analyzer": {
+        "version": "1.2.2"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -103,11 +106,47 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+        },
+        "files": [
+            "./config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "gregwar/captcha": {
         "version": "v1.1.9"
     },
     "gregwar/captcha-bundle": {
         "version": "v2.1.4"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "7.3.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.4.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.8.2"
+    },
+    "illuminate/collections": {
+        "version": "v8.39.0"
+    },
+    "illuminate/contracts": {
+        "version": "v8.39.0"
+    },
+    "illuminate/macroable": {
+        "version": "v8.38.0"
+    },
+    "illuminate/support": {
+        "version": "v8.39.0"
+    },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.16.0"
     },
     "laminas/laminas-code": {
         "version": "4.1.0"
@@ -120,6 +159,9 @@
     },
     "monolog/monolog": {
         "version": "2.2.0"
+    },
+    "nesbot/carbon": {
+        "version": "2.46.0"
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
@@ -142,11 +184,26 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.3"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
+    },
+    "risan/sentiment-analysis": {
+        "version": "dev-master"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -162,6 +219,9 @@
     },
     "spatie/calendar-links": {
         "version": "1.4.4"
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.2.7"
     },
     "symfony/asset": {
         "version": "v5.2.4"
@@ -213,6 +273,15 @@
     },
     "symfony/deprecation-contracts": {
         "version": "v2.2.0"
+    },
+    "symfony/discord-notifier": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "1bbc2f7c212346491efde98bf55a3f689056ed3f"
+        }
     },
     "symfony/doctrine-bridge": {
         "version": "v5.2.6"
@@ -455,6 +524,20 @@
     "symfony/string": {
         "version": "v5.2.6"
     },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "ae4d22af30bbd484506bc1817c5a3ef72c855b93"
+        },
+        "files": [
+            "./config/packages/dev/swiftmailer.yaml",
+            "./config/packages/swiftmailer.yaml",
+            "./config/packages/test/swiftmailer.yaml"
+        ]
+    },
     "symfony/test-pack": {
         "version": "v1.0.7"
     },
@@ -545,11 +628,17 @@
     "symfonycasts/verify-email-bundle": {
         "version": "v1.4.0"
     },
+    "tootootltd/azure-text-analytics": {
+        "version": "1.1.2"
+    },
     "twig/extra-bundle": {
         "version": "v3.3.0"
     },
     "twig/twig": {
         "version": "v3.3.0"
+    },
+    "voku/portable-ascii": {
+        "version": "1.5.6"
     },
     "webmozart/assert": {
         "version": "1.10.0"
