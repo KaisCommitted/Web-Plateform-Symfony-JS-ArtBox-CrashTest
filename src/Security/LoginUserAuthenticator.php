@@ -49,6 +49,7 @@ class LoginUserAuthenticator extends AbstractFormLoginAuthenticator
         $credentials = [
             'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
+            'refAdmin' => $request->request->get('refAdmin'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(
@@ -79,7 +80,6 @@ class LoginUserAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user) :bool
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
-        // If there are no credentials to check, you can just return true
         //throw new \Exception('TODO: check the credentials inside '.__FILE__);
     }
 
@@ -88,6 +88,7 @@ class LoginUserAuthenticator extends AbstractFormLoginAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
 
         return new RedirectResponse($this->urlGenerator->generate('user_index'));
 
