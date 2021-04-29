@@ -18,9 +18,8 @@ class PostesType extends AbstractType
             ->add('description')
             ->add('file',FileType::class ,array('attr' => array('class' => 'form-control'), 'label' => 'Choose file for your Post     '))
 
-            ->add('albumCover')
 
-
+            ->add('albumCover', FileType::class, array('label' => 'Choose cover for your Song'))
             ->add('postType')
             ->add('categorie')
             ->add('idUser')

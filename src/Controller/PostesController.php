@@ -50,7 +50,31 @@ class PostesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $poste->upload();
+
+
+
+            $file1 = $poste->getFile();
+            $fileName1 = md5(uniqid()).'.'.$file1->guessExtension();
+            $file1->move($this->getParameter('file_directory'), $fileName1);
+            $poste->setFile($fileName1);
+
+
+
+            $file = $form->get('albumCover')->getData();
+
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('file_directory'), $fileName);
+            $poste->setAlbumCover($fileName);
+
+
+
+
+
+
+
+
+
+
 
             $analyzer = new Analyzer();
 
@@ -98,7 +122,7 @@ class PostesController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('postes_index');
-        }
+         }
 
         return $this->render('postes/edit.html.twig', [
             'poste' => $poste,

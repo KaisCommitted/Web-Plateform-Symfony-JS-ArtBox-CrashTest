@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a9e113fc492f76268da672397b6454e",
+    "content-hash": "20c73f46a0607aca0fa4d70986f1119f",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1844,6 +1844,58 @@
                 }
             ],
             "time": "2021-02-28T10:03:53+00:00"
+        },
+        {
+            "name": "eschmar/time-ago-bundle",
+            "version": "v2.0.0",
+            "target-dir": "Eschmar/TimeAgoBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eschmar/time-ago-bundle.git",
+                "reference": "ca9332e20dd59951422b43c02d0d22757a68ea08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eschmar/time-ago-bundle/zipball/ca9332e20dd59951422b43c02d0d22757a68ea08",
+                "reference": "ca9332e20dd59951422b43c02d0d22757a68ea08",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "symfony/flex": "*",
+                "twig/twig": "^3.0.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Eschmar\\TimeAgoBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Eschmann",
+                    "homepage": "https://github.com/eschmar",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides a simple twig filter for expressing time difference in words.",
+            "homepage": "https://github.com/eschmar/time-ago-bundle",
+            "keywords": [
+                "ago",
+                "bundle",
+                "symfony",
+                "time",
+                "twig"
+            ],
+            "support": {
+                "issues": "https://github.com/eschmar/time-ago-bundle/issues",
+                "source": "https://github.com/eschmar/time-ago-bundle/tree/v2.0.0"
+            },
+            "time": "2020-06-04T12:24:24+00:00"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",

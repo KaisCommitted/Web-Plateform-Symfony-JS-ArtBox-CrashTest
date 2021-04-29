@@ -103,6 +103,9 @@
     "endroid/qr-code-bundle": {
         "version": "4.0.0"
     },
+    "eschmar/time-ago-bundle": {
+        "version": "v1.1.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },

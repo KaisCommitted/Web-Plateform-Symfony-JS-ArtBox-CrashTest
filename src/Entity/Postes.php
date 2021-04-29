@@ -131,12 +131,12 @@ class Postes
         return $this;
     }
 
-    public function getFile(): ?string
+    public function getFile()
     {
         return $this->file;
     }
 
-    public function setFile(string $file): self
+    public function setFile($file): self
     {
         $this->file = $file;
 
