@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Spatie\CalendarLinks\Link;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -118,6 +119,7 @@ class Evenement
     private $idOrg;
 
     private $file;
+
 
     public function getId(): ?int
     {
@@ -319,9 +321,9 @@ class Evenement
         return $this->nomEvent;
     }
 
-     public function initializeNb(Evenenemnt $evenement)
-     {
-         $this->setNbMax($this->getCapaciteEvent());
-    }
+
+
+
+
 
 }

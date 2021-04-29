@@ -41,7 +41,7 @@ class RatingEventController extends AbstractController
     public function new(Request $request,EvenementController $evenementController,RatingEventRepository $ratingEventRepository,EvenementRepository $evenementRepository, UserRepository $userRepository): Response
     {
         $data=$request->get('ratedEvent');
-        $rating = $request->get('note');
+        $rating = $request->get('noteCopy');
         $evenement = new Evenement();
         $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
         $user= new User();

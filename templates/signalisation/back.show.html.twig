@@ -1,0 +1,57 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Reports{% endblock %}
+
+
+{% block content %}
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Edit my Feedback</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+    <h1>Reports</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdSignal</th>
+                <td>{{ signalisation.idSignal }}</td>
+            </tr>
+            <tr>
+                <th>ContenuSignal</th>
+                <td>{{ signalisation.contenuSignal }}</td>
+            </tr>
+            <tr>
+                <th>TypeSignal</th>
+                <td>{{ signalisation.typeSignal }}</td>
+            </tr>
+            <tr>
+                <th>EtatSignal</th>
+                <td>{{ signalisation.etatSignal }}</td>
+            </tr>
+            <tr>
+                <th>DateSignal</th>
+                <td>{{ signalisation.dateSignal ? signalisation.dateSignal|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('signalisation_back_index') }}">back to list</a>
+
+    <a href="{{ path('signalisation_back_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
+
+    {{ include('signalisation/back_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

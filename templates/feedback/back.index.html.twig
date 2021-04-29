@@ -1,0 +1,96 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Feedback index{% endblock %}
+
+
+{% block content %}
+    <h1>Feedback index</h1>
+
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Show Reports</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <table id="tableac">
+            <thead>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type"><tbody>
+           <tr>
+                <th>IdFeedback</th>
+                <th>ContenuFeedback</th>
+                <th>TypeFeedback</th>
+                <th>EtatFeedback</th>
+                <th>DateFeedback</th>
+                <th>actions</th>
+            </tr>
+
+        {% for feedback in feedback %}
+        <tbody>
+            <tr>
+                <td>{{ feedback.idFeedback }}</td>
+                <td>{{ feedback.contenuFeedback | raw}}</td>
+                <td>{{ feedback.typeFeedback }}</td>
+                <td>{{ feedback.etatFeedback }}</td>
+                <td>{{ feedback.dateFeedback ? feedback.dateFeedback|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('feedback_back_show', {'idFeedback': feedback.idFeedback}) }}">show</a>
+                    <a href="{{ path('feedback_back_edit', {'idFeedback': feedback.idFeedback}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+            </tbody>
+        {% endfor %}
+
+    </table>
+
+    <a href="{{ path('feedback_back_new') }}">Create new</a>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found === 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

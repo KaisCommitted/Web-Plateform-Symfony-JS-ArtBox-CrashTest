@@ -1,0 +1,183 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+
+{% block content %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#imgDiv').hide();
+            $('#btn1').click(function(){
+                $('#imgDiv').show();
+            });
+            $('#btn2').click(function(){
+                $('#imgDiv').hide();
+            });
+        });
+    </script>
+
+    <h1>Annonce</h1>
+
+
+
+
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                    <h4 class="card-title">{{ annonce.titreAnn }}</h4>
+                                    <li>
+                                        <button style="position: absolute; top:10px; left: 700px; " class="btn btn-primary" type="button" id="btn1">Get job offer QR code</button>
+                                        <div id="imgDiv">
+                                            <p><img class="img-scale2" style="position: absolute; top:45px; left: 785px; " src="{{ qr_code_path('Job title:  ' ~ annonce.titreAnn  ~'\nSalary:  ' ~ annonce.pay   ~'\nApplication deadline:  ' ~ annonce.ddlAnn  ) }}"  width="8%" height="auto"   border="0"></p>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+
+                            <h6>{{ annonce.descAnn }}</h6>
+
+                            <div class="iq-card-body text-center">
+                                <div class="group-details d-inline-block pb-3">
+                                    <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+
+                                        <li class="pl-3 pr-3">
+                                            <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                                <img width="20%" height="auto" src="{{ asset('javaicons/calendar.png')}}" >
+                                                <p class="mb-0">Application deadline</p>
+                                            </ul>
+                                            <h6>{{ annonce.ddlAnn ? annonce.ddlAnn|date('Y-m-d') : '' }}</h6>
+                                        </li>
+                                        <li class="pl-3 pr-3">
+                                            <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
+                                                <img width="20%" height="auto" src="{{ asset('javaicons/icons8_Person_32px.png')}}" >
+                                                <p class="mb-0">Salary</p>
+                                            </ul>
+                                            <h6>{{ annonce.pay }}</h6>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="comment-area mt-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="like-block position-relative d-flex align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="like-data">
+                                                <div class="dropdown">
+                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                                <img src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="">
+                                                </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#" >Apply</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="total-like-block ml-2 mr-3">
+                                                <div class="dropdown"
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Max Emum</a>
+                                                        <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                        <a class="dropdown-item" href="#">Tara Misu</a>
+                                                        <a class="dropdown-item" href="#">Midge Itz</a>
+                                                        <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                        <a class="dropdown-item" href="#">Other</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="total-comment-block">
+                                            <div class="dropdown">
+                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                             20 Comment
+                                             </span>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Max Emum</a>
+                                                    <a class="dropdown-item" href="#">Bill Yerds</a>
+                                                    <a class="dropdown-item" href="#">Hap E. Birthday</a>
+                                                    <a class="dropdown-item" href="#">Tara Misu</a>
+                                                    <a class="dropdown-item" href="#">Midge Itz</a>
+                                                    <a class="dropdown-item" href="#">Sal Vidge</a>
+                                                    <a class="dropdown-item" href="#">Other</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="share-block d-flex align-items-center feather-icon mr-3">
+                                        <a href="javascript:void();"><i class="ri-share-line"></i>
+                                            <span class="ml-1">99 Share</span></a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <ul class="post-comments p-0 m-0">
+                                    <li class="mb-2">
+                                        <div class="d-flex flex-wrap">
+                                            <div class="user-img">
+                                                <img src="{{ asset('images/user/02.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ml-3">
+                                                <h6>Monty Carlo</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="user-img">
+                                                <img src="{{ asset('images/user/03.jpg') }}" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                            </div>
+                                            <div class="comment-data-block ml-3">
+                                                <h6>Paul Molive</h6>
+                                                <p class="mb-0">Lorem ipsum dolor sit amet</p>
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                    <a href="javascript:void();">like</a>
+                                                    <a href="javascript:void();">reply</a>
+                                                    <a href="javascript:void();">translate</a>
+                                                    <span> 5 min </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                    <input type="text" class="form-control rounded">
+                                    <div class="comment-attagement d-flex">
+                                        <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                                        <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <a href="{{ path('annonce_back_index') }}">Back to available job offers</a>
+
+                            <a style="position: absolute; top:15px; left: 480px;" href="{{ path('annonce_back_edit', {'idAnn': annonce.idAnn}) }}">Edit my job offer</a>
+
+                            {{ include('annonce/back_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
