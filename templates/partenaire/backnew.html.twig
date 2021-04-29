@@ -1,11 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
-{% block title %}New Partenaire{% endblock %}
+{% block title %}Add A Partner{% endblock %}
 
 
 {% block content %}
-
-
     <div id="content-page" class="content-page">
         <div class="container">
             <div class="row">
@@ -13,16 +11,23 @@
                     <div class="iq-card" >
                         <div class="iq-card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title">Add a partner</h4>
+                                <h4 class="card-title">Host an Event</h4>
                             </div>
                         </div>
                         <div class="iq-card-body">
-                            {{ include('partenaire/_form.html.twig') }}
-                            <a href="{{ path('partenaire_index') }}">back to list</a>
+                            {{ include('partenaire/back_form.html.twig') }}
+                            <a href="{{ path('partenaire_back_index') }}">Back to Partners</a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
+    </div>
+
+
+
+
 
 {% endblock %}
