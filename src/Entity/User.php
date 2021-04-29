@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -53,6 +54,17 @@ class User implements UserInterface
     private $mail;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     */
+    private $image;
+
+
+
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date", nullable=false)
@@ -87,6 +99,84 @@ class User implements UserInterface
      * @ORM\Column(name="id_label", type="integer", nullable=true)
      */
     private $idLabel;
+    private $file;
+
+//    /**
+//     * @ORM\Column(type="boolean")
+//     */
+//    private $isVerified;
+
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
+
+    public function getUploadDir()
+    {
+        return 'imagesEvent';
+    }
+
+    public function getAbsolutRoot()
+    {
+        return $this->getUploadRoot().$this->imageEvent ;
+    }
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->imageEvent;
+    }
+
+    public function getUploadRoot()
+    {
+        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
+    }
+
+    public function upload()
+    {
+
+        if($this->file === null){
+            return;
+
+        }
+        $this->imageEvent = $this->file->getClientOriginalName();
+        if(!is_dir($this->getUploadRoot()))
+        {
+            mkdir($this->getUploadRoot(),'0777',true);
+        }
+
+        $this->file->move($this->getUploadRoot(),$this->imageEvent);
+        unset($this->file);
+    }
+
 
 
     public function getIdUser(): ?int
@@ -194,59 +284,10 @@ class User implements UserInterface
         return $this->username;
     }
 
-//    /**
-//     * @return string[]
-//     */
-//    public function getRoles()
-//    {
-//        $roles = $this->roles;
-//        // guarantee every user at least has ROLE_USER
-//        $roles[] = 'ROLE_USER';
-//
-//        return array_unique($roles);
-//    }
-//
-//    public function setRoles(array $roles): self
-//    {
-//        $this->roles = $roles;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return string|null
-//     */
-//    public function getPassword()
-//    {
-//        return (string)$this->pwdUser;
-//    }
-//    public function setPassword(string $pwdUser): self
-//    {
-//        $this->pwdUser= $pwdUser;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return string|null
-//     */
-//    public function getSalt(): ?string
-//    {
-//        return null;
-//    }
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function eraseCredentials()
-//    {
-//     //TODO: Implement eraseCredentials() method.
-//    }
-//
-//    public function isVerified(): bool
-//    {
-//        return $this->isVerified;
-//    }
+    public function getIsVerified(): bool
+    {
+        return $this->isVerified;
+    }
 
     public function setIsVerified(bool $isVerified): self
     {
