@@ -4,9 +4,25 @@
 
 
 {% block content %}
-    <h1>Create new Partenaire</h1>
 
-    {{ include('partenaire/_form.html.twig') }}
 
-    <a href="{{ path('partenaire_index') }}">back to list</a>
+    <div id="content-page" class="content-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="iq-card" >
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Add a partner</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            {{ include('partenaire/_form.html.twig') }}
+                            <a href="{{ path('partenaire_index') }}">back to list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}

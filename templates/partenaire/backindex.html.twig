@@ -1,0 +1,49 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Partenaire index{% endblock %}
+
+
+{% block content %}
+    <h1>Partenaire index</h1>
+
+    <table cellspacing="0" cellpadding="0" border="0" width="1200">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Adresse</th>
+        <th>Logo</th>
+        <th>Rib</th>
+        <th>Telephone</th>
+        <th>Status</th>
+        <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for partner in partenaire %}
+
+        <tr>
+            <td>{{ partner.idPart }}</td>
+            <td>{{ partner.nom ? partner.date|date('Y-m-d') : '' }}</td>
+            <td>{{ partner.adresse }}</td>
+            <td><img src="{{ asset('imagesEvent/')~ partner.logo ~''}}"  width="30%" height="auto" display="block"  border="0"></td>
+            <td>{{ partner.rib }}</td>
+            <td>{{ partner.tel }}</td>
+            <td>{{ partner.$status }}</td>
+            <td>{{ partner.idUser.nom }}</td>
+
+            <td>
+                <a href="{{ path('evenement_back_show', {'id': partner.id}) }}">show</a>
+                <a href="{{ path('evenement_back_edit', {'id': partner.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="10">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <a href="{{ path('evenement_back_new') }}">Create new</a>
+{% endblock %}

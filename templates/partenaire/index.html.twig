@@ -4,6 +4,7 @@
 
 
 {% block content %}
+    <div style="margin: auto; max-width: 70%">
     <h1>Partenaire index</h1>
 
     <table class="table">
@@ -41,6 +42,7 @@
         {% endfor %}
         </tbody>
     </table>
+        <a href="{{ path('partenaire_new') }}">Create new</a>
+    </div>
 
-    <a href="{{ path('partenaire_new') }}">Create new</a>
 {% endblock %}

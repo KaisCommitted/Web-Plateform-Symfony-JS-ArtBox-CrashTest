@@ -53,3 +53,5 @@
 
 #idea
 .idea/
+#Composer.phar
+composer.phar
