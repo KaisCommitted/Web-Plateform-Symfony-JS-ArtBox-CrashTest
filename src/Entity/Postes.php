@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Postes
@@ -46,7 +47,7 @@ class Postes
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="post_date", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="post_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $postDate = 'CURRENT_TIMESTAMP';
 
@@ -97,6 +98,9 @@ class Postes
      * })
      */
     private $idUser;
+
+    private $upload;
+
 
     public function getIdPost(): ?int
     {
@@ -227,7 +231,69 @@ class Postes
 
     public function __construct()
     {
-        $this->postDate= new \DateTime();
+        $this->postDate = new \DateTime('now');
+
     }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getUpload()
+    {
+        return $this->upload;
+    }
+
+    /**
+     * @param mixed $upload
+     */
+    public function setUpload(UploadedFile $upload)
+    {
+        $this->upload = $upload;
+    }
+
+    public function getUploadDir()
+    {
+        return 'file';
+    }
+
+    public function getAbsolutRoot()
+    {
+        return $this->getUploadRoot().$this->file ;
+    }
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->file;
+    }
+
+    public function getUploadRoot()
+    {
+        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
+    }
+
+    public function upload()
+    {
+
+        if($this->upload === null){
+            return;
+
+        }
+        $this->file = $this->upload->getClientOriginalName();
+        if(!is_dir($this->getUploadRoot()))
+        {
+            mkdir($this->getUploadRoot(),'0777',true);
+        }
+
+        $this->upload->move($this->getUploadRoot(),$this->file);
+        unset($this->upload);
+    }
+
+
+
+
+
 
 }
