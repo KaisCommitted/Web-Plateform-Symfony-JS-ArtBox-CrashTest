@@ -4,6 +4,7 @@
 
 
 {% block content %}
+<div style="margin: auto; max-width: 70%">
     <h1>Partenaire index</h1>
 
     <table cellspacing="0" cellpadding="0" border="0" width="1200">
@@ -20,30 +21,36 @@
     </tr>
     </thead>
     <tbody>
-    {% for partner in partenaire %}
+    {% for partner in partners %}
 
-        <tr>
+        <tr style="border-bottom: 1px dashed black;">
+
             <td>{{ partner.idPart }}</td>
-            <td>{{ partner.nom ? partner.date|date('Y-m-d') : '' }}</td>
+            <td>{{ partner.nom }}</td>
             <td>{{ partner.adresse }}</td>
-            <td><img src="{{ asset('imagesEvent/')~ partner.logo ~''}}"  width="30%" height="auto" display="block"  border="0"></td>
+            <td><img src="{{ asset('imagepartenaire/')~ partner.logo ~''}}"  height=40% width="40%" height="auto" display="block"  border="0"></td>
             <td>{{ partner.rib }}</td>
             <td>{{ partner.tel }}</td>
-            <td>{{ partner.$status }}</td>
+            <td>{{ partner.status }}</td>
             <td>{{ partner.idUser.nom }}</td>
 
+
             <td>
-                <a href="{{ path('evenement_back_show', {'id': partner.id}) }}">show</a>
-                <a href="{{ path('evenement_back_edit', {'id': partner.id}) }}">edit</a>
+                <a href="{{ path('partenaire_back_show', {'id': partner.idPart}) }}">show</a>
+                <a href="{{ path('partenaire_back_edit', {'id': partner.idPart}) }}">edit</a>
             </td>
+
         </tr>
+
     {% else %}
         <tr>
             <td colspan="10">no records found</td>
         </tr>
+
     {% endfor %}
     </tbody>
     </table>
 
-    <a href="{{ path('evenement_back_new') }}">Create new</a>
+    <a style="float: left; padding-top: 1vw;" href="{{ path('partenaire_back_new') }}"><button class="btn btn-primary">Create new</button></a>
+</div>
 {% endblock %}

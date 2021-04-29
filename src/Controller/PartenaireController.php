@@ -94,4 +94,110 @@ class PartenaireController extends AbstractController
 
         return $this->redirectToRoute('partenaire_index');
     }
+
+    /**
+     * @Route("/back/index", name="partenaire_back_index", methods={"GET"})
+     */
+    public function indexback(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT P FROM App\Entity\Partenaire P'
+        );
+        $MostSuccesful = $query->getResult();
+        $partner = new Partenaire();
+        $form = $this->createForm(PartenaireType::class, $partner);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            var_dump($evenement);
+//            die();
+            $partner->upload();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($partner);
+            $entityManager->flush();
+        }
+        $partners = $this->getDoctrine()
+            ->getRepository(Partenaire::class)
+            ->findAll();
+
+
+        return $this->render('partenaire/backindex.html.twig', [
+            'partners' => $partners, 'form' => $form->createView(),'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/back/new", name="partenaire_back_new", methods={"GET","POST"})
+     */
+    public function newback(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $partner = new Partenaire();
+        $form = $this->createForm(PartenaireType::class, $partner);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $partner->upload();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($partner);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('partenaire_back_index');
+        }
+
+        return $this->render('partenaire/backnew.html.twig', [
+            'partner' => $partner,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/back/{id}", name="partenaire_back_show", methods={"GET"})
+     */
+    public function showback(Partenaire $partenaire): Response
+    {
+        return $this->render('partenaire/backshow.html.twig', [
+            'partner' => $partenaire,
+        ]);
+    }
+
+    /**
+     * @Route("/back/{id}/edit", name="partenaire_back_edit", methods={"GET","POST"})
+     */
+    public function editback(Request $request, Partenaire $partenaire): Response
+    {
+        $form = $this->createForm(PartenaireType::class, $partenaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $partenaire->upload();
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('partenaire_back_index');
+        }
+
+        return $this->render('partenaire/backedit.html.twig', [
+            'partner' => $partenaire,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/back/{id}", name="partenaire_back_delete", methods={"POST"})
+     */
+    public function deleteback(Request $request, Partenaire $partenaire): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$partenaire->getIdPart(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($partenaire);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('partenaire_back_index');
+    }
+
 }
