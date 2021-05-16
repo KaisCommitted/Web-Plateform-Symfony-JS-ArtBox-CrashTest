@@ -5,6 +5,7 @@ use App\Entity\User;
 use App\Entity\Evenement;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Repository\CommentEventRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\UserRepository;
@@ -104,11 +105,12 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/newTrying/new", name="participant_newTrying", methods={"GET","POST"})
      */
-    public function newTrying(Request $request,EvenementController $evenementController,ParticipantRepository $participantRepository,EvenementRepository $evenementRepository, UserRepository $userRepository)
+    public function newTrying(Request $request,CommentEventRepository $commentEventRepository,EvenementController $evenementController,ParticipantRepository $participantRepository,EvenementRepository $evenementRepository, UserRepository $userRepository)
     {
 
         $data=$request->get('myEvent');
-
+        $CurrentUser =$this->getDoctrine()
+            ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $evenement = new Evenement();
         $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
         $user= new User();
@@ -138,8 +140,11 @@ class ParticipantController extends AbstractController
 
         }
 
+        $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'comments' => $comments,
+            'CurrentUser' => $CurrentUser,
         ]);
     }
 

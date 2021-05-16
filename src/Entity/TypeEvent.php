@@ -21,6 +21,14 @@ class TypeEvent
      */
     private $typeName;
 
+    /**
+     * @param string $typeName
+     */
+    public function setTypeName(string $typeName): void
+    {
+        $this->typeName = $typeName;
+    }
+
     public function getTypeName(): ?string
     {
         return $this->typeName;

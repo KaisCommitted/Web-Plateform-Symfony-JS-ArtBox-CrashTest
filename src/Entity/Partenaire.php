@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Partenaire
@@ -60,7 +59,7 @@ class Partenaire
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
      */
     private $status;
 
@@ -73,10 +72,6 @@ class Partenaire
      * })
      */
     private $idUser;
-
-
-    private $file;
-
 
     public function getIdPart(): ?int
     {
@@ -167,58 +162,5 @@ class Partenaire
         return $this;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile(UploadedFile $file)
-    {
-        $this->file = $file;
-    }
-
-    public function getUploadDir()
-    {
-        return 'imagepartenaire';
-    }
-
-    public function getAbsolutRoot()
-    {
-        return $this->getUploadRoot().$this->logo ;
-    }
-
-    public function getWebPath()
-    {
-        return $this->getUploadDir().'/'.$this->logo;
-    }
-
-    public function getUploadRoot()
-    {
-        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
-    }
-
-    public function upload()
-    {
-        if($this->file === null){
-            return;
-
-        }
-        $this->logo = $this->file->getClientOriginalName();
-
-        if(!is_dir($this->getUploadRoot()))
-        {
-            mkdir($this->getUploadRoot(),'0777',true);
-        }
-
-        $this->file->move($this->getUploadRoot(),$this->logo);
-        unset($this->file);
-    }
 
 }

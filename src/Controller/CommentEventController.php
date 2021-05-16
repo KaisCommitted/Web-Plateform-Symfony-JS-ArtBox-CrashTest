@@ -57,7 +57,8 @@ class CommentEventController extends AbstractController
 
      $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
 
-
+        $CurrentUser =$this->getDoctrine()
+            ->getRepository(User::class)->findOneBy(['username' => 'kais']);
 
 
 
@@ -68,6 +69,7 @@ class CommentEventController extends AbstractController
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             'comments' => $comments,
+            'CurrentUser' => $CurrentUser,
         ]);
     }
 
@@ -113,7 +115,8 @@ class CommentEventController extends AbstractController
             $entityManager->remove($commentEvent);
             $entityManager->flush();
 
-
+        $CurrentUser =$this->getDoctrine()
+            ->getRepository(User::class)->findOneBy(['username' => 'kais']);
 
         $evenement = new Evenement();
         $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
@@ -122,6 +125,7 @@ class CommentEventController extends AbstractController
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             'comments' => $comments,
+            'CurrentUser' => $CurrentUser,
         ]);
     }
 }

@@ -52,9 +52,6 @@
                     <li>
                         <a href="{{ path('feedback_new') }}" class="iq-waves-effect"><i class="las la-image"></i><span>Give us feedback</span></a>
                     </li>
-                    <li>
-                        <a  href="{{ path('partenaire_index') }}" class="iq-waves-effect"><i class="las la-users"></i><span>Parteners</span></a>
-                    </li>
 {#                    <li>#}
 {#                        <a href="profile-video.html" class="iq-waves-effect"><i class="las la-video"></i><span>Profile Video</span></a>#}
 {#                    </li>#}
@@ -220,19 +217,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-list">
-                            {% if (app.request.session.get('state') == "Approved")  %}
-                            <a href="{{ path('evenement_new')}}"> <button style="margin-right: 5vw;" class="btn btn-primary"><span style="padding-left:3vw;padding-right: 3vw; ">Host an event</span></button></a>
-                            {% elseif ((app.request.session.get('state') == "Pending")) %}
-                                <button style=" margin-right: 5vw;margin-top:0.5vw;margin-bottom:0.5vw;" class="btn btn-primary" disabled><span style="padding-left:3vw;padding-right: 3vw; ">Pending Request</span></button>
-                                {% else  %}
-                            <a href="{{ path('partenaire_new')}}"> <button style="margin-right: 5vw;" class="btn btn-primary"><span style="padding-left:3vw;padding-right: 3vw; ">Become Partner</span></button></a>
-                            {% endif %}
-                            </li>
                         <li>
                             <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
                                 <img src="{{ asset('images/user/1.jpg')}}" class="img-fluid rounded-circle mr-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">{{ app.user.username }}</h6>
+                                    <h6 class="mb-0 line-height">Bni Cyst</h6>
                                 </div>
                             </a>
                         </li>
@@ -535,17 +524,96 @@
             <div class="iq-card shadow-none">
                 <div class="iq-card-body p-0">
                     <div class="media-height p-3">
-                        {% for partenaire in partenaires %}
                         <div class="media align-items-center mb-4">
                             <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="{{ asset('imagepartenaire/')~ partenaire.logo ~''}}" alt="">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/01.jpg')}}" alt="">
                             </div>
                             <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">{{ partenaire.nom }}</a></h6>
+                                <h6 class="mb-0"><a href="#">Anna Sthesia</a></h6>
+                                <p class="mb-0">Just Now</p>
                             </div>
                         </div>
-                        {% endfor %}
-
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/02.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Paul Molive</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/03.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Anna Mull</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/04.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Paige Turner</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/11.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Bob Frapples</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/02.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Barb Ackue</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-online">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/03.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Greta Life</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-away">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/12.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Ira Membrit</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center mb-4">
+                            <div class="iq-profile-avatar status-away">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/01.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Pete Sariya</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
+                        <div class="media align-items-center">
+                            <div class="iq-profile-avatar">
+                                <img class="rounded-circle avatar-50" src="{{ asset('images/user/02.jpg')}}" alt="">
+                            </div>
+                            <div class="media-body ml-3">
+                                <h6 class="mb-0"><a href="#">Monty Carlo</a></h6>
+                                <p class="mb-0">Admin</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="right-sidebar-toggle bg-primary mt-3">
                         <i class="ri-arrow-left-line side-left-icon"></i>
@@ -1815,6 +1883,20 @@
 <script src="{{ asset('js/chart-custom.js') }}"></script>
 <!-- Custom JavaScript -->
 <script src="{{ asset('js/custom.js') }}"></script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/608a09c35eb20e09cf3799d7/1f4djc97p';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 {% endblock %}
 
 </html>

@@ -4,7 +4,6 @@
 
 
 {% block content %}
-<div style="margin-top: 4vw;margin-left: auto;margin-right: auto; max-width: 70%">
     <h1>Partenaire</h1>
 
     <table class="table">
@@ -43,6 +42,6 @@
     <a href="{{ path('partenaire_index') }}">back to list</a>
 
     <a href="{{ path('partenaire_edit', {'idPart': partenaire.idPart}) }}">edit</a>
+
     {{ include('partenaire/_delete_form.html.twig') }}
-</div>
 {% endblock %}

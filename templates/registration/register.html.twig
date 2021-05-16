@@ -63,7 +63,7 @@
 {#                    </ul>#}
 {#                </div>#}
 {#            </form>#}
-{#        </div>#}{% for flashError in app.flashes('app_verify_email') %}
+{#        </div>#}{% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
             {% endfor %}
 
@@ -77,11 +77,9 @@
                 label: 'Password'
             }) }}
             {{ form_row(form.ref_admin) }}
-            {{ form_row(form.image) }}
             {{ form_row(form.agreeTerms) }}
-            {{ form_row(form.captcha) }}
 
-            <button class="btn btn-primary" type="submit">Register</button>
+            <button type="submit" class="btn">Register</button>
             {{ form_end(form) }}
     </div>
     </div>
