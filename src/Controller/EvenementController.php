@@ -1591,20 +1591,28 @@ class EvenementController extends AbstractController
 
 
         $E = new Evenement();
-        $locationEvent = $request->query->get("locationEvent");
-        $NbMax = $request->query->get("NbMax");
         $nomEvent = $request->query->get("NomEvent");
         $description = $request->query->get("description");
-        $categorieName = $request->query->get("categorie");
-        $ratingEvent = $request->query->get("ratingEvent");
+        $locationEvent = $request->query->get("locationEvent");
         $type = $request->query->get("typeEvent");
+        $categorieName = $request->query->get("categorie");
         $organizer = $request->query->get("idOrg");
+        $NbMax = $request->query->get("NbMax");
+        $date = $request->query->get("date");
+
+
+
+
+
+
+
 
 
         $typeEvent=$this->getDoctrine()->getRepository(TypeEvent::class)->findOneBy(['typeName' =>  $type]);
         $em = $this->getDoctrine()->getManager();
         $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
-        $date = new \DateTime('now');
+        //$date = new \DateTime('now');
+        $datee = new \DateTime($date);
         $E->setImageEvent("1 (12).jpg");
         $E->upload();
         $E->setTypeEvent($typeEvent);
@@ -1613,9 +1621,9 @@ class EvenementController extends AbstractController
         $E->setNbMax($NbMax);
         $E->setCapaciteEvent($E->getNbMax());
         $E->setDescription($description);
-        $E->setDate($date);
+        $E->setDate($datee);
         $E->setCategorie($categorie);
-        $E->setRatingEvent($ratingEvent);
+        $E->setRatingEvent(0);
 
 
         $E->setCategorie($categorie);
