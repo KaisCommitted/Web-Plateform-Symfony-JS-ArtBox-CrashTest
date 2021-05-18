@@ -3,14 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\Evenement;
 use App\Entity\Postes;
 use App\Form\PostesType;
+use App\Repository\PostesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 Use Sentiment\Analyzer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Serializer;
+
+
 
 /**
  * @Route("/postes")
@@ -474,9 +482,17 @@ class PostesController extends AbstractController
 
     }
 
+    /**
+     * @Route ("/json/displayPostes", name="display_postes")
+     */
+    public function getPostes(PostesRepository $PostesRepository, SerializerInterface $serializerInterface)
+    {
+        $P = $PostesRepository->findAll();
 
-
-
+        $json = $serializerInterface->serialize($P, 'json', ['groups' => 'Postes']);
+        dump($json);
+        die;
+    }
 
 
 

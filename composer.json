@@ -28,6 +28,7 @@
         "symfony/form": "5.2.*",
         "symfony/framework-bundle": "5.2.*",
         "symfony/http-client": "5.2.*",
+        "symfony/http-foundation": "5.2.*",
         "symfony/intl": "5.2.*",
         "symfony/mailer": "5.2.*",
         "symfony/mime": "5.2.*",
@@ -57,7 +58,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
-        "symfony/var-dumper": "^5.2",
+        "symfony/var-dumper": "5.2.*",
         "symfony/web-profiler-bundle": "^5.2"
     },
     "config": {

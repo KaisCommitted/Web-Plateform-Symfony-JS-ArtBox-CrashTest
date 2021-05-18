@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Postes
@@ -14,74 +15,74 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Postes
 {
 
-
     /**
      * @var int
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="id_post", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idPost;
+
     /**
      * @var string
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="Description", type="string", length=50, nullable=false)
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="Nom_post", type="string", length=30, nullable=false)
      */
     private $nomPost;
 
     /**
      * @var string
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="file", type="string", length=255, nullable=false)
      */
     private $file;
 
     /**
      * @var \DateTime
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="post_date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $postDate = 'CURRENT_TIMESTAMP';
 
     /**
      * @var string|null
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="album_cover", type="string", length=255, nullable=true)
      */
     private $albumCover;
 
     /**
      * @var int
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="Likes", type="integer", nullable=false)
      */
     private $likes = '0';
 
     /**
      * @var string
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="desc_analys", type="string", length=30, nullable=false)
      */
     private $descAnalys;
 
     /**
      * @var string
-     *
+     * @Groups ("Postes")
      * @ORM\Column(name="post_type", type="string", length=30, nullable=false)
      */
     private $postType;
 
     /**
      * @var \Categorie
-     *
+     * @Groups ("Postes")
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
@@ -91,7 +92,7 @@ class Postes
 
     /**
      * @var \User
-     *
+     * @Groups ("Postes")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
