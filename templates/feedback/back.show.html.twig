@@ -1,0 +1,72 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Feedback{% endblock %}
+
+
+{% block content %}
+    <h1>Feedback</h1>
+
+    <table id ="tableac">
+
+        <thead>
+        <input type="text" id="search" name="search" class="form-control" placeholder="Search by Marque">
+        <tbody>
+            <tr>
+                <th>IdFeedback</th>
+          <td>{{ feedback.idFeedback }}</td>
+            </tr>
+            <tr>
+                <th>ContenuFeedback</th>
+                <td>{{ feedback.contenuFeedback }}</td>
+            </tr>
+            <tr>
+                <th>TypeFeedback</th>
+                <td>{{ feedback.typeFeedback }}</td>
+            </tr>
+            <tr>
+                <th>EtatFeedback</th>
+                <td>{{ feedback.etatFeedback }}</td>
+            </tr>
+            <tr>
+                <th>DateFeedback</th>
+                <td>{{ feedback.dateFeedback ? feedback.dateFeedback|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('feedback_back_index') }}">back to list</a>
+
+    <a href="{{ path('feedback_back_edit', {'idFeedback': feedback.idFeedback}) }}">edit</a>
+
+    {{ include('feedback/back_delete_form.html.twig') }}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found === 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
