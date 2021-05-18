@@ -1,0 +1,63 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Partenaire index{% endblock %}
+
+
+{% block content %}
+<div style="margin: auto; max-width: 70%">
+    <h1>Partenaire index</h1>
+
+    <table cellspacing="0" cellpadding="0" border="0" width="1200">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Adresse</th>
+        <th>Logo</th>
+        <th>Rib</th>
+        <th>Telephone</th>
+        <th>Status</th>
+        <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for partner in partners %}
+
+        <tr style="border-bottom: 1px dashed black;">
+
+            <td>{{ partner.idPart }}</td>
+            <td>{{ partner.nom }}</td>
+            <td>{{ partner.adresse }}</td>
+            <td><img src="{{ asset('imagepartenaire/')~ partner.logo ~''}}"  height=40% width="40%" height="auto" display="block"  border="0"></td>
+            <td>{{ partner.rib }}</td>
+            <td>{{ partner.tel }}</td>
+            <td>{{ partner.status }}</td>
+            <td>{{ partner.idUser.nom }}</td>
+
+
+            <td>
+                <a href="{{ path('partenaire_back_show', {'id': partner.idPart}) }}"><button class="btn btn-primary">show</button></a>
+                <a href="{{ path('partenaire_back_edit', {'id': partner.idPart}) }}"><button class="btn btn-primary">edit</button></a>
+                <a href="{{ path('partenaire_back_delete', {'id': partner.idPart}) }}"><button class="btn btn-primary">delete</button></a>
+                {% if partner.status == "Pending"  %}
+                <a href="{{ path('partenaire_back_approve', {'id': partner.idPart}) }}"><button class="btn btn-secondary">Approve</button></a>
+                <form method="post" action="{{ path('partenaire_back_decline', {'id': partner.idPart}) }}" onsubmit="return confirm('Are you sure you want to decline this Partnership?');">
+                    <button class="btn btn-secondary">Decline</button>
+                </form>
+                {% endif %}
+            </td>
+
+        </tr>
+
+    {% else %}
+        <tr>
+            <td colspan="10">no records found</td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <a style="float: left; padding-top: 1vw;" href="{{ path('partenaire_back_new') }}"><button class="btn btn-primary">Create new</button></a>
+</div>
+{% endblock %}

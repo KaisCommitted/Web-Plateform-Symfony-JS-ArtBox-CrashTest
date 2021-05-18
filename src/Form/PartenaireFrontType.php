@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class PartenaireType extends AbstractType
+class PartenaireFrontType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,8 +18,6 @@ class PartenaireType extends AbstractType
             ->add('File',FileType::class)
             ->add('rib')
             ->add('tel')
-            ->add('status')
-            ->add('idUser')
         ;
     }
 
