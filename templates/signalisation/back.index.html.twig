@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
-{% block title %}Signalisation index{% endblock %}
+{% block title %}Report index{% endblock %}
 
-
+{% block header %} {% endblock %}
 {% block content %}
     <h1>Report index</h1>
 
@@ -13,7 +13,7 @@
                 <div class="iq-card" >
                     <div class="iq-card-header d-flex justify-content-between">
                         <div class="iq-header-title">
-                            <h4 class="card-title">Show Report</h4>
+                            <h4 class="card-title">Show Reports</h4>
                         </div>
                     </div>
                     <div class="iq-card-body">
@@ -28,19 +28,19 @@
                 <th>DateSignal</th>
                 <th>actions</th>
                             </tr>
-
-
+                            </thead>
+                            <tbody>
         {% for signalisation in signalisations %}
-            <tbody>
             <tr>
                 <td>{{ signalisation.idSignal }}</td>
                 <td>{{ signalisation.contenuSignal }}</td>
                 <td>{{ signalisation.typeSignal }}</td>
                 <td>{{ signalisation.etatSignal }}</td>
                 <td>{{ signalisation.dateSignal ? signalisation.dateSignal|date('Y-m-d') : '' }}</td>
+
                 <td>
-                    <a href="{{ path('signalisation_show', {'idSignal': signalisation.idSignal}) }}">show</a>
-                    <a href="{{ path('signalisation_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
+                    <a href="{{ path('signalisation_back_show', {'idSignal': signalisation.idSignal}) }}">show</a>
+                    <a href="{{ path('signalisation_back_edit', {'idSignal': signalisation.idSignal}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -51,7 +51,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('signalisation_new') }}">Create new</a>
+    <a href="{{ path('signalisation_back_new') }}">Create new</a>
                         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
                         <script>
                             $(document).ready(function(){
