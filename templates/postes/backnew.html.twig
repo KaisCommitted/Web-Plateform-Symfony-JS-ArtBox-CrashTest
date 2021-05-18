@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}New Postes{% endblock %}
 
@@ -21,8 +21,8 @@
                             </div>
                         </div>
                         <div class="iq-card-body">
-                            {{ include('postes/_form.html.twig') }}
-                            <a href="{{ path('postes_index') }}">Back to Feed</a>
+                            {{ include('postes/back_form.html.twig') }}
+                            <a href="{{ path('postes_back_index') }}">Back to Feed</a>
                         </div>
                     </div>
                 </div>
