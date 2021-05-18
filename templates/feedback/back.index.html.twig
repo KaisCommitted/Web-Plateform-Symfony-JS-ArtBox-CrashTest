@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Feedback index{% endblock %}
 
@@ -7,17 +7,17 @@
     <h1>Feedback index</h1>
 
 <div id="content-page" class="content-page">
-<div class="container">
-    <div class="row">
-        <div class="col-lg-11">
-            <div class="iq-card" >
-                <div class="iq-card-header d-flex justify-content-between">
-                    <div class="iq-header-title">
-                        <h4 class="card-title">Show Feedback</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Show Reports</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="iq-card-body">
-                    <table id="tableac">
+                    <div class="iq-card-body">
+                        <table id="tableac">
             <thead>
             <input type="text" id="search" name="search" class="form-control" placeholder="Search by id/name/type">
            <tr>
@@ -38,20 +38,20 @@
                 <td>{{ feedback.etatFeedback }}</td>
                 <td>{{ feedback.dateFeedback ? feedback.dateFeedback|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('feedback_show', {'idFeedback': feedback.idFeedback}) }}">show</a>
-                    <a href="{{ path('feedback_edit', {'idFeedback': feedback.idFeedback}) }}">edit</a>
+                    <a href="{{ path('feedback_back_show', {'idFeedback': feedback.idFeedback}) }}">show</a>
+                    <a href="{{ path('feedback_back_edit', {'idFeedback': feedback.idFeedback}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="2">no records found</td>
             </tr>
-
+            </tbody>
         {% endfor %}
-                        </tbody>
+
     </table>
 
-    <a href="{{ path('feedback_new') }}">Create new</a>
+    <a href="{{ path('feedback_back_new') }}">Create new</a>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -82,13 +82,13 @@
             }
         });
     </script>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
-    </div>
 
 
 

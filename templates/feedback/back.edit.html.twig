@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Edit Feedback{% endblock %}
 
 
 {% block content %}
-<h1>Categories</h1>
+<h1>Feedback</h1>
 <div id="content-page" class="content-page">
     <div class="container">
         <div class="row">
@@ -12,17 +12,17 @@
                 <div class="iq-card" >
                     <div class="iq-card-header d-flex justify-content-between">
                         <div class="iq-header-title">
-                            <h4 class="card-title">Edit my Event</h4>
+                            <h4 class="card-title">Edit my Feedback</h4>
                         </div>
                     </div>
                     <div class="iq-card-body">
     <h1>Edit Feedback</h1>
 
-    {{ include('feedback/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('feedback/back_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('feedback_index') }}">back to list</a>
+    <a href="{{ path('feedback_back_index') }}">back to list</a>
 
-    {{ include('feedback/_delete_form.html.twig') }}
+    {{ include('feedback/back_delete_form.html.twig') }}
                     </div>
                 </div>
             </div>
@@ -30,4 +30,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
