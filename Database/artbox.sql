@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2021 at 07:20 PM
+-- Generation Time: May 18, 2021 at 04:06 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -317,6 +317,14 @@ CREATE TABLE `postes` (
   `post_type` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `postes`
+--
+
+INSERT INTO `postes` (`id_post`, `Description`, `Nom_post`, `categorie`, `file`, `post_date`, `album_cover`, `Likes`, `desc_analys`, `id_user`, `post_type`) VALUES
+(10, 'I love this song', 'Sunflower', 'Singing', '17f482f40b76cbd56da305e0814bbf13.mp3', '2021-05-18 10:38:32', '69e5cb05545e9fa534f525d9162750a0.jpg', 0, '{\"neg => \":0,\"new =>  \":0.323,', 20, 'music'),
+(11, 'adventure', 'go pro', 'Cinema', '3b5732f01557ab112ac306eeb7863e5f.mp4', '2021-05-18 10:40:22', '622e4fef69eecef6bc018f11e852a132.jpg', 0, '{\"neg => \":0,\"new =>  \":0,\"pos', 19, 'cinema');
+
 -- --------------------------------------------------------
 
 --
@@ -607,7 +615,7 @@ ALTER TABLE `participant`
 -- AUTO_INCREMENT for table `postes`
 --
 ALTER TABLE `postes`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `rating_event`
