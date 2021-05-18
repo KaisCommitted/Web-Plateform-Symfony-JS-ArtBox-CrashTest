@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Spatie\CalendarLinks\Link;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -1578,9 +1580,22 @@ class EvenementController extends AbstractController
     public function getEvent(EvenementRepository $EvenementRepository, SerializerInterface $serializerInterface)
     {
         $E = $EvenementRepository->findAll();
-        $json = $serializerInterface->serialize($E, 'json', ['groups' => 'Events']);
-        dump($json);
-        die;
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+
+
+
+
+
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','nomEvent','description','date','imageEvent']]);
+
+
+        //$json = $serializerInterface->serialize($E, 'json' , ['groups' => 'Events']);
+        return new JsonResponse($json);
     }
 
     /**
@@ -1600,6 +1615,7 @@ class EvenementController extends AbstractController
         $NbMax = $request->query->get("NbMax");
         $date = $request->query->get("date");
 
+        $image= $request->query->get("image");
 
 
 
@@ -1613,7 +1629,7 @@ class EvenementController extends AbstractController
         $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
         //$date = new \DateTime('now');
         $datee = new \DateTime($date);
-        $E->setImageEvent("1 (12).jpg");
+        $E->setImageEvent($image);
         $E->upload();
         $E->setTypeEvent($typeEvent);
         $E->setLocationEvent($locationEvent);
