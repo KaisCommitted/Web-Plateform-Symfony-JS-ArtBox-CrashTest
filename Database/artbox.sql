@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2021 at 04:06 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: May 19, 2021 at 07:36 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,13 +37,6 @@ CREATE TABLE `annonce` (
   `ddl_ann` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `annonce`
---
-
-INSERT INTO `annonce` (`id_ann`, `id_user`, `titre_ann`, `desc_ann`, `pay`, `categorie`, `ddl_ann`) VALUES
-(8, 19, 'Yes', 'Sir', 1200, 'Design', '2021-04-29');
-
 -- --------------------------------------------------------
 
 --
@@ -73,12 +66,11 @@ CREATE TABLE `categorie` (
 --
 
 INSERT INTO `categorie` (`categorie_name`, `categorie_image`, `status`) VALUES
-('Cinema', '(4).png', '+'),
-('Design', '(6).png', '+'),
-('Manga', '(5).png', '+'),
+('Cinema', ' (4).png', '+'),
+('Manga', ' (5).png', '+'),
 ('Painting', '(6).png', '+'),
-('Photography', '(1).png', '+'),
-('Singing', '(2).png', '+'),
+('Photography', ' (1).png', '+'),
+('Singing', ' (2).png', '+'),
 ('Theatre', '(3).png', '+');
 
 -- --------------------------------------------------------
@@ -115,11 +107,8 @@ CREATE TABLE `comment_event` (
 --
 
 INSERT INTO `comment_event` (`id`, `id_user`, `id_event`, `content`, `commentDate`) VALUES
-(40, 20, 127, 'hello world', '2021-04-29'),
-(41, 18, 127, 'hello world', '2021-04-29'),
-(42, 18, 127, 'whatsapp', '2021-04-29'),
-(44, 20, 130, 'je suuis yasmine', '2021-04-29'),
-(45, 18, 130, 'je suuis yasmine', '2021-04-29');
+(32, 18, 126, 'Great event !', '2021-04-27'),
+(33, 18, 127, 'schtonks', '2021-05-19');
 
 -- --------------------------------------------------------
 
@@ -158,7 +147,7 @@ CREATE TABLE `evenement` (
   `description` varchar(255) NOT NULL,
   `capacite_event` int(11) NOT NULL,
   `nb_max` int(11) NOT NULL,
-  `image_event` varchar(255) DEFAULT NULL,
+  `image_event` varchar(255) NOT NULL,
   `location_event` varchar(255) DEFAULT NULL,
   `rating_event` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -168,41 +157,35 @@ CREATE TABLE `evenement` (
 --
 
 INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
-(126, 18, '2021-04-29', 'testingFieldss', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (8).jpg', 'whatever', 4),
-(127, 18, '2021-04-29', 'TryingShow', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (9).png', 'whatever', 5),
-(129, 19, '2021-04-29', 'Alphabetical', 'Festival', 'Photography', 'Alphabetical', 19, 20, '1 (10).jpg', 'Alphabetical', 0),
-(130, 19, '2021-04-29', 'ThisMonth', 'Festival', 'Cinema', 'ThisMonth', 14, 20, '1 (10).png', 'whatever', 0),
-(131, 18, '2021-04-30', 'Testing', 'Festival', 'Cinema', 'testingTri', 17, 20, '1 (11).png', 'whatever', 0),
-(132, 19, '2020-01-01', 'searchme', 'Festival', 'Cinema', 'SearchMee', 20, 20, '1 (13).jpg', 'whatever', 5),
-(133, 18, '2021-04-30', 'BundleCalendar', 'Festival', 'Cinema', 'BundleCalendar', 20, 20, '1 (3).png', 'Here', 0),
-(134, 18, '2021-04-30', 'Leggo', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (21).jpg', 'Here', 0),
-(135, 18, '2020-01-01', 'EasyPeasy', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (20).jpg', 'Here', 4),
-(136, 18, '2020-01-01', 'Calendarpls', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).jpg', 'whatever', 2),
-(137, 18, '2020-01-01', 'Calendarplss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (18).jpg', 'whatever', 0),
-(138, 18, '2021-04-30', 'Calendarplsss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (11).jpg', 'whatever', 0),
-(139, 18, '2021-04-30', 'CalendarYes', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).png', 'whatever', 0),
-(140, 18, '2021-04-30', 'CalendarNo', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (3).jpg', 'whatever', 0),
-(141, 18, '2021-04-30', 'Lazy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (10).png', 'whatever', 0),
-(142, 18, '2021-04-30', 'Easy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (14).jpg', 'whatever', 0),
-(143, 18, '2021-04-30', 'xxxx', 'Festival', 'Cinema', 'xxxx', 20, 20, '1 (11).png', 'xxx', 0),
-(144, 18, '2021-04-30', 'TryingNoFormType', 'Festival', 'Cinema', 'TryingNoFormType', 20, 20, '1 (12).jpg', 'TryingNoFormType', 0),
-(145, 18, '2021-04-30', 'Whateverrrrrrrrrrrrrrrrrrrr', 'Festival', 'Cinema', 'Whateverrrrrrrrrrrrrrrrr', 20, 20, '1 (12).png', 'here', 0),
-(146, 18, '2020-01-01', 'TestingRender', 'Festival', 'Cinema', 'TestingRenderTestingRender', 20, 20, '1 (18).jpg', 'whatever', 0),
+(126, 18, '2020-01-01', 'testingFieldss', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (8).jpg', 'whatever', 3),
+(127, 18, '2024-01-01', 'TryingShow', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (9).png', 'whatever', 4),
+(129, 19, '2022-01-01', 'Alphabetical', 'Festival', 'Photography', 'Alphabetical', 19, 20, '1 (10).jpg', 'Alphabetical', 0),
+(130, 19, '2021-04-27', 'ThisMonth', 'Festival', 'Cinema', 'ThisMonth', 14, 20, '1 (10).png', 'whatever', 0),
+(131, 18, '2021-04-22', 'Testing', 'Festival', 'Cinema', 'testingTri', 17, 20, '1 (11).png', 'whatever', 0),
+(132, 19, '2021-04-21', 'searchme', 'Festival', 'Cinema', 'SearchMee', 20, 20, '1 (13).jpg', 'whatever', 0),
+(133, 18, '2021-04-22', 'BundleCalendar', 'Festival', 'Cinema', 'BundleCalendar', 20, 20, 'githob.jpg', 'Here', 0),
+(134, 18, '2021-04-22', 'Leggo', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (21).jpg', 'Here', 0),
+(135, 18, '2021-04-22', 'EasyPeasy', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (20).jpg', 'Here', 0),
+(136, 18, '2020-01-01', 'Calendarpls', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).jpg', 'whatever', 0),
+(137, 18, '2023-01-01', 'Calendarplss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (18).jpg', 'whatever', 0),
+(138, 18, '2023-01-01', 'Calendarplsss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (11).jpg', 'whatever', 0),
+(139, 18, '2020-01-01', 'CalendarYes', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).png', 'whatever', 0),
+(140, 18, '2020-01-01', 'CalendarNo', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (3).jpg', 'whatever', 0),
+(141, 18, '2020-01-01', 'Lazy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (10).png', 'whatever', 0),
+(142, 18, '2020-01-01', 'Easy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (14).jpg', 'whatever', 0),
+(143, 18, '2024-05-01', 'xxxx', 'Festival', 'Cinema', 'xxxx', 20, 20, '1 (11).png', 'xxx', 0),
+(144, 18, '2024-01-01', 'TryingNoFormType', 'Festival', 'Cinema', 'TryingNoFormType', 20, 20, '1 (12).jpg', 'TryingNoFormType', 0),
+(145, 18, '2026-01-01', 'Whateverrrrrrrrrrrrrrrrrrrr', 'Festival', 'Cinema', 'Whateverrrrrrrrrrrrrrrrr', 20, 20, '1 (12).png', 'here', 0),
+(146, 18, '2023-01-01', 'TestingRender', 'Festival', 'Cinema', 'TestingRenderTestingRender', 20, 20, '1 (18).jpg', 'whatever', 0),
 (147, 20, '2023-01-01', 'Modal test', 'Festival', 'Photography', 'whatever is right', 20, 20, '1 (19).jpg', 'whatever', 0),
 (148, 18, '2024-01-01', 'whateverrrrrrrr', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (12).png', 'whatever', 0),
-(149, 18, '2025-01-01', 'test', 'Festival', 'Cinema', 'te', 2, 2, '1 (3).png', 'whatever', 0),
+(149, 18, '2025-01-01', 'test', 'Festival', 'Cinema', 'te', 2, 2, 'placeholder.png', 'whatever', 0),
 (150, 18, '2022-01-01', 'yesss', 'Festival', 'Cinema', 'dqs', 20, 20, '1 (12).jpg', 'sdq', 0),
 (151, 18, '2022-01-01', 'yessssd', 'Festival', 'Cinema', 'dqs', 20, 20, '1 (18).jpg', 'sdq', 0),
 (152, 18, '2022-01-01', 'whateversdqs', 'Festival', 'Cinema', 's', 20, 20, '1 (11).jpg', 's', 0),
 (153, 18, '2026-01-01', 'sdsa', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (14).jpg', 'dsq', 0),
 (154, 18, '2023-01-01', 'louza', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (12).png', 'sdq', 0),
-(155, 18, '2022-01-01', 'whateverrs', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (5).jpg', 'qsdqd', 0),
-(156, 19, '2022-01-01', 'VeryNewEvent', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (5).jpg', 'here', 0),
-(157, 18, '2023-01-01', 'ProjetS', 'Festival', 'Cinema', 'sada', 20, 20, '1 (3).png', 'whatever', 0),
-(158, 18, '2023-01-01', 'JSON', 'Festival', 'Cinema', 'JSON', 20, 20, '1 (3).png', 'JSON', 0),
-(159, 19, '2021-05-06', 'JSONNN', 'Online', 'Cinema', 'json', 20, 20, '1 (5).jpg', 'StreetArt', 0),
-(166, 18, '2021-05-17', 'Template', 'Online', 'Cinema', 'sdq', 20, 20, '1 (12).jpg', 'here', 0),
-(167, 18, '2021-05-17', 'DateMe', 'Online', 'Cinema', 'DatePicker', 20, 20, '1 (12).jpg', 'DatePicker', 0);
+(155, 18, '2022-01-01', 'whateverrs', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (5).jpg', 'qsdqd', 0);
 
 -- --------------------------------------------------------
 
@@ -274,7 +257,8 @@ CREATE TABLE `partenaire` (
 --
 
 INSERT INTO `partenaire` (`id_part`, `nom`, `adresse`, `logo`, `rib`, `tel`, `status`, `id_user`) VALUES
-(1, 'Sodexo', 'whatever', 'C:/xampp/php/www/ArtBox-CrashTest-WEB/public/imagepartenaire/partner.jpg', '15695213', '5447264', '1', 19);
+(1, 'Sodexo', 'whatever', 'C:/xampp/php/www/ArtBox-CrashTest-WEB/public/imagepartenaire/partner.jpg', '15695213', '5447264', '1', 19),
+(3, 'Ooredoo', 'Al Ghazela', 'ooredoo.png', '123456789', '22097400', 'Approved', 18);
 
 -- --------------------------------------------------------
 
@@ -294,8 +278,7 @@ CREATE TABLE `participant` (
 --
 
 INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) VALUES
-(293, 18, 126, '12618'),
-(295, 18, 127, '12718');
+(293, 18, 126, '12618');
 
 -- --------------------------------------------------------
 
@@ -346,8 +329,8 @@ INSERT INTO `rating_event` (`id_rating`, `id_user`, `id_event`, `rating`) VALUES
 (78, 19, 126, 5),
 (86, 21, 126, 1),
 (87, 20, 126, 3),
-(96, 18, 127, 5),
-(100, 18, 126, 4);
+(91, 18, 126, 5),
+(93, 18, 127, 4);
 
 -- --------------------------------------------------------
 
@@ -400,18 +383,22 @@ CREATE TABLE `user` (
   `pwd_user` varchar(255) NOT NULL,
   `ref_admin` varchar(1) NOT NULL,
   `id_label` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`roles`)),
+  `isVerified` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png'),
-(21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png');
+INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`, `roles`, `isVerified`) VALUES
+(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(25, 'Crash', 'Test', 'CrashTest1', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', NULL, 'C:\\xampp\\tmp\\php304D.tmp', '[]', 0),
+(26, 'mohamad', 'Salah', 'koffar', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', NULL, 'C:\\xampp\\tmp\\php2329.tmp', '[]', 0);
 
 --
 -- Indexes for dumped tables
@@ -555,7 +542,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `annonce`
 --
 ALTER TABLE `annonce`
-  MODIFY `id_ann` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_ann` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `candidature`
@@ -573,13 +560,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `comment_event`
 --
 ALTER TABLE `comment_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `evenement`
 --
 ALTER TABLE `evenement`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -603,13 +590,13 @@ ALTER TABLE `label`
 -- AUTO_INCREMENT for table `partenaire`
 --
 ALTER TABLE `partenaire`
-  MODIFY `id_part` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_part` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `participant`
 --
 ALTER TABLE `participant`
-  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+  MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 
 --
 -- AUTO_INCREMENT for table `postes`
@@ -621,7 +608,7 @@ ALTER TABLE `postes`
 -- AUTO_INCREMENT for table `rating_event`
 --
 ALTER TABLE `rating_event`
-  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `signalisation`
@@ -633,7 +620,7 @@ ALTER TABLE `signalisation`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
