@@ -1577,27 +1577,74 @@ class EvenementController extends AbstractController
     /**
      * @Route ("/json/displayEvent", name="display_event")
      */
-    public function getEvent(EvenementRepository $EvenementRepository, SerializerInterface $serializerInterface)
+    public function getEvent()
     {
-        $E = $EvenementRepository->findAll();
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+        $E = $query->getResult();
         $serializer = new Serializer(
             array(
                 new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
                 new ObjectNormalizer()
             )
         );
-
-
-
-
-
         $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
+        return new JsonResponse($json);
+    }
+    /**
+     * @Route ("/json/displayHasPassedEvents", name="display_HasPassedevent")
+     */
+    public function getEventHasPassed(Request $request)
+    {
 
+        $em = $this->getDoctrine()->getManager();
 
-        //$json = $serializerInterface->serialize($E, 'json' , ['groups' => 'Events']);
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<0'
+        );
+        $E = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
         return new JsonResponse($json);
     }
 
+
+
+
+    /**
+     * @Route ("/json/displayThisWeekEvents", name="display_ThisWeekevent")
+     */
+    public function getEventThisWeek(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7 AND DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+        $E = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
+        return new JsonResponse($json);
+    }
     /**
      * @Route ("/json/addEvent", name="add_event")
      */
