@@ -1591,7 +1591,7 @@ class EvenementController extends AbstractController
 
 
 
-        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','nomEvent','description','date','imageEvent']]);
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
 
 
         //$json = $serializerInterface->serialize($E, 'json' , ['groups' => 'Events']);

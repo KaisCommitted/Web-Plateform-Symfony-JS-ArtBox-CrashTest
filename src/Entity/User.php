@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -18,7 +18,7 @@ class User implements UserInterface
 {
     /**
      * @var int
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -26,14 +26,12 @@ class User implements UserInterface
     private $idUser;
 
     /**
-     * @Groups ("Events")
      * @var string
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
-     * @Groups ("Events")
      * @var string
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
@@ -41,14 +39,14 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      */
     private $username;
 
     /**
      * @var string
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="mail", type="string", length=255, nullable=false, unique=true)
 
 
@@ -56,32 +54,129 @@ class User implements UserInterface
     private $mail;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     */
+    private $image;
+
+
+
+
+
+    /**
      * @var \DateTime
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="date_naissance", type="date", nullable=false)
      */
     private $dateNaissance;
 
     /**
-     * @Groups ("Events")
      * @var string
      * @ORM\Column(name="pwd_user", type="string", length=255, nullable=false)
      */
     private $pwdUser;
 
+// new attribute ? ---------------------
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+
+
     /**
      * @var string
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="ref_admin", type="string", length=1, nullable=false)
      */
     private $refAdmin;
 
     /**
      * @var int|null
-     * @Groups ("Events")
+     *
      * @ORM\Column(name="id_label", type="integer", nullable=true)
      */
     private $idLabel;
+    private $file;
+
+//    /**
+//     * @ORM\Column(type="boolean")
+//     */
+//    private $isVerified;
+
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
+
+    public function getUploadDir()
+    {
+        return 'imagesEvent';
+    }
+
+    public function getAbsolutRoot()
+    {
+        return $this->getUploadRoot().$this->imageEvent ;
+    }
+
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->imageEvent;
+    }
+
+    public function getUploadRoot()
+    {
+        return __DIR__.'/../../public/'.$this->getUploadDir().'/';
+    }
+
+    public function upload()
+    {
+
+        if($this->file === null){
+            return;
+
+        }
+        $this->imageEvent = $this->file->getClientOriginalName();
+        if(!is_dir($this->getUploadRoot()))
+        {
+            mkdir($this->getUploadRoot(),'0777',true);
+        }
+
+        $this->file->move($this->getUploadRoot(),$this->imageEvent);
+        unset($this->file);
+    }
+
 
 
     public function getIdUser(): ?int
@@ -189,56 +284,7 @@ class User implements UserInterface
         return $this->username;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getRoles()
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPassword()
-    {
-        return (string)$this->pwdUser;
-    }
-    public function setPassword(string $pwdUser): self
-    {
-        $this->pwdUser= $pwdUser;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
-    }
-
-    public function isVerified(): bool
+    public function getIsVerified(): bool
     {
         return $this->isVerified;
     }
@@ -248,5 +294,47 @@ class User implements UserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+//        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPassword(): ?string
+    {
+        return (string)$this->pwdUser;
+
+    }
+    public function setPassword(string $pwdUser): self
+    {
+        $this->pwdUser = $pwdUser;
+
+        return $this;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

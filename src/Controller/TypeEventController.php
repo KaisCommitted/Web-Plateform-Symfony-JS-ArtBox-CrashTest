@@ -2,12 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\TypeEvent;
 use App\Form\TypeEventType;
+use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/type/event")
@@ -93,5 +101,33 @@ class TypeEventController extends AbstractController
         }
 
         return $this->redirectToRoute('type_event_index');
+    }
+
+
+    /**
+     * @Route ("/json/displayType", name="display_Type")
+     */
+    public function getEvent()
+    {
+
+        $E = $this->getDoctrine()
+            ->getRepository(TypeEvent::class)
+            ->findAll();
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+
+
+
+
+
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['typeName']]);
+
+
+        //$json = $serializerInterface->serialize($E, 'json' , ['groups' => 'Events']);
+        return new JsonResponse($json);
     }
 }

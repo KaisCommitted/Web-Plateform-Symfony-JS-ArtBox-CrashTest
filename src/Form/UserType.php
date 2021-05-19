@@ -7,6 +7,7 @@ use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +41,7 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                ])
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -68,7 +69,9 @@ class UserType extends AbstractType
             ])
 
             ->add('ref_admin', TextType::class ,array('attr' => array('class' => 'form-control')))
-            ->add('captcha', CaptchaType::class ,array('attr' => array('class' => 'form-control')));
+            ->add('captcha', CaptchaType::class ,array('attr' => array('class' => 'form-control')))
+            ->add('image',FileType::class ,array('attr' => array('class' => 'form-control'), 'label' => 'Choose a Profile Picture      '))
+        ;
 //            ->add('idLabel')
         ;
     }
