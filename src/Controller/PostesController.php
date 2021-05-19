@@ -6,7 +6,9 @@ use App\Entity\Categorie;
 use App\Entity\Evenement;
 use App\Entity\Postes;
 use App\Form\PostesType;
+use App\Repository\CategorieRepository;
 use App\Repository\PostesRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,9 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 Use Sentiment\Analyzer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 
@@ -488,20 +493,75 @@ class PostesController extends AbstractController
     public function getPostes(PostesRepository $PostesRepository, SerializerInterface $serializerInterface)
     {
         $P = $PostesRepository->findAll();
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
 
-        $json = $serializerInterface->serialize($P, 'json', ['groups' => 'Postes']);
-        dump($json);
-        die;
+
+        // $json = $serializerInterface->serialize($P, 'json', ['groups' => 'Postes']);
+
+        $json = $serializer->normalize($P , 'json', [AbstractNormalizer::ATTRIBUTES => ['idPost','nomPost','description','postDate','file','categorie'=>['categorieName'],'idUser'=>['username']]]);
+
+        return new JsonResponse($json);
     }
 
 
+    /**
+     * @Route ("/json/deletePostesj/", name="delete_postesJ" )
+     * @Method("DELETE")
+     */
+    public function deletePoste(Request $request)
+    {
+        $id = $request->get("idPost");
+        $em = $this->getDoctrine()->getManager();
+        $P = $em->getRepository(Postes::class)->find($id);
+        if ($P != null) {
+            $em->remove($P);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Poste Content deleted successfully.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("Id Post content invalid.");
+    }
 
 
+    /**
+     * @Route("/json/updatePoste", name="update_poste")
+     * @Method("PUT")
+     */
+    public function updatePoste(Request $request, CategorieRepository $categorieRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $P = $this->getDoctrine()->getManager()
+            ->getRepository(Postes::class)
+            ->find($request->get("idPost"));
 
 
+        $P->setDescription($request->get("description"));
+        $categorieName = $request->query->get("categorie");
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
+        $P->setCategorie($categorie);
+        $date = new \DateTime('now');
+        $P->setPostDate(date);
 
+        $P->setFile($file);
+        $P->upload();
+        $P->setPostType($request->get("postType"));
+        $P->setFile($request->get("file"));
 
+        $em->persist($E);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Poste Content updated successfully.");
+        return new JsonResponse($formatted);
 
+    }
 
 
 
