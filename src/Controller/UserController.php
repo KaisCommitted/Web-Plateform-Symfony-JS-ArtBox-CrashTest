@@ -48,9 +48,11 @@ class UserController extends AbstractController
      * @Route("/displayUser", name="display_user")
      */
 
-    public function getUser(UserRepository $UserRepository, SerializerInterface $serializerInterface)
+    public function getUserx( SerializerInterface $serializerInterface)
     {
-        $F = $UserRepository->findAll();
+        $F = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
         $serializer = new Serializer(
             array(
                 new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
@@ -98,7 +100,7 @@ class UserController extends AbstractController
     /**
      * @Route("/addUser", name="add_user", methods={"GET","POST"})
      */
-    public function addUserRequest (Request $request, UserRepository $userRepository)
+    public function addUserRequest (Request $request)
     {
         $F = new User();
         $nom = $request->query->get("nom");
