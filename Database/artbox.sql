@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2021 at 07:36 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Generation Time: May 20, 2021 at 05:33 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,11 +66,11 @@ CREATE TABLE `categorie` (
 --
 
 INSERT INTO `categorie` (`categorie_name`, `categorie_image`, `status`) VALUES
-('Cinema', ' (4).png', '+'),
-('Manga', ' (5).png', '+'),
+('Cinema', '(4).png', '+'),
+('Manga', '(5).png', '+'),
 ('Painting', '(6).png', '+'),
-('Photography', ' (1).png', '+'),
-('Singing', ' (2).png', '+'),
+('Photography', '(1).png', '+'),
+('Singing', '(2).png', '+'),
 ('Theatre', '(3).png', '+');
 
 -- --------------------------------------------------------
@@ -157,35 +157,25 @@ CREATE TABLE `evenement` (
 --
 
 INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
-(126, 18, '2020-01-01', 'testingFieldss', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (8).jpg', 'whatever', 3),
-(127, 18, '2024-01-01', 'TryingShow', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (9).png', 'whatever', 4),
-(129, 19, '2022-01-01', 'Alphabetical', 'Festival', 'Photography', 'Alphabetical', 19, 20, '1 (10).jpg', 'Alphabetical', 0),
-(130, 19, '2021-04-27', 'ThisMonth', 'Festival', 'Cinema', 'ThisMonth', 14, 20, '1 (10).png', 'whatever', 0),
-(131, 18, '2021-04-22', 'Testing', 'Festival', 'Cinema', 'testingTri', 17, 20, '1 (11).png', 'whatever', 0),
-(132, 19, '2021-04-21', 'searchme', 'Festival', 'Cinema', 'SearchMee', 20, 20, '1 (13).jpg', 'whatever', 0),
-(133, 18, '2021-04-22', 'BundleCalendar', 'Festival', 'Cinema', 'BundleCalendar', 20, 20, 'githob.jpg', 'Here', 0),
-(134, 18, '2021-04-22', 'Leggo', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (21).jpg', 'Here', 0),
-(135, 18, '2021-04-22', 'EasyPeasy', 'Festival', 'Theatre', 'BundleCalendar', 20, 20, '1 (20).jpg', 'Here', 0),
-(136, 18, '2020-01-01', 'Calendarpls', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).jpg', 'whatever', 0),
-(137, 18, '2023-01-01', 'Calendarplss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (18).jpg', 'whatever', 0),
-(138, 18, '2023-01-01', 'Calendarplsss', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (11).jpg', 'whatever', 0),
-(139, 18, '2020-01-01', 'CalendarYes', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (9).png', 'whatever', 0),
-(140, 18, '2020-01-01', 'CalendarNo', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (3).jpg', 'whatever', 0),
-(141, 18, '2020-01-01', 'Lazy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (10).png', 'whatever', 0),
-(142, 18, '2020-01-01', 'Easy', 'Festival', 'Cinema', 'whatever', 20, 20, '1 (14).jpg', 'whatever', 0),
-(143, 18, '2024-05-01', 'xxxx', 'Festival', 'Cinema', 'xxxx', 20, 20, '1 (11).png', 'xxx', 0),
-(144, 18, '2024-01-01', 'TryingNoFormType', 'Festival', 'Cinema', 'TryingNoFormType', 20, 20, '1 (12).jpg', 'TryingNoFormType', 0),
-(145, 18, '2026-01-01', 'Whateverrrrrrrrrrrrrrrrrrrr', 'Festival', 'Cinema', 'Whateverrrrrrrrrrrrrrrrr', 20, 20, '1 (12).png', 'here', 0),
-(146, 18, '2023-01-01', 'TestingRender', 'Festival', 'Cinema', 'TestingRenderTestingRender', 20, 20, '1 (18).jpg', 'whatever', 0),
-(147, 20, '2023-01-01', 'Modal test', 'Festival', 'Photography', 'whatever is right', 20, 20, '1 (19).jpg', 'whatever', 0),
-(148, 18, '2024-01-01', 'whateverrrrrrrr', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (12).png', 'whatever', 0),
-(149, 18, '2025-01-01', 'test', 'Festival', 'Cinema', 'te', 2, 2, 'placeholder.png', 'whatever', 0),
-(150, 18, '2022-01-01', 'yesss', 'Festival', 'Cinema', 'dqs', 20, 20, '1 (12).jpg', 'sdq', 0),
-(151, 18, '2022-01-01', 'yessssd', 'Festival', 'Cinema', 'dqs', 20, 20, '1 (18).jpg', 'sdq', 0),
-(152, 18, '2022-01-01', 'whateversdqs', 'Festival', 'Cinema', 's', 20, 20, '1 (11).jpg', 's', 0),
-(153, 18, '2026-01-01', 'sdsa', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (14).jpg', 'dsq', 0),
-(154, 18, '2023-01-01', 'louza', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (12).png', 'sdq', 0),
-(155, 18, '2022-01-01', 'whateverrs', 'Festival', 'Cinema', 'sdq', 20, 20, '1 (5).jpg', 'qsdqd', 0);
+(126, 18, '2020-01-01', 'testingFieldss', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (8).jpg', 'Sun', 3),
+(127, 18, '2020-01-01', 'TryingShow', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (9).png', 'Jupiter', 4),
+(129, 19, '2020-01-01', 'Alphabetical', 'Festival', 'Photography', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 19, 20, '1 (10).jpg', 'Mars', 2),
+(130, 19, '2021-05-21', 'ThisMonth', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 14, 20, '1 (10).png', 'Pluto', 0),
+(131, 18, '2021-05-21', 'Fete de la musique', 'Festival', 'Cinema', 'testingTriWhat is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 17, 20, '1 (11).png', 'Neptune', 0),
+(132, 19, '2021-05-21', 'Red Wedding', 'Festival', 'Singing', 'SearchMeeWhat is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (13).jpg', 'Uranus', 0),
+(133, 18, '2021-05-28', 'BundleCalendar', 'Festival', 'Manga', 'BundleCalendarWhat is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, 'githob.jpg', 'There', 0),
+(134, 18, '2021-05-28', 'Leggo', 'Festival', 'Theatre', 'BundleCalendarWhat is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (21).jpg', 'Here', 0),
+(135, 18, '2021-05-28', 'NotToday', 'Festival', 'Theatre', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (20).jpg', 'Mercury', 0),
+(136, 18, '2021-05-28', 'Today', 'Festival', 'Cinema', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (9).jpg', 'Saturn', 0),
+(137, 18, '2021-05-28', 'WhatIf', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (18).jpg', 'Uranus', 0),
+(138, 18, '2021-05-28', 'ProjectX', 'Festival', 'Painting', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (11).jpg', 'Ligma', 0),
+(139, 18, '2021-07-28', 'TryingSearch', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (9).png', 'Sun', 0),
+(150, 18, '2021-07-28', 'Beth Hart', 'Festival', 'Theatre', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (12).jpg', 'Neptune', 0),
+(151, 18, '2021-07-28', 'Yamli', 'Festival', 'Singing', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (18).jpg', 'Pluto', 0),
+(152, 18, '2021-07-28', 'Bojack Horseman', 'Festival', 'Photography', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (11).jpg', 'Venus', 0),
+(153, 18, '2020-01-01', 'Yours', 'Festival', 'Cinema', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (14).jpg', 'Earth', 2),
+(154, 18, '2020-01-01', 'Festival Jazz', 'Festival', 'Painting', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (12).png', 'Mars', 1),
+(155, 18, '2020-01-01', 'Yuma in Carthage', 'Festival', 'Manga', 'What is an event description? An event description is copy that aims to tell your potential attendees what will be happening at the event, who will be speaking, and what they will get out of attending. ', 20, 20, '1 (5).jpg', 'Jupiter', 4);
 
 -- --------------------------------------------------------
 
@@ -295,9 +285,9 @@ CREATE TABLE `postes` (
   `post_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `album_cover` varchar(255) DEFAULT NULL,
   `Likes` int(11) NOT NULL,
-  `desc_analys` varchar(30) NOT NULL,
+  `desc_analys` varchar(30) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `post_type` varchar(30) NOT NULL
+  `post_type` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -305,8 +295,8 @@ CREATE TABLE `postes` (
 --
 
 INSERT INTO `postes` (`id_post`, `Description`, `Nom_post`, `categorie`, `file`, `post_date`, `album_cover`, `Likes`, `desc_analys`, `id_user`, `post_type`) VALUES
-(10, 'I love this song', 'Sunflower', 'Singing', '17f482f40b76cbd56da305e0814bbf13.mp3', '2021-05-18 10:38:32', '69e5cb05545e9fa534f525d9162750a0.jpg', 0, '{\"neg => \":0,\"new =>  \":0.323,', 20, 'music'),
-(11, 'adventure', 'go pro', 'Cinema', '3b5732f01557ab112ac306eeb7863e5f.mp4', '2021-05-18 10:40:22', '622e4fef69eecef6bc018f11e852a132.jpg', 0, '{\"neg => \":0,\"new =>  \":0,\"pos', 19, 'cinema');
+(10, 'I love this song', 'Sunflower', 'Photography', '69e5cb05545e9fa534f525d9162750a0.jpg', '2021-05-20 02:32:22', '69e5cb05545e9fa534f525d9162750a0.jpg', 0, '{\"neg => \":0,\"new =>  \":0.323,', 20, 'music'),
+(11, 'adventure', 'go pro', 'Photography', '622e4fef69eecef6bc018f11e852a132.jpg', '2021-05-20 02:32:09', '622e4fef69eecef6bc018f11e852a132.jpg', 0, '{\"neg => \":0,\"new =>  \":0,\"pos', 19, 'cinema');
 
 -- --------------------------------------------------------
 
@@ -393,12 +383,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`, `roles`, `isVerified`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
 (19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
 (20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
 (21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
-(25, 'Crash', 'Test', 'CrashTest1', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', NULL, 'C:\\xampp\\tmp\\php304D.tmp', '[]', 0),
-(26, 'mohamad', 'Salah', 'koffar', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', NULL, 'C:\\xampp\\tmp\\php2329.tmp', '[]', 0);
+(25, 'Crash', 'Test', 'CrashTest1', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\tmp\\php304D.tmp', '[]', 0),
+(26, 'mohamad', 'Salah', 'koffar', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\tmp\\php2329.tmp', '[]', 0);
 
 --
 -- Indexes for dumped tables
