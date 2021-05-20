@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Component\Serializer\Encoder\JsonFncoder;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\SwiftmailerBundle;
 
 /**
  * @Route("/feedback")
@@ -82,6 +83,10 @@ class FeedbackController extends AbstractController
 
             return $this->redirectToRoute('feedback_index');
         }
+        return $this->render('feedback/new.html.twig', [
+            'feedback' => $feedback,
+            'form' => $form->createView(),
+        ]);
     }
         /**
          * @Route("/addFeedback", name="add_feedback", methods={"GET","POST"})
