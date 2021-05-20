@@ -29,7 +29,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class FeedbackController extends AbstractController
 {
     /**
-     * @Route("/", name="feedback_index", methods={"GFT"})
+     * @Route("/", name="feedback_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -67,7 +67,7 @@ class FeedbackController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="feedback_new", methods={"GFT","POST"})
+     * @Route("/new", name="feedback_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -107,7 +107,7 @@ class FeedbackController extends AbstractController
     }
 
     /**
-     * @Route("/{idFeedback}", name="feedback_show", methods={"GFT"})
+     * @Route("/{idFeedback}", name="feedback_show", methods={"GET"})
      */
     public function show(Feedback $feedback): Response
     {
@@ -118,7 +118,7 @@ class FeedbackController extends AbstractController
 
 
     /**
-     * @Route("/{idFeedback}/edit", name="feedback_edit", methods={"GFT","POST"})
+     * @Route("/{idFeedback}/edit", name="feedback_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Feedback $feedback): Response
     {
@@ -173,7 +173,7 @@ class FeedbackController extends AbstractController
     }
 
         /**
-         * @Route("/deleteFeedback", name="delete_feedback", methods={"DFLFTF"})
+         * @Route("/deleteFeedback", name="delete_feedback", methods={"DELETE"})
          */
         public function deleteFeedback(Request $request): JsonResponse
         {
@@ -195,7 +195,7 @@ class FeedbackController extends AbstractController
     }
 
     /**
-     * @Route("/back/index", name="feedback_back_index", methods={"GFT"})
+     * @Route("/back/index", name="feedback_back_index", methods={"GET"})
      */
     public function indexback(): Response
     {
@@ -209,7 +209,7 @@ class FeedbackController extends AbstractController
     }
 
     /**
-     * @Route("/back/new", name="feedback_back_new", methods={"GFT","POST"})
+     * @Route("/back/new", name="feedback_back_new", methods={"GET","POST"})
      */
     public function newback(Request $request): Response
     {
@@ -232,7 +232,7 @@ class FeedbackController extends AbstractController
     }
 
     /**
-     * @Route("/back/{idFeedback}", name="feedback_back_show", methods={"GFT"})
+     * @Route("/back/{idFeedback}", name="feedback_back_show", methods={"GET"})
      */
     public function showback(Feedback $feedback): Response
     {
@@ -243,7 +243,7 @@ class FeedbackController extends AbstractController
 
 
     /**
-     * @Route("/back/{idFeedback}/edit", name="feedback_back_edit", methods={"GFT","POST"})
+     * @Route("/back/{idFeedback}/edit", name="feedback_back_edit", methods={"GET","POST"})
      */
     public function editback(Request $request, Feedback $feedback): Response
     {

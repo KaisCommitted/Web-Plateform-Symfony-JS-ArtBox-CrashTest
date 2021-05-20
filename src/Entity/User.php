@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * User
@@ -18,7 +20,7 @@ class User implements UserInterface
 {
     /**
      * @var int
-     *
+     * @Groups("User")
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -27,26 +29,28 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Groups("User")
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
      * @var string
+     * @Groups("User")
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     * @Groups("User")
      * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      */
     private $username;
 
     /**
      * @var string
-     *
+     * @Groups("User")
      * @ORM\Column(name="mail", type="string", length=255, nullable=false, unique=true)
 
 
@@ -55,7 +59,7 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Groups("User")
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
@@ -66,13 +70,14 @@ class User implements UserInterface
 
     /**
      * @var \DateTime
-     *
+     * @Groups("User")
      * @ORM\Column(name="date_naissance", type="date", nullable=false)
      */
     private $dateNaissance;
 
     /**
      * @var string
+     * @Groups("User")
      * @ORM\Column(name="pwd_user", type="string", length=255, nullable=false)
      */
     private $pwdUser;
@@ -80,6 +85,7 @@ class User implements UserInterface
 // new attribute ? ---------------------
 
     /**
+     * @Groups("User")
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -88,14 +94,14 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Groups("User")
      * @ORM\Column(name="ref_admin", type="string", length=1, nullable=false)
      */
     private $refAdmin;
 
     /**
      * @var int|null
-     *
+     * @Groups("User")
      * @ORM\Column(name="id_label", type="integer", nullable=true)
      */
     private $idLabel;
@@ -109,6 +115,7 @@ class User implements UserInterface
 
     /**
      * @return string
+     * @Groups("User")
      */
     public function getImage(): string
     {
@@ -117,6 +124,7 @@ class User implements UserInterface
 
     /**
      * @param string $image
+     * @Groups("User")
      */
     public function setImage(string $image): void
     {
@@ -126,6 +134,7 @@ class User implements UserInterface
 
     /**
      * @return mixed
+     * @Groups("User")
      */
     public function getFile()
     {
@@ -134,6 +143,7 @@ class User implements UserInterface
 
     /**
      * @param mixed $file
+     * @Groups("User")
      */
     public function setFile(UploadedFile $file)
     {
