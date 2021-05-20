@@ -3,6 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Annonce
@@ -14,7 +19,7 @@ class Annonce
 {
     /**
      * @var int
-     *
+     * @Groups("Annonce")
      * @ORM\Column(name="id_ann", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,35 +28,44 @@ class Annonce
 
     /**
      * @var string
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="titre_ann", type="string", length=250, nullable=false)
      */
     private $titreAnn;
 
     /**
      * @var string
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="desc_ann", type="string", length=250, nullable=false)
      */
     private $descAnn;
 
     /**
      * @var int
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="This field is required")
+     * @Assert\Positive(message="Salary must be positive")
      * @ORM\Column(name="pay", type="integer", nullable=false)
      */
     private $pay;
 
     /**
      * @var \DateTime
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="This field is required")
      * @ORM\Column(name="ddl_ann", type="date", nullable=false)
-     */
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Application deadline must be an upcoming date "
+     * ) */
     private $ddlAnn;
 
     /**
      * @var \Categorie
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
@@ -61,7 +75,8 @@ class Annonce
 
     /**
      * @var \User
-     *
+     * @Groups("Annonce")
+     * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
