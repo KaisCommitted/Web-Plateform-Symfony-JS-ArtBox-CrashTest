@@ -91,10 +91,10 @@ class PostesController extends AbstractController
 
             $analyzer = new Analyzer();
 
-             $a = array("neg => ", "new =>  ", "pos =>  ","compound =>  ");
-             $b = $analyzer->getSentiment($poste->getDescription());
+            $a = array("neg => ", "new =>  ", "pos =>  ","compound =>  ");
+            $b = $analyzer->getSentiment($poste->getDescription());
 
-             $output_text =  array_combine($a,$b);
+            $output_text =  array_combine($a,$b);
 
 
             $json = json_encode( $output_text);
@@ -135,7 +135,7 @@ class PostesController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('postes_index');
-         }
+        }
 
         return $this->render('postes/edit.html.twig', [
             'poste' => $poste,
@@ -562,6 +562,117 @@ class PostesController extends AbstractController
         return new JsonResponse($formatted);
 
     }
+
+
+
+
+
+    /**
+     * @Route ("/json/addPoste", name="add_Poste")
+     */
+    public function addPoste(Request $request, UserRepository $userRepository, CategorieRepository $categorieRepository)
+    {
+
+
+        $P = new Postes();
+        $nomPost= $request->query->get("NomPost");
+        $description = $request->query->get("description");
+
+        $categorieName = $request->query->get("categorie");
+        $user = $request->query->get("idUser");
+        //  $date = $request->query->get("postDate");
+
+        $file= $request->query->get("file");
+
+
+
+
+
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
+        //$date = new \DateTime('now');
+        //$datee = new \DateTime($date);
+        $P->setFile($file);
+        $P->upload();
+        //$P->setPostType($type);
+        $P->setNomPost($nomPost);
+        $P->setDescription($description);
+        //$P->setDate($datee);
+        $P->setCategorie($categorie);
+
+
+
+        $P->setCategorie($categorie);
+        $user = $userRepository->findOneBy(['idUser' => $user]);
+        $P->setIdUser($user);
+        $em->persist($P);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Poste content added successfully");
+        return new JsonResponse($formatted);
+    }
+
+
+
+
+
+    /**
+     * @Route ("/json/displayNew", name="display_New")
+     */
+    public function getPosteNew(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT P FROM App\Entity\Postes P
+            ORDER BY P.postDate DESC'
+        );
+        $P = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($P , 'json', [AbstractNormalizer::ATTRIBUTES => ['idPost','nomPost','description','postDate','file','categorie'=>['categorieName'],'idUser'=>['username']]]);
+        return new JsonResponse($json);
+    }
+
+
+
+
+
+
+    /**
+     * @Route ("/json/displaylike", name="display_like")
+     */
+    public function getPostelike(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Postes E 
+            ORDER BY E.likes DESC'
+        );
+        $P = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($P , 'json', [AbstractNormalizer::ATTRIBUTES => ['idPost','nomPost','description','postDate','file','categorie'=>['categorieName'],'idUser'=>['username']]]);
+        return new JsonResponse($json);
+    }
+
 
 
 
