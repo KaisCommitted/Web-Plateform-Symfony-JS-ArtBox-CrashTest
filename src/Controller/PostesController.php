@@ -567,5 +567,72 @@ class PostesController extends AbstractController
 
 
 
+    /**
+     * @Route ("/json/addPoste", name="add_Poste")
+     */
+    public function addPoste(Request $request, UserRepository $userRepository, CategorieRepository $categorieRepository)
+    {
+
+
+        $P = new Postes();
+        $nomPost= $request->query->get("NomPost");
+        $description = $request->query->get("description");
+
+        $categorieName = $request->query->get("categorie");
+        $user = $request->query->get("idUser");
+      //  $date = $request->query->get("postDate");
+
+        $file= $request->query->get("file");
+
+
+
+
+
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
+        //$date = new \DateTime('now');
+        //$datee = new \DateTime($date);
+        $P->setFile($file);
+        $P->upload();
+        //$P->setPostType($type);
+        $P->setNomPost($nomPost);
+        $P->setDescription($description);
+        //$P->setDate($datee);
+        $P->setCategorie($categorie);
+
+
+
+        $P->setCategorie($categorie);
+        $user = $userRepository->findOneBy(['idUser' => $user]);
+        $P->setIdUser($user);
+        $em->persist($P);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Poste content added successfully");
+        return new JsonResponse($formatted);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
