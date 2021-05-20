@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 20, 2021 at 05:59 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Hôte : 127.0.0.1
+-- Généré le : jeu. 20 mai 2021 à 06:15
+-- Version du serveur :  10.4.17-MariaDB
+-- Version de PHP : 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `artbox`
+-- Base de données : `artbox`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `annonce`
+-- Structure de la table `annonce`
 --
 
 CREATE TABLE `annonce` (
@@ -37,10 +37,22 @@ CREATE TABLE `annonce` (
   `ddl_ann` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `annonce`
+--
+
+INSERT INTO `annonce` (`id_ann`, `id_user`, `titre_ann`, `desc_ann`, `pay`, `categorie`, `ddl_ann`) VALUES
+(8, 19, 'Layout Artist', 'Design art copy layouts for material to be presented by visual communications media like books, magazines, newspapers, television, and packaging. Study illustrations photographs to plan presentation of material, product, or service.', 5000, 'Singing', '2021-05-25'),
+(9, 20, 'Animated cartoon Artist', 'Draw animated cartoons for use in motion pictures or television. Render series of sequential drawings of characters or other subject material which when photographed projected at specific speed becomes animated.', 1200, 'Painting', '2021-05-21'),
+(10, 18, 'Artists Representative', 'Manage affairs of entertainers by participating in negotiations with agents and others concerning contracts and business matters affecting clients interests, and advises clients on career development advancement. ', 5000, 'Theatre', '2021-05-25'),
+(11, 20, 'Paste up Artist', 'Assemble typeset copy artwork into pasteup for printing reproduction. Measure and marks board according to Graphic Designer profess. & kin. 141.061-018 or artists layout to indicate position of artwork, typeset copy, page edges, folds and colors...', 1200, 'Painting', '2021-05-31'),
+(12, 19, 'Multimedia Artist And Animator', 'Create two-dimensional three-dimensional images depicting objects in motion or illustrating a process, using computer animation or modeling programs. Assemble, typeset, scan and produce digital camera-ready art or film negatives printers proofs.', 4200, 'Manga', '2021-05-29'),
+(13, 25, 'Artist Mannequin Coloring', 'Apply paint or lacquer to papier mache mannequin to simulate parts of body articles of clothing. Sets mannequin on revolving table in spraybooth. Mask parts preparatory to spraying, using gummed paper.', 3450, 'Painting', '2021-07-23');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidature`
+-- Structure de la table `candidature`
 --
 
 CREATE TABLE `candidature` (
@@ -52,7 +64,7 @@ CREATE TABLE `candidature` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorie`
+-- Structure de la table `categorie`
 --
 
 CREATE TABLE `categorie` (
@@ -62,7 +74,7 @@ CREATE TABLE `categorie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `categorie`
+-- Déchargement des données de la table `categorie`
 --
 
 INSERT INTO `categorie` (`categorie_name`, `categorie_image`, `status`) VALUES
@@ -76,7 +88,7 @@ INSERT INTO `categorie` (`categorie_name`, `categorie_image`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Structure de la table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -91,7 +103,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment_event`
+-- Structure de la table `comment_event`
 --
 
 CREATE TABLE `comment_event` (
@@ -103,7 +115,7 @@ CREATE TABLE `comment_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `comment_event`
+-- Déchargement des données de la table `comment_event`
 --
 
 INSERT INTO `comment_event` (`id`, `id_user`, `id_event`, `content`, `commentDate`) VALUES
@@ -113,7 +125,7 @@ INSERT INTO `comment_event` (`id`, `id_user`, `id_event`, `content`, `commentDat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctrine_migration_versions`
+-- Structure de la table `doctrine_migration_versions`
 --
 
 CREATE TABLE `doctrine_migration_versions` (
@@ -123,7 +135,7 @@ CREATE TABLE `doctrine_migration_versions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `doctrine_migration_versions`
+-- Déchargement des données de la table `doctrine_migration_versions`
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
@@ -134,7 +146,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evenement`
+-- Structure de la table `evenement`
 --
 
 CREATE TABLE `evenement` (
@@ -153,7 +165,7 @@ CREATE TABLE `evenement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `evenement`
+-- Déchargement des données de la table `evenement`
 --
 
 INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `categorie`, `description`, `capacite_event`, `nb_max`, `image_event`, `location_event`, `rating_event`) VALUES
@@ -180,7 +192,7 @@ INSERT INTO `evenement` (`id`, `id_org`, `date`, `nom_event`, `type_event`, `cat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Structure de la table `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -195,7 +207,7 @@ CREATE TABLE `feedback` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `interactions`
+-- Structure de la table `interactions`
 --
 
 CREATE TABLE `interactions` (
@@ -208,7 +220,7 @@ CREATE TABLE `interactions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `label`
+-- Structure de la table `label`
 --
 
 CREATE TABLE `label` (
@@ -219,7 +231,7 @@ CREATE TABLE `label` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `label`
+-- Déchargement des données de la table `label`
 --
 
 INSERT INTO `label` (`id`, `name`, `type`, `imageLabel`) VALUES
@@ -228,7 +240,7 @@ INSERT INTO `label` (`id`, `name`, `type`, `imageLabel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `partenaire`
+-- Structure de la table `partenaire`
 --
 
 CREATE TABLE `partenaire` (
@@ -243,7 +255,7 @@ CREATE TABLE `partenaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `partenaire`
+-- Déchargement des données de la table `partenaire`
 --
 
 INSERT INTO `partenaire` (`id_part`, `nom`, `adresse`, `logo`, `rib`, `tel`, `status`, `id_user`) VALUES
@@ -253,7 +265,7 @@ INSERT INTO `partenaire` (`id_part`, `nom`, `adresse`, `logo`, `rib`, `tel`, `st
 -- --------------------------------------------------------
 
 --
--- Table structure for table `participant`
+-- Structure de la table `participant`
 --
 
 CREATE TABLE `participant` (
@@ -264,7 +276,7 @@ CREATE TABLE `participant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `participant`
+-- Déchargement des données de la table `participant`
 --
 
 INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) VALUES
@@ -273,7 +285,7 @@ INSERT INTO `participant` (`id_participation`, `id_user`, `id_event`, `ticket`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `postes`
+-- Structure de la table `postes`
 --
 
 CREATE TABLE `postes` (
@@ -291,7 +303,7 @@ CREATE TABLE `postes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `postes`
+-- Déchargement des données de la table `postes`
 --
 
 INSERT INTO `postes` (`id_post`, `Description`, `Nom_post`, `categorie`, `file`, `post_date`, `album_cover`, `Likes`, `desc_analys`, `id_user`, `post_type`) VALUES
@@ -301,7 +313,7 @@ INSERT INTO `postes` (`id_post`, `Description`, `Nom_post`, `categorie`, `file`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating_event`
+-- Structure de la table `rating_event`
 --
 
 CREATE TABLE `rating_event` (
@@ -312,7 +324,7 @@ CREATE TABLE `rating_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `rating_event`
+-- Déchargement des données de la table `rating_event`
 --
 
 INSERT INTO `rating_event` (`id_rating`, `id_user`, `id_event`, `rating`) VALUES
@@ -325,7 +337,7 @@ INSERT INTO `rating_event` (`id_rating`, `id_user`, `id_event`, `rating`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `signalisation`
+-- Structure de la table `signalisation`
 --
 
 CREATE TABLE `signalisation` (
@@ -341,7 +353,7 @@ CREATE TABLE `signalisation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_event`
+-- Structure de la table `type_event`
 --
 
 CREATE TABLE `type_event` (
@@ -349,7 +361,7 @@ CREATE TABLE `type_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `type_event`
+-- Déchargement des données de la table `type_event`
 --
 
 INSERT INTO `type_event` (`type_name`) VALUES
@@ -360,7 +372,7 @@ INSERT INTO `type_event` (`type_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Structure de la table `user`
 --
 
 CREATE TABLE `user` (
@@ -379,7 +391,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`, `roles`, `isVerified`) VALUES
@@ -391,11 +403,11 @@ INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissa
 (26, 'mohamad', 'Salah', 'koffar', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\tmp\\php2329.tmp', '[]', 0);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `annonce`
+-- Index pour la table `annonce`
 --
 ALTER TABLE `annonce`
   ADD PRIMARY KEY (`id_ann`),
@@ -403,7 +415,7 @@ ALTER TABLE `annonce`
   ADD KEY `cattt` (`categorie`);
 
 --
--- Indexes for table `candidature`
+-- Index pour la table `candidature`
 --
 ALTER TABLE `candidature`
   ADD PRIMARY KEY (`id`),
@@ -411,7 +423,7 @@ ALTER TABLE `candidature`
   ADD KEY `fk_annnnn` (`ann_id`);
 
 --
--- Indexes for table `categorie`
+-- Index pour la table `categorie`
 --
 ALTER TABLE `categorie`
   ADD PRIMARY KEY (`categorie_name`),
@@ -419,7 +431,7 @@ ALTER TABLE `categorie`
 ALTER TABLE `categorie` ADD FULLTEXT KEY `categorie_name_2` (`categorie_name`);
 
 --
--- Indexes for table `comments`
+-- Index pour la table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id_comment`),
@@ -427,7 +439,7 @@ ALTER TABLE `comments`
   ADD KEY `id_use2` (`id_user`);
 
 --
--- Indexes for table `comment_event`
+-- Index pour la table `comment_event`
 --
 ALTER TABLE `comment_event`
   ADD PRIMARY KEY (`id`),
@@ -435,13 +447,13 @@ ALTER TABLE `comment_event`
   ADD KEY `eventt` (`id_event`);
 
 --
--- Indexes for table `doctrine_migration_versions`
+-- Index pour la table `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
 
 --
--- Indexes for table `evenement`
+-- Index pour la table `evenement`
 --
 ALTER TABLE `evenement`
   ADD PRIMARY KEY (`id`),
@@ -453,14 +465,14 @@ ALTER TABLE `evenement` ADD FULLTEXT KEY `nom_event_2` (`nom_event`,`description
 ALTER TABLE `evenement` ADD FULLTEXT KEY `categorie_2` (`categorie`);
 
 --
--- Indexes for table `feedback`
+-- Index pour la table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id_feedback`),
   ADD KEY `fk_usee` (`id_user`);
 
 --
--- Indexes for table `interactions`
+-- Index pour la table `interactions`
 --
 ALTER TABLE `interactions`
   ADD PRIMARY KEY (`id_inter`),
@@ -468,20 +480,20 @@ ALTER TABLE `interactions`
   ADD KEY `fk_ussssss` (`id_user`);
 
 --
--- Indexes for table `label`
+-- Index pour la table `label`
 --
 ALTER TABLE `label`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `partenaire`
+-- Index pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
   ADD PRIMARY KEY (`id_part`),
   ADD KEY `fk_useerr` (`id_user`);
 
 --
--- Indexes for table `participant`
+-- Index pour la table `participant`
 --
 ALTER TABLE `participant`
   ADD PRIMARY KEY (`id_participation`),
@@ -489,7 +501,7 @@ ALTER TABLE `participant`
   ADD KEY `fk_idevt` (`id_event`);
 
 --
--- Indexes for table `postes`
+-- Index pour la table `postes`
 --
 ALTER TABLE `postes`
   ADD PRIMARY KEY (`id_post`),
@@ -497,7 +509,7 @@ ALTER TABLE `postes`
   ADD KEY `dsqd` (`categorie`);
 
 --
--- Indexes for table `rating_event`
+-- Index pour la table `rating_event`
 --
 ALTER TABLE `rating_event`
   ADD PRIMARY KEY (`id_rating`),
@@ -505,7 +517,7 @@ ALTER TABLE `rating_event`
   ADD KEY `fk_user` (`id_user`);
 
 --
--- Indexes for table `signalisation`
+-- Index pour la table `signalisation`
 --
 ALTER TABLE `signalisation`
   ADD PRIMARY KEY (`id_signal`),
@@ -513,139 +525,139 @@ ALTER TABLE `signalisation`
   ADD KEY `fuuaz` (`id_user`);
 
 --
--- Indexes for table `type_event`
+-- Index pour la table `type_event`
 --
 ALTER TABLE `type_event`
   ADD PRIMARY KEY (`type_name`);
 
 --
--- Indexes for table `user`
+-- Index pour la table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `annonce`
+-- AUTO_INCREMENT pour la table `annonce`
 --
 ALTER TABLE `annonce`
-  MODIFY `id_ann` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_ann` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `candidature`
+-- AUTO_INCREMENT pour la table `candidature`
 --
 ALTER TABLE `candidature`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id_comment` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `comment_event`
+-- AUTO_INCREMENT pour la table `comment_event`
 --
 ALTER TABLE `comment_event`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT for table `evenement`
+-- AUTO_INCREMENT pour la table `evenement`
 --
 ALTER TABLE `evenement`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
--- AUTO_INCREMENT for table `feedback`
+-- AUTO_INCREMENT pour la table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `id_feedback` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `interactions`
+-- AUTO_INCREMENT pour la table `interactions`
 --
 ALTER TABLE `interactions`
   MODIFY `id_inter` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
--- AUTO_INCREMENT for table `label`
+-- AUTO_INCREMENT pour la table `label`
 --
 ALTER TABLE `label`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `partenaire`
+-- AUTO_INCREMENT pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
   MODIFY `id_part` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `participant`
+-- AUTO_INCREMENT pour la table `participant`
 --
 ALTER TABLE `participant`
   MODIFY `id_participation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 
 --
--- AUTO_INCREMENT for table `postes`
+-- AUTO_INCREMENT pour la table `postes`
 --
 ALTER TABLE `postes`
   MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `rating_event`
+-- AUTO_INCREMENT pour la table `rating_event`
 --
 ALTER TABLE `rating_event`
   MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- AUTO_INCREMENT for table `signalisation`
+-- AUTO_INCREMENT pour la table `signalisation`
 --
 ALTER TABLE `signalisation`
   MODIFY `id_signal` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `annonce`
+-- Contraintes pour la table `annonce`
 --
 ALTER TABLE `annonce`
   ADD CONSTRAINT `FK_F65593E5497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`),
   ADD CONSTRAINT `fk_userrrrr` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `candidature`
+-- Contraintes pour la table `candidature`
 --
 ALTER TABLE `candidature`
   ADD CONSTRAINT `FK_E33BD3B816912862` FOREIGN KEY (`ann_id`) REFERENCES `annonce` (`id_ann`),
   ADD CONSTRAINT `FK_E33BD3B8A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `comments`
+-- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `FK_5F9E962A6B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `FK_5F9E962AD1AA708F` FOREIGN KEY (`id_post`) REFERENCES `postes` (`id_post`);
 
 --
--- Constraints for table `comment_event`
+-- Contraintes pour la table `comment_event`
 --
 ALTER TABLE `comment_event`
   ADD CONSTRAINT `FK_923492566B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_92349256D52B4B97` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `evenement`
+-- Contraintes pour la table `evenement`
 --
 ALTER TABLE `evenement`
   ADD CONSTRAINT `FK_B26681E497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -653,47 +665,47 @@ ALTER TABLE `evenement`
   ADD CONSTRAINT `evenement_ibfk_2` FOREIGN KEY (`type_event`) REFERENCES `type_event` (`type_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `feedback`
+-- Contraintes pour la table `feedback`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `fk_usee` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `interactions`
+-- Contraintes pour la table `interactions`
 --
 ALTER TABLE `interactions`
   ADD CONSTRAINT `FK_538B74BD6B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `FK_538B74BDD1AA708F` FOREIGN KEY (`id_post`) REFERENCES `postes` (`id_post`);
 
 --
--- Constraints for table `partenaire`
+-- Contraintes pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
   ADD CONSTRAINT `FK_32FFA3736B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `participant`
+-- Contraintes pour la table `participant`
 --
 ALTER TABLE `participant`
   ADD CONSTRAINT `fk_idevt` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_userid` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `postes`
+-- Contraintes pour la table `postes`
 --
 ALTER TABLE `postes`
   ADD CONSTRAINT `FK_5A763C64497DD634` FOREIGN KEY (`categorie`) REFERENCES `categorie` (`categorie_name`),
   ADD CONSTRAINT `FK_5A763C646B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `rating_event`
+-- Contraintes pour la table `rating_event`
 --
 ALTER TABLE `rating_event`
   ADD CONSTRAINT `fk_event` FOREIGN KEY (`id_event`) REFERENCES `evenement` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `signalisation`
+-- Contraintes pour la table `signalisation`
 --
 ALTER TABLE `signalisation`
   ADD CONSTRAINT `FK_1BD243CD6B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
