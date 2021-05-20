@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2021 at 05:33 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: May 20, 2021 at 05:59 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -374,8 +374,8 @@ CREATE TABLE `user` (
   `ref_admin` varchar(1) NOT NULL,
   `id_label` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`roles`)),
-  `isVerified` tinyint(1) NOT NULL
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `isVerified` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -383,9 +383,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `prenom`, `username`, `mail`, `date_naissance`, `pwd_user`, `ref_admin`, `id_label`, `image`, `roles`, `isVerified`) VALUES
-(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
-(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
-(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(18, 'kais', 'lamine', 'kais', 'kais.lamine@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(19, 'louay', 'louay', 'louay', 'louay.jeddou@esprit.tn', '2016-01-01', '0000', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
+(20, 'yasmine', 'zerai', 'yasmine', 'yasmine.zerai@esprit.tn', '1999-03-04', '0000', '+', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.pngC:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
 (21, 'moetez', 'karoui', 'moetez', 'moetez.karoui@esprit.tn', '1999-03-04', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '-', 3, 'C:\\xampp\\php\\www\\ArtBox-CrashTest\\src\\ArtHub\\images\\users\\kaisicona-partnership.png', '[]', 0),
 (25, 'Crash', 'Test', 'CrashTest1', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\tmp\\php304D.tmp', '[]', 0),
 (26, 'mohamad', 'Salah', 'koffar', 'louay.jeddou@esprit.tn', '1901-01-01', '$2y$13$gItPuStGq.ndXUaxDeC5YevW7KSyux7zljJrEkv64rp7/Z8qqGVbi', '+', 3, 'C:\\xampp\\tmp\\php2329.tmp', '[]', 0);
