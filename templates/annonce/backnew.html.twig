@@ -1,0 +1,36 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}New Annonce{% endblock %}
+
+
+{% block content %}
+
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Post a job offer</h4>
+                        </div>
+                    </div>
+
+                    <div class="iq-card-body">
+
+                    {{ include('annonce/back_form.html.twig') }}
+    <a href="{{ path('annonce_back_index') }}">back to list</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    </div>
+
+
+
+
+
+{% endblock %}

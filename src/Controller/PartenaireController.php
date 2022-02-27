@@ -31,6 +31,7 @@ class PartenaireController extends AbstractController
             $session->set('state',"none");
         if($session->has('user')) {
         foreach ($partenaires as $p) {
+
             if ($session->get('user') == $p->getIdUser()->getIdUser())
                 $this->get('session')->set('state',"Approved");
             else

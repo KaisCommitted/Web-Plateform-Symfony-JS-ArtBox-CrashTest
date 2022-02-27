@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Feedback
@@ -14,7 +15,7 @@ class Feedback
 {
     /**
      * @var int
-     *
+     * @Groups("Feedback")
      * @ORM\Column(name="id_feedback", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,27 +24,28 @@ class Feedback
 
     /**
      * @var string
-     *
+     * @Groups("Feedback")
      * @ORM\Column(name="contenu_feedback", type="string", length=255, nullable=false)
      */
     private $contenuFeedback;
 
     /**
      * @var string
-     *
+     * @Groups("Feedback")
      * @ORM\Column(name="type_feedback", type="string", length=30, nullable=false)
      */
     private $typeFeedback;
 
     /**
      * @var string
-     *
+     * @Groups("Feedback")
      * @ORM\Column(name="etat_feedback", type="string", length=30, nullable=false)
      */
     private $etatFeedback;
 
     /**
      * @var \DateTime
+     * @Groups("Feedback")
      * @ORM\Column(type="datetime")
      *
      */
@@ -53,7 +55,7 @@ class Feedback
 
     /**
      * @var \User
-     *
+     * @Groups("Feedback")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")

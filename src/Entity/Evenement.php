@@ -7,6 +7,7 @@ use Spatie\CalendarLinks\Link;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evenement
@@ -18,7 +19,7 @@ class Evenement
 {
     /**
      * @var int
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -33,6 +34,7 @@ class Evenement
      *      type = "\DateTime",
      *      message = "Event date is not valid",
      * )
+     * @Groups ("Events")
      * @Assert\GreaterThanOrEqual(
      *      value = "today",
      *      message = "Event date must be an upcoming date "
@@ -44,11 +46,13 @@ class Evenement
      * @var string
      * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="nom_event", type="string", length=255, nullable=false)
+     * @Groups ("Events")
      */
     private $nomEvent;
 
     /**
      * @var string
+     * @Groups ("Events")
      *@Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
@@ -56,26 +60,28 @@ class Evenement
 
     /**
      * @var int
+     * @Groups ("Events")
      * @ORM\Column(name="capacite_event", type="integer", nullable=false)
      */
     private $capaciteEvent;
 
     /**
      * @var int
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="nb_max", type="integer", nullable=false)
      */
     private $nbMax /*= evenement->getCapaciteEvent()*/;
 
     /**
      * @var string
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="image_event", type="string", length=255, nullable=false)
      */
     private $imageEvent;
 
     /**
      * @var string|null
+     * @Groups ("Events")
      * @Assert\NotBlank(message="this field is required")
      * @ORM\Column(name="location_event", type="string", length=255, nullable=true)
      */
@@ -83,7 +89,7 @@ class Evenement
 
     /**
      * @var int|null
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="rating_event", type="integer", nullable=true)
      */
     private $ratingEvent = '0';
@@ -91,6 +97,7 @@ class Evenement
     /**
      * @var \Categorie
      * @Assert\NotBlank(message="this field is required")
+     * @Groups ("Events")
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie", referencedColumnName="categorie_name")
@@ -102,6 +109,7 @@ class Evenement
      * @var \TypeEvent
      * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="TypeEvent")
+     * @Groups ("Events")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type_event", referencedColumnName="type_name",  onDelete="CASCADE")
      * })
@@ -112,6 +120,7 @@ class Evenement
      * @var \User
      * @Assert\NotBlank(message="this field is required")
      * @ORM\ManyToOne(targetEntity="User")
+     * @Groups ("Events")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_org", referencedColumnName="id_user")
      * })

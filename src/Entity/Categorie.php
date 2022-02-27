@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Categorie
@@ -18,6 +19,7 @@ class Categorie
     /**
      * @var string
      * @Assert\NotBlank(message="this field is required")
+     * @Groups ("Events")
      * @ORM\Column(name="categorie_name", type="string", length=255, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
@@ -27,7 +29,7 @@ class Categorie
 
     /**
      * @var string
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="categorie_image", type="string", length=255, nullable=false)
      */
     private $categorieImage;
@@ -35,7 +37,7 @@ class Categorie
 
     /**
      * @var string
-     *
+     * @Groups ("Events")
      * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
     private $status;

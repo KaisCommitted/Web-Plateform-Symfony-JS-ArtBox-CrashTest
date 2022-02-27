@@ -34,7 +34,6 @@
                     {{ form_widget(form) }}
                 <button onclick="window.open= ('{{ app.session.get('path') }}', '_blank') " class="btn btn-primary">{{ button_label|default('Host') }}</button>
                     {{ form_end(form) }}
-
             </div>
 {#                </div>#}
 {#            </div>#}
@@ -157,6 +156,8 @@
 
                     <!-- EventBox -->
                     {% for evenement in evenements %}
+                        {% set difference = evenement.date.diff(date()) %}
+                        {% set leftDays = difference.days %}
 
                         <div class="col-sm-12">
                             <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
@@ -166,7 +167,7 @@
 
                                         <div class="d-flex flex-wrap">
                                             <div class="container1">
-                                                <img src="{{ asset('imagesCategorie/')~ evenement.categorie.categorieImage ~''}}"   class="image1" margin-right="0"  overflow="visible" alt="{{evenement.categorie}}">
+                                                <img src="{{ asset('imagesCategorie/')~evenement.categorie.categorieImage ~''}}" class="image1" margin-right="0"  overflow="visible" alt="{{evenement.categorie}}">
                                                 <div class="overlay1">
                                                     <div >{{ evenement.categorie }}</div>
                                                 </div>
@@ -185,8 +186,10 @@
                                             </div>
                                             <div class="iq-card-post-toolbar">
                                                 <div class="dropdown">
+                                                    {% if CurrentUser.username == evenement.idOrg %}
                                           <span class="dropdown-toggle" id="postdata-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                           <i class="ri-more-fill"></i>
+                                                {% endif %}
                                           </span>
                                                     <div class="dropdown-menu m-0 p-0" aria-labelledby="postdata-5">
                                                         <a class="dropdown-item p-3" href="#">
@@ -199,7 +202,9 @@
                                                             </div>
                                                         </a>
 
+
                                                         <a class="dropdown-item p-3" href="#">
+
                                                             <form  id="myform" method="post" action="{{ path('evenement_delete', {'id': evenement.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.id) }}">
                                                             <div class="d-flex align-items-top">
@@ -207,14 +212,16 @@
 
                                                                 <div class="data ml-2">
 
-                                                                    <h6  onclick="document.getElementById('myform').submit();">Delete Post </h6>
+                                                                    <h6  onclick="document.getElementById('myform').submit();">Delete Event </h6>
 
 
                                                                 </div>
 
                                                             </div>
                                                             </form>
+
                                                         </a>
+
 
                                                         <a class="dropdown-item p-3" href="#">
                                                             <div class="d-flex align-items-top">
@@ -285,8 +292,9 @@
                                                             <form  id="JoinForm" method="post" action="{{ path('participant_newTrying')}}" >
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                                <input  type="hidden" name="myEvent" id="myEvent" type="text" value={{ evenement.nomEvent}}>
-                                                <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
-
+ {% if date(evenement.date) > date() %}
+                                                    <img   id="reloader" onclick="document.getElementById('JoinForm').submit();" src="{{ asset('images/icon/14.png') }}" class="img-fluid" alt="Join">
+{% endif %}
                                                 </span>
                                                             </form>
                                                             <div class="dropdown-menu">
@@ -309,7 +317,11 @@
                                                     <div class="total-like-block ml-2 mr-3">
                                                         <div class="dropdown">
                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                {{ evenement.nbMax-evenement.capaciteEvent }} People going
+                                                 {% if  date(evenement.date) > date() %}
+                                                    {{ evenement.nbMax-evenement.capaciteEvent }} People going
+                                                    {% else %}
+                                                        {{ evenement.nbMax-evenement.capaciteEvent }} People have been there
+                                                        {% endif %}
                                                 </span>
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" href="#">Max Emum</a>
@@ -377,7 +389,7 @@
                         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
                         <script>
 
-                            var villes = {
+                            var villes = +{
                                 "Paris": { "lat": 48.852969, "lon": 2.349903 },
                                 "Brest": { "lat": 48.383, "lon": -4.500 },
                                 "Quimper": { "lat": 48.000, "lon": -4.100 },
@@ -435,7 +447,7 @@
                     <div class="iq-card">
                         <div class="iq-card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title">Events</h4>
+                                <h4 class="card-title">Most Successful Events</h4>
                             </div>
                             <div class="iq-card-header-toolbar d-flex align-items-center">
                                 <div class="dropdown">
@@ -454,49 +466,23 @@
                         </div>
                         <div class="iq-card-body">
                             <ul class="media-story m-0 p-0">
+                                {% set i = 0 %}
+                  {% for E in MostSuccesful %}
+                      {% set i = i +1 %}
+                      {% if i < 4 %}
                                 <li class="d-flex mb-4 align-items-center ">
-                                    <img src="{{ asset('images/page-img/s4.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
+                                    <img src="{{ asset('imagesEvent/')~ E.imageEvent ~''}}" alt="story-img" class="rounded-circle img-fluid">
                                     <div class="stories-data ml-3">
-                                        <h5>Web Workshop</h5>
-                                        <p class="mb-0">1 hour ago</p>
+                                        <a href="{{ path('evenement_show', {'id': E.id}) }}"  class="mb-0 d-inline-block">{{ E.nomEvent}}</a>
+                                        <p class="mb-0">{{ 'Rating : ' ~ E.ratingEvent ~ '/5   '}}</p>
                                     </div>
                                 </li>
-                                <li class="d-flex align-items-center">
-                                    <img src="{{ asset('images/page-img/s5.jpg') }}" alt="story-img" class="rounded-circle img-fluid">
-                                    <div class="stories-data ml-3">
-                                        <h5>Fun Events and Festivals</h5>
-                                        <p class="mb-0">1 hour ago</p>
-                                    </div>
-                                </li>
+                      {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
 
-                    <div class="iq-card">
-                        <div class="iq-card-header d-flex justify-content-between">
-                            <div class="iq-header-title">
-                                <h4 class="card-title">Testing geolocalisation form</h4>
-                            </div>
-                            <div class="iq-card-header-toolbar d-flex align-items-center">
-
-                            </div>
-                        </div>
-                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-                        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
-                        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
-                        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-                        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-                        <script src="{{ asset('js/map.js') }}"></script>
-                       <form action="#" method="post">
-                        <div id="detailsMap"  class="iq-card">
-                            <style>
-                                #detailsMap {height: 200px;}
-                            </style>
-                        </div>
-                        <input type="text" id="lat" name="lat" readonly>
-                        <input type="text" id="lon" name="lon" readonly>
-                       </form>
-                    </div>
                 </div>
                 <div class="col-sm-12 text-center">
                     <img src="{{ asset('images/page-img/page-load-loader.gif') }}" alt="loader" style="height: 100px;">

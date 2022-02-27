@@ -5,17 +5,30 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Evenement;
 use App\Entity\Participant;
+use App\Entity\TypeEvent;
 use App\Entity\User;
 use App\Form\EvenementType;
+use App\Repository\CategorieRepository;
 use App\Repository\CommentEventRepository;
 use App\Repository\EvenementRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Spatie\CalendarLinks\Link;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
+
 /**
  * @Route("/evenement")
  */
@@ -63,7 +76,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -101,9 +114,11 @@ class EvenementController extends AbstractController
             $session= $this->get('session');
             $session->set('path',$path);
 
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize($evenement);
+            return new JsonResponse($formatted);
 
-
-            return $this->redirectToRoute('evenement_index');
+           // return $this->redirectToRoute('evenement_index');
 
 
         }
@@ -208,7 +223,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -258,7 +273,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -384,7 +399,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -482,7 +497,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -538,7 +553,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -594,7 +609,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -651,7 +666,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -707,7 +722,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -725,7 +740,7 @@ class EvenementController extends AbstractController
             'SELECT E FROM App\Entity\Evenement E 
             WHERE DATE_DIFF(E.date,CURRENT_DATE())=0'
         );
-
+        $evenements = $query->getResult();
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
             'SELECT E FROM App\Entity\Evenement E 
@@ -762,7 +777,8 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
+
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -874,7 +890,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -930,7 +946,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -985,7 +1001,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/index.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1046,7 +1062,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1102,7 +1118,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1158,7 +1174,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1214,7 +1230,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1270,7 +1286,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1325,7 +1341,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1381,7 +1397,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1437,7 +1453,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1493,7 +1509,7 @@ class EvenementController extends AbstractController
             ->getRepository(User::class)->findOneBy(['username' => 'kais']);
         $categories = $this->getDoctrine()
             ->getRepository(Categorie::class)
-            ->findAll();
+            ->findBy(['status' => '+']);
 
         return $this->render('evenement/backindex.html.twig', [
              'evenements' => $evenements,'categories' => $categories,'form' => $form->createView(),'form' => $form->createView(),'CurrentUser' => $CurrentUser,'form' => $form->createView(),'CurrentUser' => $CurrentUser,'MostSuccesful' => $MostSuccesful,
@@ -1548,7 +1564,7 @@ class EvenementController extends AbstractController
     public function UpdateRating(Evenement $evenement,int $sum,int $total)
     {
 
-        $NewRating = $sum / $total ;
+        $NewRating = $sum / $total +1 ;
 
         $evenement->setRatingEvent($NewRating);
 
@@ -1556,5 +1572,193 @@ class EvenementController extends AbstractController
 
 
     }
+
+
+    /**
+     * @Route ("/json/displayEvent", name="display_event")
+     */
+    public function getEvent()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+        $E = $query->getResult();
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
+        return new JsonResponse($json);
+    }
+    /**
+     * @Route ("/json/displayHasPassedEvents", name="display_HasPassedevent")
+     */
+    public function getEventHasPassed(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+            WHERE DATE_DIFF(E.date,CURRENT_DATE())<0'
+        );
+        $E = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
+        return new JsonResponse($json);
+    }
+
+
+
+
+    /**
+     * @Route ("/json/displayThisWeekEvents", name="display_ThisWeekevent")
+     */
+    public function getEventThisWeek(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery(
+            'SELECT E FROM App\Entity\Evenement E 
+                WHERE DATE_DIFF(E.date,CURRENT_DATE())<7 AND DATE_DIFF(E.date,CURRENT_DATE())>0'
+        );
+        $E = $query->getResult();
+
+        $serializer = new Serializer(
+            array(
+                new DateTimeNormalizer(array('datetime_format' => 'Y-m-d')),
+                new ObjectNormalizer()
+            )
+        );
+        $json = $serializer->normalize($E , 'json', [AbstractNormalizer::ATTRIBUTES => ['id','locationEvent','nomEvent','description','date','imageEvent','typeEvent'=>['typeName'],'categorie'=>['categorieName'],'idOrg'=>['username']]]);
+        return new JsonResponse($json);
+    }
+    /**
+     * @Route ("/json/addEvent", name="add_event")
+     */
+    public function addEvent(Request $request, UserRepository $userRepository, CategorieRepository $categorieRepository)
+    {
+
+
+        $E = new Evenement();
+        $nomEvent = $request->query->get("NomEvent");
+        $description = $request->query->get("description");
+        $locationEvent = $request->query->get("locationEvent");
+        $type = $request->query->get("typeEvent");
+        $categorieName = $request->query->get("categorie");
+        $organizer = $request->query->get("idOrg");
+        $NbMax = $request->query->get("NbMax");
+        $date = $request->query->get("date");
+
+        $image= $request->query->get("image");
+
+
+
+
+
+
+
+
+        $typeEvent=$this->getDoctrine()->getRepository(TypeEvent::class)->findOneBy(['typeName' =>  $type]);
+        $em = $this->getDoctrine()->getManager();
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
+        //$date = new \DateTime('now');
+        $datee = new \DateTime($date);
+        $E->setImageEvent($image);
+        $E->upload();
+        $E->setTypeEvent($typeEvent);
+        $E->setLocationEvent($locationEvent);
+        $E->setNomEvent($nomEvent);
+        $E->setNbMax($NbMax);
+        $E->setCapaciteEvent($E->getNbMax());
+        $E->setDescription($description);
+        $E->setDate($datee);
+        $E->setCategorie($categorie);
+        $E->setRatingEvent(0);
+
+
+        $E->setCategorie($categorie);
+        $user = $userRepository->findOneBy(['idUser' => $organizer]);
+        $E->setIdOrg($user);
+        $em->persist($E);
+        $em->flush();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Evenement content added successfully");
+        return new JsonResponse($formatted);
+    }
+
+
+    /**
+     * @Route("/json/deleteEvent", name="delete_event")
+     * @Method("DELETE")
+     */
+    public function deleteEvent(Request $request)
+    {
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $E = $em->getRepository(Evenement::class)->find($id);
+        if ($E != null) {
+            $em->remove($E);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Evenement Content deleted successfully.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("Id Evenement content invalid.");
+    }
+
+
+
+    /**
+     * @Route("/json/updateEvent", name="update_event")
+     * @Method("PUT")
+     */
+    public function updateEvent(Request $request, CategorieRepository $categorieRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $E = $this->getDoctrine()->getManager()
+            ->getRepository(Evenement::class)
+            ->find($request->get("id"));
+
+
+        $E->setDescription($request->get("description"));
+        $categorieName = $request->query->get("categorie");
+        $categorie = $categorieRepository->findOneBy(['categorieName' => $categorieName]);
+        $E->setCategorie($categorie);
+        $date = new \DateTime('now');
+        $E->setDate($date);
+        
+        $E->setFile($file);
+        $E->upload();
+        $E->setTypeEvent($request->get("typeEvent"));
+        $E->setRatingEvent($request->get("ratingEvent"));
+        $E->setFile($request->get("file"));
+
+        $em->persist($E);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize("Evenement Content updated successfully.");
+        return new JsonResponse($formatted);
+
+    }
+
+
+
+
 
 }

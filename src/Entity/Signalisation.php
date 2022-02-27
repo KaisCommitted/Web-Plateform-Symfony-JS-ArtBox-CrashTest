@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Signalisation
@@ -14,7 +15,7 @@ class Signalisation
 {
     /**
      * @var int
-     *
+     *@Groups("Signalisation")
      * @ORM\Column(name="id_signal", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,28 +24,28 @@ class Signalisation
 
     /**
      * @var string
-     *
+     *@Groups("Signalisation")
      * @ORM\Column(name="contenu_signal", type="string", length=255, nullable=false)
      */
     private $contenuSignal;
 
     /**
      * @var string
-     *
+     *@Groups("Signalisation")
      * @ORM\Column(name="type_signal", type="string", length=30, nullable=false)
      */
     private $typeSignal;
 
     /**
      * @var string
-     *
+     *@Groups("Signalisation")
      * @ORM\Column(name="etat_signal", type="string", length=30, nullable=false)
      */
     private $etatSignal;
 
     /**
      * @var \DateTime
-     *
+     *@Groups("Signalisation")
      * @ORM\Column(name="date_signal", type="date", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $dateSignal = 'CURRENT_TIMESTAMP';
@@ -53,6 +54,7 @@ class Signalisation
      * @var \Postes
      *
      * @ORM\ManyToOne(targetEntity="Postes")
+     * @Groups("Signalisation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_post", referencedColumnName="id_post")
      * })
@@ -63,6 +65,7 @@ class Signalisation
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
+     * @Groups("Signalisation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })

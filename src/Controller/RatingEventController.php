@@ -6,6 +6,7 @@ use App\Entity\Evenement;
 use App\Entity\RatingEvent;
 use App\Entity\User;
 use App\Form\RatingEventType;
+use App\Repository\CommentEventRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\RatingEventRepository;
 use App\Repository\UserRepository;
@@ -38,13 +39,18 @@ class RatingEventController extends AbstractController
     /**
      * @Route("/new", name="rating_event_new", methods={"GET","POST"})
      */
-    public function new(Request $request,EvenementController $evenementController,RatingEventRepository $ratingEventRepository,EvenementRepository $evenementRepository, UserRepository $userRepository): Response
-    {
+    public function new(Request $request,CommentEventRepository $commentEventRepository,EvenementController $evenementController,RatingEventRepository $ratingEventRepository,EvenementRepository $evenementRepository, UserRepository $userRepository): Response
+    {   $CurrentUser =$this->getDoctrine()
+        ->getRepository(User::class)->findOneBy(['username' => 'kais']);
+
         $data=$request->get('ratedEvent');
-        $rating = $request->get('noteCopy');
-        $evenement = new Evenement();
-        $evenement = $evenementRepository->findOneBy(['nomEvent' => $data]);
-        $user= new User();
+        $rating = $request->get('note');
+
+
+        $evenement =$this->getDoctrine()
+            ->getRepository(Evenement::class)->findOneBy(['nomEvent' => $data]);
+
+        $comments = $commentEventRepository->findBy(['idEvent' => $evenement->getId()]);
         $user = $userRepository->findOneBy(['username' => 'kais']);
         $ratingEvent = new RatingEvent();
         $ratingEvent->setIdEvent($evenement);
@@ -102,6 +108,8 @@ class RatingEventController extends AbstractController
 
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'comments' => $comments,
+            'CurrentUser' => $CurrentUser,
         ]);
     }
 

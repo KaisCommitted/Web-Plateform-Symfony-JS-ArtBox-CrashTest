@@ -2,8 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\Interactions;
+use App\Entity\Participant;
+use App\Entity\Postes;
+use App\Entity\User;
 use App\Form\InteractionsType;
+use App\Repository\CommentEventRepository;
+use App\Repository\CommentsRepository;
+use App\Repository\EvenementRepository;
+use App\Repository\InteractionsRepository;
+use App\Repository\ParticipantRepository;
+use App\Repository\PostesRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,4 +105,53 @@ class InteractionsController extends AbstractController
 
         return $this->redirectToRoute('interactions_index');
     }
+
+
+
+    /**
+     * @Route("/newTrying/new", name="comment_newTrying", methods={"GET","POST"})
+     */
+    public function newTrying(Request $request,CommentsRepository $CommentsRepository,PostesController $PostesController,InteractionsRepository $InteractionsRepository,PostesRepository $PostesRepository, UserRepository $userRepository)
+    {
+
+        $data=$request->get('myEvent');
+
+        $poste = new Postes();
+        $poste = $PostesRepository->findOneBy(['idPost' => $data]);
+        $user= new User();
+        $user = $userRepository->findOneBy(['username' => 'kais']);
+        $interaction = new Interactions();
+        $interaction->setIdPost($poste);
+        $interaction->setIdUser($user);
+        $interaction->setLikeCheck(0);
+
+        if ( ($InteractionsRepository->findOneBy(['likeCheck' => $interaction->getLikecheck()])  ))
+        {   $interaction =  $InteractionsRepository->findOneBy(['likeCheck' => $interaction->getLikecheck()]) ;
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($interaction);
+            $entityManager->flush();
+            $PostesController->UpdateCancel($poste);
+
+
+        } else {
+
+
+            $PostesController->UpdateJoin($poste);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($poste);
+            $entityManager->flush();
+
+        }
+
+        $comments = $CommentsRepository->findBy(['idPost' => $poste->getIdPost()]);
+        return $this->render('postes/index.html.twig', [
+            'poste' => $poste,
+            'comments' => $comments,
+        ]);
+    }
+
+
+
+
+
 }

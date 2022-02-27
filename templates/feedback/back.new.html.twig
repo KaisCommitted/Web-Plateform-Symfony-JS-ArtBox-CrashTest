@@ -1,0 +1,31 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}New Feedback{% endblock %}
+
+{% block content %}
+<h1>Feedback</h1>
+<div id="content-page" class="content-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11">
+                <div class="iq-card" >
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Add your feedback</h4>
+                            <h1>Send your feedback</h1>
+
+    {{ include('feedback/back_form.html.twig') }}
+
+    <a href="{{ path('feedback_back_index') }}">back to list</a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
